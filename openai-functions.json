@@ -1,0 +1,43 @@
+{
+  "functions": [
+    {
+      "type": "function",
+      "function": {
+        "name": "match_martial_world_school",
+        "description": "Match user to a professional school in Martial World based on their role or what they're working on. Use this when user mentions building products, designing interfaces, creating content, or growing business.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "user_input": {
+              "type": "string",
+              "description": "User's natural language description of what they're working on or their professional role. Examples: 'I want to build an app', 'I'm a designer working on UI', 'I need to write marketing copy', 'I want to grow my user base'"
+            }
+          },
+          "required": ["user_input"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "execute_martial_world_skill",
+        "description": "Execute a professional skill from Martial World to help with specific tasks like breaking down projects, analyzing requirements, writing documents, prioritizing features, or planning growth strategies.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "school_id": {
+              "type": "integer",
+              "description": "The school ID obtained from match_martial_world_school. Valid values: 1 (Product Manager), 2 (Designer), 3 (Copywriter), 4 (Growth Operator)",
+              "enum": [1, 2, 3, 4]
+            },
+            "user_task": {
+              "type": "string",
+              "description": "User's specific task description. Examples: 'Help me break down project tasks', 'Analyze user requirements', 'Write a PRD document', 'Prioritize features', 'Plan a growth campaign'"
+            }
+          },
+          "required": ["school_id", "user_task"]
+        }
+      }
+    }
+  ]
+}

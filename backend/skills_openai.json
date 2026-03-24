@@ -1,0 +1,85 @@
+{
+  "skills": [
+    {
+      "skill_id": "s001",
+      "school_id": 1,
+      "name_en": "Insight Divination",
+      "description": "Discover real user needs beyond surface requests",
+      "keywords": ["requirement", "analysis", "user", "pain point", "insight", "need"],
+      "priority": 9,
+      "mock_response": "Based on your task, here are the key user insights:\n\n1. **Core Pain Point**: Users struggle with completing tasks efficiently\n2. **Real Need**: What they actually want is a streamlined workflow\n3. **Success Metric**: Measure by task completion rate and time saved\n\nRecommended approach:\n- Start with user interviews (3-5 users)\n- Map current workflow pain points\n- Prioritize top 3 frustrations\n- Design solution targeting #1 pain point first"
+    },
+    {
+      "skill_id": "s002",
+      "school_id": 1,
+      "name_en": "Task Disassembly",
+      "description": "Break down complex projects into executable tasks",
+      "keywords": ["breakdown", "task", "steps", "planning", "decompose", "project"],
+      "priority": 10,
+      "mock_response": "Task Breakdown for your project:\n\n🎯 **Phase 1: Discovery (Week 1)**\n- Define requirements and scope\n- Identify key stakeholders\n- Set success criteria\n- Create user stories (top 5)\n\n🛠 **Phase 2: Execution (Week 2-3)**\n- Build core functionality (MVP)\n- Implement user feedback loops\n- Quality assurance testing\n- Fix critical bugs\n\n🚀 **Phase 3: Launch (Week 4)**\n- Deploy to production\n- Monitor key metrics (DAU, retention)\n- Collect user feedback\n- Plan iteration priorities\n\n**Next Step**: Start with Phase 1, Day 1 - stakeholder kickoff meeting"
+    },
+    {
+      "skill_id": "s003",
+      "school_id": 1,
+      "name_en": "Priority Methodology",
+      "description": "Determine what to build first using proven frameworks",
+      "keywords": ["priority", "scheduling", "trade-off", "importance", "urgent"],
+      "priority": 8,
+      "mock_response": "Priority Framework Applied (RICE Score):\n\n**Must Have (P0)**: Critical for launch\n- User login/signup - RICE: 950 (Reach: 100%, Impact: 3, Confidence: 95%, Effort: 3)\n- Core feature MVP - RICE: 800 (Blocks all other work)\n\n**Should Have (P1)**: Important but not blocking\n- Onboarding tutorial - RICE: 600 (Improves retention 40%)\n- Push notifications - RICE: 450 (Engagement boost)\n\n**Nice to Have (P2)**: Future consideration\n- Dark mode - RICE: 200 (User request, low ROI)\n- Social sharing - RICE: 150 (Wait for user demand)\n\n**Recommendation**: Build P0 features first (2 weeks), then reassess P1 based on user feedback"
+    },
+    {
+      "skill_id": "s101",
+      "school_id": 2,
+      "name_en": "Visual Design",
+      "description": "Create beautiful and functional interfaces",
+      "keywords": ["design", "ui", "interface", "visual", "aesthetics", "layout"],
+      "priority": 8,
+      "mock_response": "Visual Design Recommendations:\n\n🎨 **Color Palette**:\n- Primary: #2563EB (Blue) - Trust, professionalism\n- Accent: #F59E0B (Amber) - Call-to-action, highlights\n- Neutral: #F3F4F6 (Light Gray) - Background\n- Text: #111827 (Near Black) - High contrast (WCAG AAA)\n\n📐 **Layout Principles**:\n- Use 8px grid system for consistency\n- Maintain 16px minimum touch target size\n- White space: 24px between sections\n- Max content width: 1200px (readable)\n\n✨ **Key Improvements**:\n1. Increase button contrast ratio to 4.5:1 minimum\n2. Align all elements to 8px grid\n3. Use consistent 16px/24px spacing scale\n4. Add subtle shadows for depth (0px 1px 3px rgba(0,0,0,0.1))\n\n**Next**: Create a style guide with these foundations"
+    },
+    {
+      "skill_id": "s102",
+      "school_id": 2,
+      "name_en": "User Experience",
+      "description": "Optimize user flows and interactions",
+      "keywords": ["ux", "experience", "interaction", "flow", "usability"],
+      "priority": 9,
+      "mock_response": "UX Analysis & Recommendations:\n\n🔍 **Current Pain Points**:\n- Checkout: 5 steps → 67% drop-off at step 3\n- Error messages: Generic \"Error occurred\" → users confused\n- Loading states: No feedback → users click multiple times\n\n💡 **Recommended Changes**:\n1. **Reduce friction**: Checkout 5→3 steps (remove redundant address confirmation)\n2. **Clear feedback**: \n   - Show inline validation (real-time)\n   - Specific error messages (\"Email format invalid\" not \"Error\")\n   - Loading spinners with \"Processing...\" text\n3. **Progressive disclosure**: Show advanced options only when needed\n4. **Success confirmation**: Green checkmark + \"Order confirmed!\" message\n\n📊 **Expected Impact**: \n- 30% increase in checkout completion\n- 50% reduction in support tickets\n- 2x faster task completion time\n\n**A/B Test**: Implement new flow for 50% of users, measure conversion after 1 week"
+    },
+    {
+      "skill_id": "s201",
+      "school_id": 3,
+      "name_en": "Copywriting Creation",
+      "description": "Write compelling copy that converts",
+      "keywords": ["copy", "writing", "content", "headline", "creative"],
+      "priority": 8,
+      "mock_response": "Copywriting Framework (AIDA):\n\n**Attention** - Hook them in 3 seconds:\n\"Stop wasting 4 hours/day on manual tasks\"\n\n**Interest** - Show the benefit:\n\"Automate your workflow and reclaim your time. Our customers save 20 hours/week on average.\"\n\n**Desire** - Make them want it:\n\"Imagine finishing work at 3pm instead of 7pm. Spending evenings with family instead of stuck at your desk. That's what automation gives you.\"\n\n**Action** - Clear next step:\n\"Start your free 14-day trial. No credit card required.\"\n\n✍️ **Key Principles**:\n1. Use \"you\" language (customer-focused)\n2. Specific numbers (\"20 hours\" not \"lots of time\")\n3. Paint the outcome (emotional benefit)\n4. Remove friction (\"No credit card\")\n\n**Headlines to test**:\n- \"Get 20 Hours Back Every Week\" (benefit-driven)\n- \"Automate Tasks in 5 Minutes\" (speed/ease)\n- \"Join 10,000+ Happy Customers\" (social proof)"
+    },
+    {
+      "skill_id": "s202",
+      "school_id": 3,
+      "name_en": "Story Narrative",
+      "description": "Craft engaging stories that resonate",
+      "keywords": ["story", "script", "narrative", "plot", "storytelling"],
+      "priority": 7,
+      "mock_response": "Story Structure (Hero's Journey for Brand):\n\n**Act 1: The Ordinary World**\n\"Meet Sarah, a product manager drowning in spreadsheets. Every day she manually updates 15 different dashboards, spending 4 hours on busywork instead of strategy.\"\n\n**Act 2: The Call to Adventure**\n\"One day, her colleague mentions automation. Sarah is skeptical but desperate. She tries our tool for one workflow.\"\n\n**Act 3: Transformation**\n\"That 4-hour task now takes 5 minutes. Sarah automates 10 more workflows. She leaves work at 4pm. She gets promoted because she finally has time for strategic thinking.\"\n\n**The Lesson**:\n\"You don't have to be a hero alone. Let automation be your superpower.\"\n\n📖 **Story Elements**:\n- Relatable character (Sarah = your customer)\n- Specific struggle (4 hours, 15 dashboards)\n- Clear transformation (4pm vs 7pm)\n- Emotional payoff (promotion, family time)\n\n**Usage**: Homepage hero section, case study, email campaign"
+    },
+    {
+      "skill_id": "s301",
+      "school_id": 4,
+      "name_en": "Growth Strategy",
+      "description": "Design data-driven growth campaigns",
+      "keywords": ["growth", "traffic", "conversion", "acquisition", "growth strategy"],
+      "priority": 9,
+      "mock_response": "Growth Strategy Framework (Pirate Metrics - AARRR):\n\n🏴‍☠️ **Acquisition** (How users find you):\n- Content marketing: Publish 2 SEO articles/week targeting \"how to automate [task]\"\n- Referral program: Give users 1 month free for each referral\n- Paid ads: Google Ads ($1000/mo budget, target \"automation tools\" keywords)\n\n🎯 **Activation** (First great experience):\n- Onboarding flow: 3-step setup, show value in <5 minutes\n- Quick win: Let users automate 1 task immediately (no setup)\n\n💰 **Revenue** (Conversion to paid):\n- Free trial: 14 days, no credit card\n- Upgrade prompt: When user hits 5 automations (power user threshold)\n\n🔁 **Retention** (Keep them coming back):\n- Email: Weekly tips on \"Automation of the Week\"\n- In-app: \"You saved 18 hours this month!\" (gamification)\n\n📢 **Referral** (Viral growth):\n- Built-in sharing: \"I saved 20 hours with [Product], try it free\"\n\n**Week 1 Focus**: Optimize activation (biggest leverage point)"
+    },
+    {
+      "skill_id": "s302",
+      "school_id": 4,
+      "name_en": "Operation Planning",
+      "description": "Plan and execute operational campaigns",
+      "keywords": ["operation", "campaign", "community", "retention", "operation planning"],
+      "priority": 8,
+      "mock_response": "90-Day Operation Plan:\n\n📅 **Month 1: Foundation**\nWeek 1-2: Community Building\n- Launch Discord/Slack community\n- Seed with 50 beta users\n- Host 2 live Q&A sessions\n\nWeek 3-4: Content Engine\n- Publish 4 case studies\n- Create email nurture sequence (5 emails)\n- Start weekly newsletter\n\n📅 **Month 2: Engagement**\nWeek 5-6: User Activation Campaign\n- Email campaign to inactive users (\"We miss you!\")\n- Offer: Free 1-on-1 setup call\n- Target: Reactivate 20% of churned users\n\nWeek 7-8: Power User Program\n- Identify top 10% users (usage data)\n- Invite to exclusive \"Beta Features\" group\n- Monthly power user call\n\n📅 **Month 3: Growth**\nWeek 9-10: Referral Campaign\n- Launch \"Refer 3, Get 3 Months Free\" promo\n- Create sharing templates (social, email)\n\nWeek 11-12: Retention Analysis\n- Measure: Which features correlate with retention?\n- Double down on high-retention features\n\n**KPIs to track**: DAU, WAU, churn rate, NPS, referral rate"
+    }
+  ]
+}
