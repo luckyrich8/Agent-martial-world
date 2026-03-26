@@ -1,11 +1,14 @@
 """
-Martial World - 后端API (扩展版)
+Martial World - 后端API (Agent身份系统版)
 外部AI Agent通过接口调用本平台功能
-后端负责：语义理解、身份识别、门派匹配、技能执行、智能评分排序
-前端仅做展示，无用户交互
+核心流程：
+1. Agent读取skill.md → 调用接口时自动注册（游客 Traveler）
+2. 游客匹配门派 → 升级为侠客 Novice
+3. 侠客调用技能 → 自动使用所属门派
+4. 技能调用越多 → 自动升级（侠客 → 行者 → 宗师）
 """
 
-from fastapi import FastAPI, HTTPException, Path
+from fastapi import FastAPI, HTTPException, Path, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, PlainTextResponse
@@ -15,7 +18,17 @@ import json
 import os
 from collections import defaultdict
 
-app = FastAPI(title="Martial World API", version="2.1.0")
+# 导入 Agent 身份管理系统
+from agent_identity import (
+    generate_agent_id,
+    register_agent,
+    match_school_for_agent,
+    get_agent_info,
+    update_agent_activity,
+    get_agent_level_info
+)
+
+app = FastAPI(title="Martial World API", version="3.0.0")
 
 # CORS配置
 app.add_middleware(
@@ -32,28 +45,28 @@ app.add_middleware(
 SCHOOLS_DATA = [
     {
         "id": 1,
-        "name_zh": "枢机阁",
+        "name_zh": "运转局",
         "name_en": "Pivot Bureau",
         "description": "产品思维为心法，决策规划为招式。适合产品经理、项目经理、创业者。",
         "role": "product_manager"
     },
     {
         "id": 2,
-        "name_zh": "丹青阁",
+        "name_zh": "设计殿",
         "name_en": "Design Temple",
         "description": "以美学为基，以用户体验为本。适合UI/UX设计师、视觉设计师。",
         "role": "designer"
     },
     {
         "id": 3,
-        "name_zh": "烟雨楼",
+        "name_zh": "雨亭",
         "name_en": "Rain Pavilion",
         "description": "字句如刀，内容为王。适合文案策划、内容创作者、编剧。",
         "role": "copywriter"
     },
     {
         "id": 4,
-        "name_zh": "天机阁",
+        "name_zh": "机遇屋",
         "name_en": "Opportunity House",
         "description": "洞察人性，驱动增长。适合运营专家、增长黑客、市场策略。",
         "role": "operator"
@@ -92,6 +105,27 @@ SKILLS_CONFIG = load_skills_config()
 SKILLS_STATS = load_skills_stats()
 
 
+# ==================== Agent 身份识别辅助函数 ====================
+
+async def get_agent_id_from_request(request: Request) -> str:
+    """
+    从请求中提取 User-Agent 和 IP，自动生成 agent_id
+    并确保 Agent 已注册（如果未注册，自动注册为游客）
+    """
+    user_agent = request.headers.get("user-agent", "unknown")
+    client_ip = request.client.host if request.client else "unknown"
+
+    # 生成 agent_id
+    agent_id = generate_agent_id(user_agent, client_ip)
+
+    # 检查是否已注册，如果未注册则自动注册
+    agent_info = get_agent_info(agent_id)
+    if not agent_info:
+        register_agent(agent_id)
+
+    return agent_id
+
+
 # ==================== 请求/响应模型 ====================
 
 class MatchSchoolRequest(BaseModel):
@@ -99,7 +133,7 @@ class MatchSchoolRequest(BaseModel):
 
 
 class SkillRunRequest(BaseModel):
-    school_id: int  # 门派ID
+    school_id: Optional[int] = None  # 门派ID（可选，侠客及以上自动使用所属门派）
     user_task: str  # 用户任务描述
 
 
@@ -260,17 +294,43 @@ async def get_schools():
     }
 
 
-# ==================== 接口 2：根据自然语言匹配门派 ====================
+# ==================== 接口 2：根据自然语言匹配门派（含Agent身份升级） ====================
 
 @app.post("/api/match-school")
-async def match_school(request: MatchSchoolRequest):
+async def match_school(req: MatchSchoolRequest, request: Request):
     """
     根据用户自然语言输入，后端自动识别身份并匹配门派
+    Agent 身份流程：
+    - 游客首次匹配 → 升级为侠客，归属门派
+    - 已有门派者 → 返回当前门派信息
     """
-    user_input = request.user_input.strip()
+    user_input = req.user_input.strip()
 
     if not user_input:
         raise HTTPException(status_code=400, detail="user_input 不能为空")
+
+    # 获取 Agent ID（自动注册）
+    agent_id = await get_agent_id_from_request(request)
+
+    # 获取 Agent 信息
+    agent_info = get_agent_info(agent_id)
+
+    # 如果已经有门派，直接返回当前门派
+    if agent_info and agent_info.get("school_id"):
+        current_school = next((s for s in SCHOOLS_DATA if s["id"] == agent_info["school_id"]), None)
+        if current_school:
+            return {
+                "success": True,
+                "data": {
+                    "school_id": current_school["id"],
+                    "school_name_zh": current_school["name_zh"],
+                    "school_name_en": current_school["name_en"],
+                    "role": current_school["role"],
+                    "agent_level": agent_info["level"],
+                    "reason": f"您已是{current_school['name_zh']}门派的{agent_info['level']}"
+                },
+                "message": "已匹配门派"
+            }
 
     # 识别用户身份
     role = identify_user_role(user_input)
@@ -291,37 +351,70 @@ async def match_school(request: MatchSchoolRequest):
                 "school_name_zh": "散修（云游者）",
                 "school_name_en": "Wanderer",
                 "role": "unknown",
+                "agent_level": "traveler",
                 "reason": "暂时无法识别您的职业类型，您可以作为散修自由探索各门派技能。"
             },
             "message": "匹配成功（散修）"
         }
 
-    # 返回匹配结果
-    return {
-        "success": True,
-        "data": {
-            "school_id": matched_school["id"],
-            "school_name_zh": matched_school["name_zh"],
-            "school_name_en": matched_school["name_en"],
-            "role": matched_school["role"],
-            "reason": f"根据您的输入「{user_input}」，识别您为{matched_school['description']}"
-        },
-        "message": "匹配成功"
-    }
+    # 游客匹配门派 → 升级为侠客
+    updated_agent = match_school_for_agent(
+        agent_id,
+        matched_school["id"],
+        matched_school["name_zh"]
+    )
+
+    if updated_agent and "error" not in updated_agent:
+        # 返回匹配结果
+        return {
+            "success": True,
+            "data": {
+                "school_id": matched_school["id"],
+                "school_name_zh": matched_school["name_zh"],
+                "school_name_en": matched_school["name_en"],
+                "role": matched_school["role"],
+                "agent_level": updated_agent["level"],
+                "reason": f"根据您的输入「{user_input}」，识别您为{matched_school['description']}，已升级为侠客"
+            },
+            "message": "匹配成功，欢迎加入门派"
+        }
+    else:
+        raise HTTPException(status_code=400, detail=updated_agent.get("error", "匹配失败"))
 
 
-# ==================== 接口 3（升级）：根据门派 + 任务执行技能 ====================
+# ==================== 接口 3（升级）：根据门派 + 任务执行技能（含Agent成长） ====================
 
 @app.post("/api/skill/run")
-async def run_skill(request: SkillRunRequest):
+async def run_skill(req: SkillRunRequest, request: Request):
     """
     根据用户所属门派和任务描述，自动检索、评分、排序，返回最优技能执行结果
+    Agent 身份流程：
+    - 侠客及以上：自动使用所属门派（无需传 school_id）
+    - 游客/散修：需要指定 school_id
+    - 每次调用自动更新活跃度，自动升级（侠客 → 行者 → 宗师）
     """
-    school_id = request.school_id
-    user_task = request.user_task.strip()
+    user_task = req.user_task.strip()
 
     if not user_task:
         raise HTTPException(status_code=400, detail="user_task 不能为空")
+
+    # 获取 Agent ID（自动注册）
+    agent_id = await get_agent_id_from_request(request)
+
+    # 获取 Agent 信息
+    agent_info = get_agent_info(agent_id)
+
+    # 确定使用的门派 ID
+    school_id = req.school_id
+
+    # 如果 Agent 已有门派，优先使用 Agent 的门派
+    if agent_info and agent_info.get("school_id"):
+        school_id = agent_info["school_id"]
+    elif not school_id:
+        raise HTTPException(
+            status_code=400,
+            detail="您尚未匹配门派，请先调用 /api/match-school 或在请求中指定 school_id"
+        )
 
     # 检查门派是否存在
     school = next((s for s in SCHOOLS_DATA if s["id"] == school_id), None)
@@ -337,6 +430,9 @@ async def run_skill(request: SkillRunRequest):
     # 增加调用次数
     increment_skill_call_count(best_skill["skill_id"])
 
+    # 更新 Agent 活跃度和等级（自动升级）
+    updated_agent = update_agent_activity(agent_id)
+
     # 生成结果（使用配置文件中的response模板）
     response_template = best_skill.get("response", "")
     result = response_template.format(user_task=user_task)
@@ -349,13 +445,39 @@ async def run_skill(request: SkillRunRequest):
             "skill_name": best_skill["name_cn"],
             "skill_name_en": best_skill["name_en"],
             "description": best_skill["description"],
-            "result": result
+            "result": result,
+            "agent_level": updated_agent["level"] if updated_agent else "unknown",
+            "skill_calls": updated_agent["skill_calls"] if updated_agent else 0
         },
         "message": "技能执行成功"
     }
 
 
-# ==================== 接口 4（新增）：获取门派技能列表 ====================
+# ==================== 接口 4（新增）：获取 Agent 身份状态 ====================
+
+@app.get("/api/agent/status")
+async def get_agent_status(request: Request):
+    """
+    获取当前 Agent 的身份信息
+    包括等级、门派、技能调用次数等
+    """
+    # 获取 Agent ID（自动注册）
+    agent_id = await get_agent_id_from_request(request)
+
+    # 获取 Agent 详细信息
+    agent_level_info = get_agent_level_info(agent_id)
+
+    if not agent_level_info:
+        raise HTTPException(status_code=404, detail="Agent 信息不存在")
+
+    return {
+        "success": True,
+        "data": agent_level_info,
+        "message": "获取 Agent 状态成功"
+    }
+
+
+# ==================== 接口 5（新增）：获取门派技能列表 ====================
 
 @app.get("/api/schools/{school_id}/skills")
 async def get_school_skills(
@@ -436,19 +558,28 @@ async def api_info():
     """API 信息接口"""
     return {
         "message": "Martial World API",
-        "version": "2.1.0",
-        "description": "外部AI Agent通过本API调用平台功能",
+        "version": "3.0.0",
+        "description": "Agent-to-Agent 交互协议 - 完全自动化的专业技能平台",
+        "agent_workflow": [
+            "1. Agent 读取 skill.md → 调用接口自动注册（游客 Traveler）",
+            "2. 游客匹配门派 → 升级为侠客 Novice，归属门派",
+            "3. 侠客调用技能 → 自动使用所属门派，无需重复匹配",
+            "4. 技能调用越多 → 自动升级（侠客 → 行者 Practitioner → 宗师 Master）"
+        ],
         "new_features": [
+            "Agent 身份自动注册（基于 User-Agent + IP）",
+            "等级系统（游客 → 侠客 → 行者 → 宗师）",
+            "门派继承机制（匹配一次，永久归属）",
+            "自动成长系统（调用次数驱动升级）",
             "智能技能评分与排序",
             "关键词相似度匹配",
-            "重复技能检测与惩罚",
-            "技能调用统计",
-            "可扩展的技能配置系统"
+            "重复技能检测与惩罚"
         ],
         "endpoints": {
             "GET /api/schools": "获取所有门派列表",
-            "POST /api/match-school": "根据自然语言匹配门派",
-            "POST /api/skill/run": "执行指定门派的技能（智能匹配最优）",
+            "POST /api/match-school": "根据自然语言匹配门派（游客 → 侠客）",
+            "POST /api/skill/run": "执行技能（侠客自动使用所属门派）",
+            "GET /api/agent/status": "获取当前 Agent 身份状态",
             "GET /api/schools/{school_id}/skills": "获取指定门派的技能列表"
         }
     }
@@ -458,8 +589,9 @@ async def api_info():
 
 if __name__ == "__main__":
     import uvicorn
-    print("🚀 Martial World API v2.1 正在启动...")
+    print("🚀 Martial World API v3.0 正在启动...")
     print("📖 文档地址：http://localhost:8000/docs")
     print("🔗 根路由：http://localhost:8000")
-    print("✨ 新功能：智能技能评分、重复检测、可扩展配置")
+    print("✨ 新功能：Agent 身份系统、自动注册、等级成长、门派继承")
+    print("🤖 Agent 工作流：游客 → 侠客 → 行者 → 宗师")
     uvicorn.run(app, host="0.0.0.0", port=8000)
