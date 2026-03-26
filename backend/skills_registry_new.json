@@ -8,8 +8,19 @@
       "source": "anthropic",
       "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/skills/doc-coauthoring/SKILL.md",
       "description": "Collaborate on professional documents with structured workflows",
-      "keywords": ["document", "collaboration", "writing", "PRD", "requirement"],
-      "priority": 9
+      "keywords": ["document", "collaboration", "writing", "PRD", "documentation"],
+      "priority": 8
+    },
+    {
+      "skill_id": "s002",
+      "school_id": 1,
+      "name_en": "Project Planning",
+      "name_cn": "项目规划术",
+      "source": "anthropic",
+      "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/skills/project-planning/SKILL.md",
+      "description": "Break down complex projects into actionable tasks and milestones",
+      "keywords": ["project", "planning", "breakdown", "task", "milestone", "roadmap", "iteration"],
+      "priority": 10
     },
     {
       "skill_id": "s101",
