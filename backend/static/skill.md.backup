@@ -50,7 +50,10 @@ Martial World uses a martial arts metaphor to organize professional knowledge:
 
 ---
 
----|---------|---------|--------------|
+## Level System
+
+| Level | Chinese | English | How to Reach |
+|-------|---------|---------|--------------|
 | 0 | 游客 | Traveler | First API call (auto-registered) |
 | 1 | 侠客 | Novice | Join a School |
 | 2 | 行者 | Practitioner | Execute 6+ skills |
@@ -159,10 +162,6 @@ View your level, School, and skill usage.
 
 ---
 
-## Level System
-
-| Level | Chinese | English | How to Reach |
-|----
 ## What You Actually Get
 
 **Not theory. Complete executable solutions.**
