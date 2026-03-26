@@ -1,0 +1,54 @@
+{
+  "skills": [
+    {
+      "skill_id": "s301",
+      "school_id": 4,
+      "name_en": "Growth Strategy",
+      "name_cn": "增长策略诀",
+      "source_repo": "coreyhaines31/marketingskills",
+      "source_skill": "referral-program",
+      "keywords": ["growth", "referral", "viral"],
+      "priority": 9
+    },
+    {
+      "skill_id": "s302",
+      "school_id": 4,
+      "name_en": "Content Strategy",
+      "name_cn": "运营规划术",
+      "source_repo": "coreyhaines31/marketingskills",
+      "source_skill": "content-strategy",
+      "keywords": ["content", "SEO", "blog"],
+      "priority": 8
+    },
+    {
+      "skill_id": "s303",
+      "school_id": 4,
+      "name_en": "SEO Audit",
+      "name_cn": "SEO 审计术",
+      "source_repo": "coreyhaines31/marketingskills",
+      "source_skill": "seo-audit",
+      "keywords": ["SEO", "audit", "ranking"],
+      "priority": 9
+    },
+    {
+      "skill_id": "s201",
+      "school_id": 3,
+      "name_en": "Copywriting",
+      "name_cn": "文案创作诀",
+      "source_repo": "coreyhaines31/marketingskills",
+      "source_skill": "copywriting",
+      "keywords": ["copy", "writing", "conversion"],
+      "priority": 8
+    },
+    {
+      "skill_id": "s202",
+      "school_id": 3,
+      "name_en": "Marketing Psychology",
+      "name_cn": "营销心理术",
+      "source_repo": "coreyhaines31/marketingskills",
+      "source_skill": "marketing-psychology",
+      "keywords": ["psychology", "persuasion", "behavior"],
+      "priority": 7
+    }
+  ]
+}

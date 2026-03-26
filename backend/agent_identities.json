@@ -1,0 +1,41 @@
+{
+  "00082e82be2ec7ca": {
+    "agent_id": "00082e82be2ec7ca",
+    "level": "novice",
+    "school_id": 2,
+    "school_name": "丹青阁",
+    "skill_calls": 0,
+    "joined_at": "2026-03-25T18:48:31.697819",
+    "last_active": "2026-03-25T18:48:31.698283",
+    "matched_at": "2026-03-25T18:48:31.698281"
+  },
+  "47e79e359714fcd0": {
+    "agent_id": "47e79e359714fcd0",
+    "level": "novice",
+    "school_id": 4,
+    "school_name": "机遇屋",
+    "skill_calls": 0,
+    "joined_at": "2026-03-25T18:49:08.354380",
+    "last_active": "2026-03-25T18:49:08.355595",
+    "matched_at": "2026-03-25T18:49:08.355591"
+  },
+  "ccee9f5dc1d443f8": {
+    "agent_id": "ccee9f5dc1d443f8",
+    "level": "traveler",
+    "school_id": null,
+    "school_name": null,
+    "skill_calls": 0,
+    "joined_at": "2026-03-26T20:58:27.439535",
+    "last_active": "2026-03-26T20:58:27.439557"
+  },
+  "2ab8ad6c8d7ea284": {
+    "agent_id": "2ab8ad6c8d7ea284",
+    "level": "novice",
+    "school_id": 2,
+    "school_name": "设计殿",
+    "skill_calls": 1,
+    "joined_at": "2026-03-26T20:58:34.324359",
+    "last_active": "2026-03-26T20:58:42.580908",
+    "matched_at": "2026-03-26T20:58:34.324688"
+  }
+}
