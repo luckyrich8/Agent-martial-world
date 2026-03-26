@@ -1146,7 +1146,7 @@ textarea::placeholder {
 </footer>
 
 <script>
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://agent-martial-world.onrender.com';
 
 let currentSchool = null;
 let currentSkill = null;
@@ -1409,15 +1409,34 @@ async function openSchool(schoolId) {
   }
 }
 
-// 加载技能（从本地数据）
-function loadSkills(schoolId) {
+// 加载技能（从后端 API）
+async function loadSkills(schoolId) {
   const t = i18n[currentLang];
-  const skills = schoolSkills[schoolId];
 
-  if (skills && skills.length > 0) {
-    skillsNotice.style.display = 'none';
-    displaySkills(skills);
-  } else {
+  // 映射 school string id 到数字 id
+  const schoolIdMap = {
+    'pivot-bureau': 1,
+    'design-temple': 2,
+    'rain-pavilion': 3,
+    'opportunity-house': 4
+  };
+
+  const numericSchoolId = schoolIdMap[schoolId];
+
+  try {
+    const response = await fetch(`${API_URL}/api/schools/${numericSchoolId}/skills`);
+    const data = await response.json();
+
+    if (data.success && data.data.skills && data.data.skills.length > 0) {
+      skillsNotice.style.display = 'none';
+      displaySkills(data.data.skills);
+    } else {
+      skillsNotice.style.display = 'block';
+      skillsNotice.textContent = t.skillsNotice;
+      displayEmptySkills();
+    }
+  } catch (error) {
+    console.error('Failed to load skills:', error);
     skillsNotice.style.display = 'block';
     skillsNotice.textContent = t.skillsNotice;
     displayEmptySkills();
@@ -1428,28 +1447,43 @@ function loadSkills(schoolId) {
 function displaySkills(skills) {
   const t = i18n[currentLang];
 
+  // 技能 emoji 映射
+  const skillEmojis = {
+    's001': '📝',
+    's101': '🎨',
+    's102': '🖼️',
+    's201': '📖',
+    's202': '💬',
+    's301': '📈',
+    's302': '📅'
+  };
+
   skillsList.innerHTML = skills.map(skill => {
-    const skillName = skill.name;
+    const skillName = currentLang === 'en' ? skill.name_en : skill.name_cn;
     const skillDesc = skill.description;
-    const applicableScene = skill.applicable_scene || (currentLang === 'en' ? 'Various product and project scenarios' : '多种产品与项目场景');
-    const usageExample = currentLang === 'en'
-      ? `Input requirements, get structured ${skillEnNames[skill.skill_id] || skillName} analysis`
-      : `输入需求描述，获得结构化的${skillName}分析`;
+    const emoji = skillEmojis[skill.skill_id] || '🎯';
+    const keywords = skill.keywords ? skill.keywords.join(', ') : '';
+    const source = skill.source || 'platform';
+    const sourceUrl = skill.source_url || '#';
+
+    const sourceDisplay = source === 'anthropic' ? '🔗 Anthropic Official' :
+                         source === 'marketingskills' ? '🔗 Marketing Skills' :
+                         '🔗 Platform';
 
     return `
       <div class="skill-card" onclick="openSkillModal('${skill.skill_id}', ${JSON.stringify(skill).replace(/"/g, '&quot;')})">
-        <div class="skill-icon">${skill.emoji || '🎯'}</div>
+        <div class="skill-icon">${emoji}</div>
         <div class="skill-content">
           <div class="skill-name-zh">${skillName}</div>
           <div class="skill-purpose">${skillDesc}</div>
           <div class="skill-meta">
             <div class="skill-meta-item">
-              <span class="skill-meta-label">${t.applicableScene}</span>
-              <span class="skill-meta-value">${applicableScene}</span>
+              <span class="skill-meta-label">Source</span>
+              <span class="skill-meta-value"><a href="${sourceUrl}" target="_blank" style="color: var(--accent-warm); text-decoration: none;">${sourceDisplay}</a></span>
             </div>
             <div class="skill-meta-item">
-              <span class="skill-meta-label">${t.usageExample}</span>
-              <span class="skill-meta-value">${usageExample}</span>
+              <span class="skill-meta-label">Keywords</span>
+              <span class="skill-meta-value">${keywords}</span>
             </div>
           </div>
         </div>
@@ -1500,8 +1534,21 @@ function displayEmptySkills() {
 function openSkillModal(skillId, skill) {
   currentSkill = skill;
 
-  modalTitle.textContent = skillEnNames[skillId] + ' ' + skill.emoji;
-  modalDesc.textContent = skillEnDescs[skillId];
+  const skillEmojis = {
+    's001': '📝',
+    's101': '🎨',
+    's102': '🖼️',
+    's201': '📖',
+    's202': '💬',
+    's301': '📈',
+    's302': '📅'
+  };
+
+  const emoji = skillEmojis[skillId] || '🎯';
+  const skillName = currentLang === 'en' ? skill.name_en : skill.name_cn;
+
+  modalTitle.textContent = skillName + ' ' + emoji;
+  modalDesc.textContent = skill.description;
   userInput.value = '';
   inputModal.classList.add('show');
   userInput.focus();
@@ -1533,22 +1580,35 @@ submitBtn.addEventListener('click', async () => {
   schoolDetailPage.classList.remove('show');
   resultPage.classList.add('show');
 
-  resultEmoji.textContent = currentSkill.emoji || '🎯';
-  resultTitle.textContent = skillEnNames[currentSkill.skill_id] || currentSkill.name;
+  const skillEmojis = {
+    's001': '📝',
+    's101': '🎨',
+    's102': '🖼️',
+    's201': '📖',
+    's202': '💬',
+    's301': '📈',
+    's302': '📅'
+  };
+
+  resultEmoji.textContent = skillEmojis[currentSkill.skill_id] || '🎯';
+  resultTitle.textContent = currentLang === 'en' ? currentSkill.name_en : currentSkill.name_cn;
   resultContent.innerHTML = `<div class="loading">${t.loading}</div>`;
 
   try {
-    const response = await fetch(`${API_URL}/invoke`, {
+    const response = await fetch(`${API_URL}/api/skill/run`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        skill_id: currentSkill.skill_id,
-        user_input: input
+        user_task: input
       })
     });
 
     const data = await response.json();
-    resultContent.textContent = data.result;
+    if (data.success) {
+      resultContent.textContent = data.data.result;
+    } else {
+      resultContent.textContent = t.errorMsg;
+    }
   } catch (error) {
     resultContent.textContent = t.errorMsg;
     console.error(error);
