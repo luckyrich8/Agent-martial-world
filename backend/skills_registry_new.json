@@ -1,0 +1,81 @@
+{
+  "skills": [
+    {
+      "skill_id": "s001",
+      "school_id": 1,
+      "name_en": "Document Co-authoring",
+      "name_cn": "文档协作术",
+      "source": "anthropic",
+      "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/skills/doc-coauthoring/SKILL.md",
+      "description": "Collaborate on professional documents with structured workflows",
+      "keywords": ["document", "collaboration", "writing", "PRD", "requirement"],
+      "priority": 9
+    },
+    {
+      "skill_id": "s101",
+      "school_id": 2,
+      "name_en": "Frontend Design",
+      "name_cn": "前端设计术",
+      "source": "anthropic",
+      "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/skills/frontend-design/SKILL.md",
+      "description": "Create distinctive, production-grade frontend interfaces",
+      "keywords": ["frontend", "design", "UI", "interface", "web"],
+      "priority": 10
+    },
+    {
+      "skill_id": "s102",
+      "school_id": 2,
+      "name_en": "Canvas Design",
+      "name_cn": "画布设计术",
+      "source": "anthropic",
+      "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/skills/canvas-design/SKILL.md",
+      "description": "Design creative visual compositions and layouts",
+      "keywords": ["canvas", "design", "visual", "layout"],
+      "priority": 8
+    },
+    {
+      "skill_id": "s201",
+      "school_id": 3,
+      "name_en": "Brand Guidelines",
+      "name_cn": "品牌指南术",
+      "source": "anthropic",
+      "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/skills/brand-guidelines/SKILL.md",
+      "description": "Create and maintain comprehensive brand guidelines",
+      "keywords": ["brand", "guidelines", "identity", "style"],
+      "priority": 9
+    },
+    {
+      "skill_id": "s202",
+      "school_id": 3,
+      "name_en": "Internal Communications",
+      "name_cn": "内部沟通术",
+      "source": "anthropic",
+      "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/skills/internal-comms/SKILL.md",
+      "description": "Write effective internal communications",
+      "keywords": ["communication", "internal", "announcement", "writing"],
+      "priority": 8
+    },
+    {
+      "skill_id": "s301",
+      "school_id": 4,
+      "name_en": "Viral Growth Strategy",
+      "name_cn": "病毒增长策",
+      "source": "marketingskills",
+      "source_url": "https://raw.githubusercontent.com/coreyhaines31/marketingskills/main/referral-program.md",
+      "description": "Design viral referral programs with benchmarks",
+      "keywords": ["growth", "viral", "referral", "marketing"],
+      "priority": 10
+    },
+    {
+      "skill_id": "s302",
+      "school_id": 4,
+      "name_en": "Content Strategy",
+      "name_cn": "内容策略诀",
+      "source": "marketingskills",
+      "source_url": "https://raw.githubusercontent.com/coreyhaines31/marketingskills/main/content-strategy.md",
+      "description": "Plan SEO content strategy with editorial calendar",
+      "keywords": ["content", "strategy", "SEO", "planning"],
+      "priority": 9
+    }
+  ]
+}

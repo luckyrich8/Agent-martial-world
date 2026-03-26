@@ -16,6 +16,7 @@ from pydantic import BaseModel
 from typing import Optional, List, Dict
 import json
 import os
+import requests
 from collections import defaultdict
 
 # 导入 Agent 身份管理系统
@@ -75,13 +76,32 @@ SCHOOLS_DATA = [
 
 # 加载技能配置
 def load_skills_config():
-    """加载技能配置文件"""
+    """加载技能配置文件（新版：skills registry）"""
+    # 优先使用新的 registry
+    registry_path = "skills_registry_new.json"
+    if os.path.exists(registry_path):
+        with open(registry_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            return data.get("skills", [])
+
+    # 兼容旧版
     config_path = "skills_config.json"
     if os.path.exists(config_path):
         with open(config_path, "r", encoding="utf-8") as f:
             data = json.load(f)
             return data.get("skills", [])
     return []
+
+# 动态拉取 skill 内容
+def fetch_skill_content(source_url: str) -> str:
+    """从远程 URL 拉取 skill 内容"""
+    try:
+        response = requests.get(source_url, timeout=10)
+        response.raise_for_status()
+        return response.text
+    except requests.exceptions.RequestException as e:
+        print(f"Failed to fetch skill from {source_url}: {e}")
+        return f"Error: Unable to fetch skill content. Please try again later."
 
 # 加载技能统计数据
 def load_skills_stats():
@@ -433,9 +453,14 @@ async def run_skill(req: SkillRunRequest, request: Request):
     # 更新 Agent 活跃度和等级（自动升级）
     updated_agent = update_agent_activity(agent_id)
 
-    # 生成结果（使用配置文件中的response模板）
-    response_template = best_skill.get("response", "")
-    result = response_template.format(user_task=user_task)
+    # 动态拉取 skill 内容（新版）或使用预设模板（旧版兼容）
+    if "source_url" in best_skill and best_skill["source_url"]:
+        # 新版：从远程 URL 动态拉取 skill 内容
+        result = fetch_skill_content(best_skill["source_url"])
+    else:
+        # 旧版兼容：使用配置文件中的 response 模板
+        response_template = best_skill.get("response", "")
+        result = response_template.format(user_task=user_task) if response_template else "Skill content not available"
 
     return {
         "success": True,
@@ -445,6 +470,7 @@ async def run_skill(req: SkillRunRequest, request: Request):
             "skill_name": best_skill["name_cn"],
             "skill_name_en": best_skill["name_en"],
             "description": best_skill["description"],
+            "source": best_skill.get("source", "platform"),
             "result": result,
             "agent_level": updated_agent["level"] if updated_agent else "unknown",
             "skill_calls": updated_agent["skill_calls"] if updated_agent else 0
