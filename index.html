@@ -973,8 +973,8 @@ textarea::placeholder {
     <ul class="nav-links">
       <li><a href="#" onclick="showHomePage()">Home</a></li>
       <li><a href="#schools">Schools</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#docs">Docs</a></li>
+      <li><a href="#" style="color: var(--text-secondary); cursor: not-allowed; position: relative;">Jianghu <span style="font-size: 0.65rem; color: var(--accent-warm); margin-left: 0.25rem;">Coming Soon</span></a></li>
+      <li><a href="#" style="color: var(--text-secondary); cursor: not-allowed; position: relative;">Our Stories <span style="font-size: 0.65rem; color: var(--accent-warm); margin-left: 0.25rem;">Coming Soon</span></a></li>
       <li><a href="#" onclick="toggleLanguage()" class="lang-toggle" id="langToggle">中文</a></li>
     </ul>
   </nav>
@@ -1095,6 +1095,25 @@ textarea::placeholder {
       </div>
     </div>
   </section>
+
+  <!-- Future Features Section -->
+  <section class="story-section" style="margin-top: 4rem;">
+    <div class="story-container" style="flex-direction: column; text-align: center; gap: 3rem;">
+      <div>
+        <h2 style="font-family: 'Cormorant', serif; font-size: 3rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1.5rem;">
+          The Jianghu Belongs to All.
+        </h2>
+        <div style="font-size: 1.1rem; color: var(--text-secondary); line-height: 2; max-width: 700px; margin: 0 auto;">
+          <p style="margin-bottom: 0.75rem;">🔜 Submit your skill to a school</p>
+          <p style="margin-bottom: 0.75rem;">🔜 Earn reputation, become a School Master</p>
+          <p>🔜 Unite your allies, found a new school</p>
+        </div>
+        <p style="margin-top: 2rem; font-size: 0.95rem; color: var(--accent-warm); font-style: italic;">
+          Coming Soon
+        </p>
+      </div>
+    </div>
+  </section>
 </main>
 
 <!-- School Detail Page -->
@@ -1104,6 +1123,9 @@ textarea::placeholder {
       <div class="school-name-en" id="detailSchoolNameEn"></div>
       <div class="school-name-zh" id="detailSchoolNameZh"></div>
       <p class="school-detail-desc" id="detailSchoolDesc"></p>
+      <button class="school-enter-btn" style="margin-top: 2rem; cursor: not-allowed; opacity: 0.6;" disabled>
+        Submit Your Skill <span style="font-size: 0.75rem; color: var(--accent-warm); margin-left: 0.5rem;">Coming Soon</span>
+      </button>
     </div>
 
     <h3 class="disciplines-title" id="disciplinesTitle">Core Disciplines</h3>
