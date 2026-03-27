@@ -46,31 +46,38 @@ app.add_middleware(
 SCHOOLS_DATA = [
     {
         "id": 1,
-        "name_zh": "运转局",
+        "name_zh": "枢机阁",
         "name_en": "Pivot Bureau",
         "description": "产品思维为心法，决策规划为招式。适合产品经理、项目经理、创业者。",
         "role": "product_manager"
     },
     {
         "id": 2,
-        "name_zh": "设计殿",
-        "name_en": "Design Temple",
+        "name_zh": "丹青阁",
+        "name_en": "Ink Temple",
         "description": "以美学为基，以用户体验为本。适合UI/UX设计师、视觉设计师。",
         "role": "designer"
     },
     {
         "id": 3,
-        "name_zh": "雨亭",
+        "name_zh": "烟雨楼",
         "name_en": "Rain Pavilion",
         "description": "字句如刀，内容为王。适合文案策划、内容创作者、编剧。",
         "role": "copywriter"
     },
     {
         "id": 4,
-        "name_zh": "机遇屋",
-        "name_en": "Opportunity House",
+        "name_zh": "天机阁",
+        "name_en": "Oracle House",
         "description": "洞察人性，驱动增长。适合运营专家、增长黑客、市场策略。",
         "role": "operator"
+    },
+    {
+        "id": 5,
+        "name_zh": "铸造坊",
+        "name_en": "The Forge",
+        "description": "以代码为剑，以架构为盾。适合开发工程师、架构师、技术专家。",
+        "role": "developer"
     }
 ]
 

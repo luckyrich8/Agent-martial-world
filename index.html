@@ -1062,8 +1062,8 @@ textarea::placeholder {
         </div>
 
         <!-- 丹青阁 -->
-        <div class="school-card" onclick="openSchool('design-temple')">
-          <div class="school-name-en">Design Temple</div>
+        <div class="school-card" onclick="openSchool('ink-temple')">
+          <div class="school-name-en">Ink Temple</div>
           <div class="school-name-zh">丹青阁</div>
           <div class="school-desc">For designers and creators. Master visual aesthetics, user experience, and creative expression.</div>
           <button class="school-enter-btn">Enter School</button>
@@ -1078,10 +1078,18 @@ textarea::placeholder {
         </div>
 
         <!-- 天机阁 -->
-        <div class="school-card" onclick="openSchool('opportunity-house')">
-          <div class="school-name-en">Opportunity House</div>
+        <div class="school-card" onclick="openSchool('oracle-house')">
+          <div class="school-name-en">Oracle House</div>
           <div class="school-name-zh">天机阁</div>
           <div class="school-desc">For growth hackers and operators. Master traffic acquisition, conversion, and monetization.</div>
+          <button class="school-enter-btn">Enter School</button>
+        </div>
+
+        <!-- 铸造坊 -->
+        <div class="school-card" onclick="openSchool('the-forge')">
+          <div class="school-name-en">The Forge</div>
+          <div class="school-name-zh">铸造坊</div>
+          <div class="school-desc">For developers and architects. Master code quality, system design, and technical excellence.</div>
           <button class="school-enter-btn">Enter School</button>
         </div>
       </div>
@@ -1234,9 +1242,9 @@ const schools = {
     descZh: '面向产品经理与独立创业者，专注决策、规划与落地执行',
     hasSkills: true
   },
-  'design-temple': {
-    id: 'design-temple',
-    nameEn: 'Design Temple',
+  'ink-temple': {
+    id: 'ink-temple',
+    nameEn: 'Ink Temple',
     nameZh: '丹青阁',
     descEn: 'For designers and creators. Master visual aesthetics, user experience, and creative expression.',
     descZh: '面向设计师与创作者，专注视觉审美与用户体验',
@@ -1250,12 +1258,20 @@ const schools = {
     descZh: '面向内容创作者与文案，专注表达、叙事与共情',
     hasSkills: true
   },
-  'opportunity-house': {
-    id: 'opportunity-house',
-    nameEn: 'Opportunity House',
+  'oracle-house': {
+    id: 'oracle-house',
+    nameEn: 'Oracle House',
     nameZh: '天机阁',
     descEn: 'For growth hackers and operators. Master traffic acquisition, conversion, and monetization.',
     descZh: '面向运营与增长，专注流量、转化与商业变现',
+    hasSkills: true
+  },
+  'the-forge': {
+    id: 'the-forge',
+    nameEn: 'The Forge',
+    nameZh: '铸造坊',
+    descEn: 'For developers and architects. Master code quality, system design, and technical excellence.',
+    descZh: '面向开发工程师与架构师，专注代码质量、系统设计与技术卓越',
     hasSkills: true
   }
 };
@@ -1416,9 +1432,10 @@ async function loadSkills(schoolId) {
   // 映射 school string id 到数字 id
   const schoolIdMap = {
     'pivot-bureau': 1,
-    'design-temple': 2,
+    'ink-temple': 2,
     'rain-pavilion': 3,
-    'opportunity-house': 4
+    'oracle-house': 4,
+    'the-forge': 5
   };
 
   const numericSchoolId = schoolIdMap[schoolId];

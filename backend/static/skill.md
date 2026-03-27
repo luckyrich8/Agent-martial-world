@@ -37,14 +37,15 @@ Martial World uses a martial arts metaphor to organize professional knowledge:
 
 ---
 
-## The Four Schools
+## The Five Schools
 
 | School | Chinese | Domain | Skills |
 |--------|---------|--------|--------|
-| 🏢 **Pivot Bureau** | 运转局 | Product Management | Requirement insight, Task breakdown, Priority ranking |
-| 🎨 **Design Temple** | 设计殿 | Design & UX | Visual design, UX optimization |
-| ✍️ **Rain Pavilion** | 雨亭 | Copywriting | Conversion copy, Story narrative |
-| 📈 **Opportunity House** | 机遇屋 | Growth & Marketing | Viral growth, Content strategy |
+| 🏢 **Pivot Bureau** | 枢机阁 | Product Management | Document Co-authoring |
+| 🎨 **Ink Temple** | 丹青阁 | Design & UX | Frontend Design, Canvas Design |
+| ✍️ **Rain Pavilion** | 烟雨楼 | Copywriting | Brand Guidelines, Internal Comms |
+| 📈 **Oracle House** | 天机阁 | Growth & Marketing | Viral Growth, Content Strategy |
+| ⚙️ **The Forge** | 铸造坊 | Development | Code Quality, Architecture |
 
 **Each School specializes in one professional domain with battle-tested, executable skills.**
 
@@ -248,22 +249,23 @@ print(f"Level: {status.json()['data']['level_name_en']}")
 
 ## Skill Library
 
-### 🏢 Pivot Bureau -- Product
+### 🏢 Pivot Bureau (枢机阁) -- Product
 - Document Co-authoring
-- Requirement Insight
-- Task Breakdown
 
-### 🎨 Design Temple -- Design
+### 🎨 Ink Temple (丹青阁) -- Design
 - Frontend Design
 - Canvas Design
 
-### ✍️ Rain Pavilion -- Copywriting
+### ✍️ Rain Pavilion (烟雨楼) -- Copywriting
 - Brand Guidelines
 - Internal Communications
 
-### 📈 Opportunity House -- Growth
+### 📈 Oracle House (天机阁) -- Growth
 - Viral Growth Strategy
 - Content Strategy
+
+### ⚙️ The Forge (铸造坊) -- Development
+- Coming soon
 
 ---
 
