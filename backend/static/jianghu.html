@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jianghu Challenge · 踢馆场</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --gold: #C9922A;
+    --gold-light: #E8B84B;
+    --gold-dim: #7A5518;
+    --ink: #0D0D0D;
+    --ink-soft: #1A1A1A;
+    --paper: #F5EDD8;
+    --paper-dark: #E8D9B8;
+    --red: #C0392B;
+    --red-dim: #7A2318;
+    --smoke: rgba(201,146,42,0.08);
+    --border: rgba(201,146,42,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: rgba(245,237,216,0.5);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links .active { color: var(--gold-light); }
+
+  .nav-links .coming-soon {
+    color: rgba(245,237,216,0.25);
+    cursor: default;
+    position: relative;
+  }
+
+  .coming-soon-tag {
+    font-size: 8px;
+    background: var(--gold-dim);
+    color: var(--gold-light);
+    padding: 1px 4px;
+    border-radius: 2px;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 2rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-breadcrumb {
+    font-size: 11px;
+    color: var(--gold-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .page-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-subtitle {
+    font-size: 12px;
+    color: rgba(245,237,216,0.45);
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+  }
+
+  .page-slogan {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    color: rgba(201,146,42,0.7);
+    font-style: italic;
+    border-left: 2px solid var(--gold-dim);
+    padding-left: 1rem;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stat-num {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: rgba(245,237,216,0.35);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+  }
+
+  /* CHALLENGE FEED */
+  .feed-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .feed-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(245,237,216,0.4);
+    text-transform: uppercase;
+  }
+
+  .filter-tabs {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .filter-tab {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: rgba(245,237,216,0.4);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .filter-tab.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: var(--smoke);
+  }
+
+  /* CHALLENGE CARD */
+  .challenge-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+  }
+
+  .challenge-card:hover {
+    border-color: var(--gold);
+    background: rgba(201,146,42,0.04);
+  }
+
+  .challenge-card.hot {
+    border-color: var(--gold-dim);
+  }
+
+  .challenge-card.hot::before {
+    content: '🔥 热战';
+    position: absolute;
+    top: -1px;
+    right: 1.5rem;
+    font-size: 10px;
+    background: var(--red);
+    color: var(--paper);
+    padding: 2px 8px;
+    letter-spacing: 1px;
+  }
+
+  .challenge-card.won::before {
+    content: '✦ 踢馆成功';
+    position: absolute;
+    top: -1px;
+    right: 1.5rem;
+    font-size: 10px;
+    background: var(--gold-dim);
+    color: var(--gold-light);
+    padding: 2px 8px;
+    letter-spacing: 1px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .school-badge {
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 3px 8px;
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .skill-name {
+    font-size: 11px;
+    color: rgba(245,237,216,0.4);
+    letter-spacing: 1px;
+  }
+
+  .card-time {
+    font-size: 10px;
+    color: rgba(245,237,216,0.2);
+    margin-left: auto;
+  }
+
+  .card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    color: var(--paper);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .card-challenger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .challenger-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--gold-light);
+    font-weight: 700;
+  }
+
+  .challenger-name {
+    font-size: 11px;
+    color: var(--gold);
+  }
+
+  .challenger-rank {
+    font-size: 9px;
+    color: var(--gold-dim);
+    letter-spacing: 1px;
+  }
+
+  /* VOTE BAR */
+  .vote-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(201,146,42,0.1);
+  }
+
+  .vote-bar-wrap {
+    display: flex;
+    height: 6px;
+    border-radius: 1px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .vote-agree {
+    background: var(--gold);
+    transition: width 0.6s ease;
+  }
+
+  .vote-disagree {
+    background: var(--red-dim);
+    flex: 1;
+  }
+
+  .vote-counts {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .vote-agree-count {
+    font-size: 11px;
+    color: var(--gold);
+  }
+
+  .vote-disagree-count {
+    font-size: 11px;
+    color: rgba(192,57,43,0.7);
+  }
+
+  .vote-total {
+    font-size: 10px;
+    color: rgba(245,237,216,0.2);
+    letter-spacing: 1px;
+  }
+
+  /* VOTE BUTTONS (expanded card) */
+  .vote-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .btn-agree {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .btn-agree:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  .btn-disagree {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--red-dim);
+    color: rgba(192,57,43,0.7);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .btn-disagree:hover {
+    background: var(--red-dim);
+    color: var(--paper);
+  }
+
+  /* EXPANDED CARD DETAIL */
+  .challenge-detail {
+    background: rgba(201,146,42,0.04);
+    border: 1px solid rgba(201,146,42,0.15);
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 12px;
+    color: rgba(245,237,216,0.6);
+    line-height: 1.7;
+  }
+
+  .detail-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .detail-old {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(201,146,42,0.1);
+  }
+
+  .detail-new {
+    color: var(--paper);
+  }
+
+  /* SIDEBAR */
+  .sidebar {}
+
+  .sidebar-section {
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-title {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(245,237,216,0.3);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* LEADERBOARD */
+  .leaderboard-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(201,146,42,0.06);
+  }
+
+  .lb-rank {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold-dim);
+    width: 20px;
+  }
+
+  .lb-rank.top { color: var(--gold); }
+
+  .lb-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--gold-light);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .lb-info {
+    flex: 1;
+  }
+
+  .lb-name {
+    font-size: 11px;
+    color: var(--paper);
+  }
+
+  .lb-school {
+    font-size: 9px;
+    color: var(--gold-dim);
+    letter-spacing: 1px;
+  }
+
+  .lb-score {
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* SCHOOL STANDINGS */
+  .school-standing {
+    margin-bottom: 0.75rem;
+  }
+
+  .school-standing-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  .school-standing-name {
+    font-size: 11px;
+    color: var(--paper);
+  }
+
+  .school-standing-score {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .school-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .school-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 1px;
+  }
+
+  /* KICK BTN */
+  .kick-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-bottom: 2rem;
+  }
+
+  .kick-btn:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  .kick-btn-note {
+    font-size: 9px;
+    color: rgba(245,237,216,0.2);
+    text-align: center;
+    letter-spacing: 1px;
+    margin-top: -1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  /* DECORATIVE DIVIDER */
+  .divider {
+    text-align: center;
+    color: var(--gold-dim);
+    font-size: 12px;
+    letter-spacing: 8px;
+    margin: 0.5rem 0 1.5rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .challenge-card {
+    animation: fadeIn 0.4s ease both;
+  }
+
+  .challenge-card:nth-child(2) { animation-delay: 0.08s; }
+  .challenge-card:nth-child(3) { animation-delay: 0.16s; }
+  .challenge-card:nth-child(4) { animation-delay: 0.24s; }
+
+  @media (max-width: 768px) {
+    .main { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="/">⚔ Martial World</a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/#schools">Schools</a></li>
+    <li><a href="/jianghu.html" class="active">Jianghu</a></li>
+    <li><a href="#" class="coming-soon">Our Stories <span class="coming-soon-tag">Soon</span></a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-breadcrumb">Jianghu · 江湖</div>
+  <h1 class="page-title">踢馆场</h1>
+  <p class="page-subtitle">JIANGHU CHALLENGE</p>
+  <p class="page-slogan">踢馆以精进武学，你的视野，成为标准。<br>Kick the hall to improve the skill. Your vision becomes the standard.</p>
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-num">12</span>
+      <span class="stat-label">Active Challenges</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">847</span>
+      <span class="stat-label">Total Votes</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Skills Revised</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">28</span>
+      <span class="stat-label">Challengers</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- FEED -->
+  <div class="feed">
+    <div class="feed-header">
+      <span class="feed-title">Current Challenges · 进行中</span>
+      <div class="filter-tabs">
+        <button class="filter-tab active">All</button>
+        <button class="filter-tab">🔥 Hot</button>
+        <button class="filter-tab">✦ Won</button>
+        <button class="filter-tab">Ended</button>
+      </div>
+    </div>
+
+    <!-- CARD 1 — HOT, EXPANDED -->
+    <div class="challenge-card hot">
+      <div class="card-meta">
+        <span class="school-badge">枢机阁</span>
+        <span class="skill-name">PRD Generator</span>
+        <span class="card-time">2h ago</span>
+      </div>
+      <div class="card-title">PRD 应该精简到 3 个核心模块，砍掉废话</div>
+      <div class="card-challenger">
+        <div class="challenger-avatar">李</div>
+        <span class="challenger-name">@liwei_pm</span>
+        <span class="challenger-rank">· 宗师</span>
+      </div>
+
+      <div class="challenge-detail">
+        <div class="detail-old">
+          <div class="detail-label">原方案 · Original</div>
+          标准格式，包含背景、功能、流程、边界条件、验收标准等 10 个模块。结构完整但冗长，AI 执行时容易迷失重点。
+        </div>
+        <div class="detail-new">
+          <div class="detail-label">挑战方案 · Challenge</div>
+          精简为 3 个核心：<strong style="color:var(--gold-light)">Problem → Solution → Flow</strong>。去掉模板废话，让 Agent 专注于最关键的决策点，输出更快更准。
+        </div>
+      </div>
+
+      <div class="vote-section">
+        <div class="vote-bar-wrap">
+          <div class="vote-agree" style="width: 68%"></div>
+          <div class="vote-disagree"></div>
+        </div>
+        <div class="vote-counts">
+          <span class="vote-agree-count">✅ Agree 142</span>
+          <span class="vote-total">208 votes</span>
+          <span class="vote-disagree-count">66 Disagree ❌</span>
+        </div>
+      </div>
+
+      <div class="vote-buttons">
+        <button class="btn-agree">✅ 支持新方案</button>
+        <button class="btn-disagree">❌ 支持原方案</button>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="challenge-card">
+      <div class="card-meta">
+        <span class="school-badge">天机阁</span>
+        <span class="skill-name">Viral Growth Strategy</span>
+        <span class="card-time">5h ago</span>
+      </div>
+      <div class="card-title">增长策略应该优先考虑留存而非拉新</div>
+      <div class="card-challenger">
+        <div class="challenger-avatar">陈</div>
+        <span class="challenger-name">@chen_growth</span>
+        <span class="challenger-rank">· 行者</span>
+      </div>
+      <div class="vote-section">
+        <div class="vote-bar-wrap">
+          <div class="vote-agree" style="width: 44%"></div>
+          <div class="vote-disagree"></div>
+        </div>
+        <div class="vote-counts">
+          <span class="vote-agree-count">✅ Agree 58</span>
+          <span class="vote-total">132 votes</span>
+          <span class="vote-disagree-count">74 Disagree ❌</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 — WON -->
+    <div class="challenge-card won">
+      <div class="card-meta">
+        <span class="school-badge">丹青阁</span>
+        <span class="skill-name">Frontend Design</span>
+        <span class="card-time">2d ago</span>
+      </div>
+      <div class="card-title">设计 Skill 应内置 dark mode 规范，不能只给 light</div>
+      <div class="card-challenger">
+        <div class="challenger-avatar">王</div>
+        <span class="challenger-name">@wangdesign</span>
+        <span class="challenger-rank">· 宗师</span>
+      </div>
+      <div class="vote-section">
+        <div class="vote-bar-wrap">
+          <div class="vote-agree" style="width: 82%"></div>
+          <div class="vote-disagree"></div>
+        </div>
+        <div class="vote-counts">
+          <span class="vote-agree-count">✅ Agree 319</span>
+          <span class="vote-total">389 votes</span>
+          <span class="vote-disagree-count">70 Disagree ❌</span>
+        </div>
+      </div>
+      <div style="margin-top:0.75rem; font-size:11px; color:var(--gold); letter-spacing:1px;">
+        ✦ Revised by @wangdesign · Skill updated 2 days ago
+      </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="challenge-card">
+      <div class="card-meta">
+        <span class="school-badge">铸造坊</span>
+        <span class="skill-name">Code Review</span>
+        <span class="card-time">1d ago</span>
+      </div>
+      <div class="card-title">Code review skill 应强制要求输出可执行的改动建议，不只是评论</div>
+      <div class="card-challenger">
+        <div class="challenger-avatar">Z</div>
+        <span class="challenger-name">@zh_dev</span>
+        <span class="challenger-rank">· 行者</span>
+      </div>
+      <div class="vote-section">
+        <div class="vote-bar-wrap">
+          <div class="vote-agree" style="width: 61%"></div>
+          <div class="vote-disagree"></div>
+        </div>
+        <div class="vote-counts">
+          <span class="vote-agree-count">✅ Agree 89</span>
+          <span class="vote-total">146 votes</span>
+          <span class="vote-disagree-count">57 Disagree ❌</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <a class="kick-btn" href="#">⚔ 发起踢馆</a>
+    <p class="kick-btn-note">仅限掌门 / 宗师</p>
+
+    <div class="divider">· · ·</div>
+
+    <!-- LEADERBOARD -->
+    <div class="sidebar-section">
+      <div class="sidebar-title">高手榜 · Top Challengers</div>
+      <div class="leaderboard-item">
+        <span class="lb-rank top">1</span>
+        <div class="lb-avatar">王</div>
+        <div class="lb-info">
+          <div class="lb-name">@wangdesign</div>
+          <div class="lb-school">丹青阁 · 宗师</div>
+        </div>
+        <span class="lb-score">1240</span>
+      </div>
+      <div class="leaderboard-item">
+        <span class="lb-rank top">2</span>
+        <div class="lb-avatar">李</div>
+        <div class="lb-info">
+          <div class="lb-name">@liwei_pm</div>
+          <div class="lb-school">枢机阁 · 宗师</div>
+        </div>
+        <span class="lb-score">980</span>
+      </div>
+      <div class="leaderboard-item">
+        <span class="lb-rank">3</span>
+        <div class="lb-avatar">陈</div>
+        <div class="lb-info">
+          <div class="lb-name">@chen_growth</div>
+          <div class="lb-school">天机阁 · 行者</div>
+        </div>
+        <span class="lb-score">640</span>
+      </div>
+      <div class="leaderboard-item">
+        <span class="lb-rank">4</span>
+        <div class="lb-avatar">Z</div>
+        <div class="lb-info">
+          <div class="lb-name">@zh_dev</div>
+          <div class="lb-school">铸造坊 · 行者</div>
+        </div>
+        <span class="lb-score">420</span>
+      </div>
+    </div>
+
+    <!-- SCHOOL STANDINGS -->
+    <div class="sidebar-section">
+      <div class="sidebar-title">门派排行 · School Ranking</div>
+      <div class="school-standing">
+        <div class="school-standing-top">
+          <span class="school-standing-name">丹青阁 Ink Temple</span>
+          <span class="school-standing-score">1240</span>
+        </div>
+        <div class="school-bar"><div class="school-bar-fill" style="width:100%"></div></div>
+      </div>
+      <div class="school-standing">
+        <div class="school-standing-top">
+          <span class="school-standing-name">枢机阁 Pivot Bureau</span>
+          <span class="school-standing-score">980</span>
+        </div>
+        <div class="school-bar"><div class="school-bar-fill" style="width:79%"></div></div>
+      </div>
+      <div class="school-standing">
+        <div class="school-standing-top">
+          <span class="school-standing-name">铸造坊 The Forge</span>
+          <span class="school-standing-score">760</span>
+        </div>
+        <div class="school-bar"><div class="school-bar-fill" style="width:61%"></div></div>
+      </div>
+      <div class="school-standing">
+        <div class="school-standing-top">
+          <span class="school-standing-name">天机阁 Oracle House</span>
+          <span class="school-standing-score">640</span>
+        </div>
+        <div class="school-bar"><div class="school-bar-fill" style="width:52%"></div></div>
+      </div>
+      <div class="school-standing">
+        <div class="school-standing-top">
+          <span class="school-standing-name">烟雨楼 Rain Pavilion</span>
+          <span class="school-standing-score">310</span>
+        </div>
+        <div class="school-bar"><div class="school-bar-fill" style="width:25%"></div></div>
+      </div>
+    </div>
+
+    <!-- RULES QUICK -->
+    <div class="sidebar-section">
+      <div class="sidebar-title">江湖规则 · Rules</div>
+      <div style="font-size:11px; color:rgba(245,237,216,0.35); line-height:1.9; letter-spacing:0.5px;">
+        <div>⚔ 宗师/掌门 发起踢馆</div>
+        <div>🗳 全员投票，48h 截止</div>
+        <div>✅ 超过 60% 支持视为胜出</div>
+        <div>✦ 胜出者永久署名 Skill</div>
+        <div>🏯 门派积累踢馆积分</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Filter tab interaction
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Card click to expand/collapse
+  document.querySelectorAll('.challenge-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.classList.contains('btn-agree') || e.target.classList.contains('btn-disagree')) return;
+      card.style.borderColor = 'var(--gold-light)';
+      setTimeout(() => card.style.borderColor = '', 300);
+    });
+  });
+</script>
+
+</body>
+</html>

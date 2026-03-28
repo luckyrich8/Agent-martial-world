@@ -973,8 +973,8 @@ textarea::placeholder {
     <ul class="nav-links">
       <li><a href="#" onclick="showHomePage()">Home</a></li>
       <li><a href="#schools">Schools</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#docs">Docs</a></li>
+      <li><a href="/jianghu.html">Jianghu</a></li>
+      <li><a href="#" style="color: var(--text-secondary); cursor: not-allowed; position: relative;">Our Stories <span style="font-size: 0.65rem; color: var(--accent-warm); margin-left: 0.25rem;">Coming Soon</span></a></li>
       <li><a href="#" onclick="toggleLanguage()" class="lang-toggle" id="langToggle">中文</a></li>
     </ul>
   </nav>
@@ -1095,6 +1095,25 @@ textarea::placeholder {
       </div>
     </div>
   </section>
+
+  <!-- Future Features Section -->
+  <section class="story-section" style="margin-top: 4rem;">
+    <div class="story-container" style="flex-direction: column; text-align: center; gap: 3rem;">
+      <div>
+        <h2 id="futureTitle" style="font-family: 'Cormorant', serif; font-size: 3rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1.5rem;">
+          The Jianghu Belongs to All.
+        </h2>
+        <div id="futureFeaturesContent" style="font-size: 1.1rem; color: var(--text-secondary); line-height: 2; max-width: 700px; margin: 0 auto;">
+          <p style="margin-bottom: 0.75rem;">🔜 Submit your skill to a school</p>
+          <p style="margin-bottom: 0.75rem;">🔜 Earn reputation, become a School Master</p>
+          <p>🔜 Unite your allies, found a new school</p>
+        </div>
+        <p id="comingSoonText" style="margin-top: 2rem; font-size: 0.95rem; color: var(--accent-warm); font-style: italic;">
+          Coming Soon
+        </p>
+      </div>
+    </div>
+  </section>
 </main>
 
 <!-- School Detail Page -->
@@ -1104,6 +1123,9 @@ textarea::placeholder {
       <div class="school-name-en" id="detailSchoolNameEn"></div>
       <div class="school-name-zh" id="detailSchoolNameZh"></div>
       <p class="school-detail-desc" id="detailSchoolDesc"></p>
+      <button class="school-enter-btn" id="submitSkillBtn" style="margin-top: 2rem; cursor: not-allowed; opacity: 0.6;" disabled>
+        <span id="submitSkillBtnText">Submit Your Skill</span> <span style="font-size: 0.75rem; color: var(--accent-warm); margin-left: 0.5rem;" id="submitSkillBtnTag">Coming Soon</span>
+      </button>
     </div>
 
     <h3 class="disciplines-title" id="disciplinesTitle">Core Disciplines</h3>
@@ -1180,6 +1202,14 @@ const i18n = {
     backToSchools: '← Back to Schools',
     useSkill: 'Use Skill',
     notAvailable: 'Not Available',
+    futureTitle: 'The Jianghu Belongs to All.',
+    futureFeatures: [
+      '🔜 Submit your skill to a school',
+      '🔜 Earn reputation, become a School Master',
+      '🔜 Unite your allies, found a new school'
+    ],
+    comingSoon: 'Coming Soon',
+    submitSkillBtn: 'Submit Your Skill',
     cancel: 'Cancel',
     invokeSkill: 'Invoke Skill',
     returnToSchool: '← Return to School',
@@ -1212,6 +1242,14 @@ const i18n = {
     skillsNotice: '暂无已收录技能，后续将持续更新专属技能',
     enterSchool: '进入门派',
     backToSchools: '← 返回门派列表',
+    futureTitle: '江湖从不属于一人。',
+    futureFeatures: [
+      '🔜 向门派投递你的 skill',
+      '🔜 积累声望，成为门派掌门',
+      '🔜 召集同道，创建新门派'
+    ],
+    comingSoon: '敬请期待',
+    submitSkillBtn: '投递 Skill',
     useSkill: '使用技能',
     notAvailable: '暂不可用',
     cancel: '取消',
@@ -1481,14 +1519,30 @@ function displaySkills(skills) {
     const emoji = skillEmojis[skill.skill_id] || '🎯';
     const keywords = skill.keywords ? skill.keywords.join(', ') : '';
     const source = skill.source || 'platform';
-    const sourceUrl = skill.source_url || '#';
+    const rawUrl = skill.source_url || '#';
 
-    const sourceDisplay = source === 'anthropic' ? '🔗 Anthropic Official' :
-                         source === 'marketingskills' ? '🔗 Marketing Skills' :
-                         '🔗 Platform';
+    // 转换 raw URL 到 GitHub 页面 URL
+    let githubUrl = rawUrl;
+    let sourceDisplay = 'Platform';
+
+    if (rawUrl.includes('raw.githubusercontent.com/anthropics/skills')) {
+      // https://raw.githubusercontent.com/anthropics/skills/main/skills/frontend-design/SKILL.md
+      // → https://github.com/anthropics/skills/tree/main/skills/frontend-design
+      const match = rawUrl.match(/raw\.githubusercontent\.com\/([^\/]+\/[^\/]+)\/([^\/]+)\/(.+)\/[^\/]+$/);
+      if (match) {
+        githubUrl = `https://github.com/${match[1]}/tree/${match[2]}/${match[3]}`;
+      }
+      sourceDisplay = 'anthropics/skills';
+    } else if (rawUrl.includes('raw.githubusercontent.com/coreyhaines31/marketingskills')) {
+      const match = rawUrl.match(/raw\.githubusercontent\.com\/([^\/]+\/[^\/]+)\/([^\/]+)\/(.+)$/);
+      if (match) {
+        githubUrl = `https://github.com/${match[1]}/blob/${match[2]}/${match[3]}`;
+      }
+      sourceDisplay = 'coreyhaines31/marketingskills';
+    }
 
     return `
-      <div class="skill-card" onclick="openSkillModal('${skill.skill_id}', ${JSON.stringify(skill).replace(/"/g, '&quot;')})">
+      <div class="skill-card">
         <div class="skill-icon">${emoji}</div>
         <div class="skill-content">
           <div class="skill-name-zh">${skillName}</div>
@@ -1496,7 +1550,7 @@ function displaySkills(skills) {
           <div class="skill-meta">
             <div class="skill-meta-item">
               <span class="skill-meta-label">Source</span>
-              <span class="skill-meta-value"><a href="${sourceUrl}" target="_blank" style="color: var(--accent-warm); text-decoration: none;">${sourceDisplay}</a></span>
+              <span class="skill-meta-value"><a href="${githubUrl}" target="_blank" onclick="event.stopPropagation()" style="color: var(--accent-warm); text-decoration: none; cursor: pointer;">${sourceDisplay}</a></span>
             </div>
             <div class="skill-meta-item">
               <span class="skill-meta-label">Keywords</span>
@@ -1505,7 +1559,7 @@ function displaySkills(skills) {
           </div>
         </div>
         <div class="skill-action">
-          <button class="skill-use-btn">${t.useSkill}</button>
+          <button class="skill-use-btn" onclick="openSkillModal('${skill.skill_id}', ${JSON.stringify(skill).replace(/"/g, '&quot;')})">${t.useSkill}</button>
         </div>
       </div>
     `;
@@ -1683,6 +1737,18 @@ function updateUILanguage() {
   // 更新返回按钮
   document.querySelector('.back-to-schools-btn').textContent = t.backToSchools;
   document.getElementById('backBtn').textContent = t.returnToSchool;
+
+  // 更新 Future Features 区块
+  document.getElementById('futureTitle').textContent = t.futureTitle;
+  const featuresContent = t.futureFeatures.map(f => `<p style="margin-bottom: 0.75rem;">${f}</p>`).join('');
+  document.getElementById('futureFeaturesContent').innerHTML = featuresContent;
+  document.getElementById('comingSoonText').textContent = t.comingSoon;
+
+  // 更新门派详情页的 Submit Skill 按钮
+  const submitSkillBtnText = document.getElementById('submitSkillBtnText');
+  const submitSkillBtnTag = document.getElementById('submitSkillBtnTag');
+  if (submitSkillBtnText) submitSkillBtnText.textContent = t.submitSkillBtn;
+  if (submitSkillBtnTag) submitSkillBtnTag.textContent = t.comingSoon;
 }
 
 // 更新门派卡片
