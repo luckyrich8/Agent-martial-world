@@ -1526,7 +1526,7 @@ function displaySkills(skills) {
                          '🔗 Platform';
 
     return `
-      <div class="skill-card" onclick="openSkillModal('${skill.skill_id}', ${JSON.stringify(skill).replace(/"/g, '&quot;')})">
+      <div class="skill-card">
         <div class="skill-icon">${emoji}</div>
         <div class="skill-content">
           <div class="skill-name-zh">${skillName}</div>
@@ -1534,7 +1534,7 @@ function displaySkills(skills) {
           <div class="skill-meta">
             <div class="skill-meta-item">
               <span class="skill-meta-label">Source</span>
-              <span class="skill-meta-value"><a href="${sourceUrl}" target="_blank" style="color: var(--accent-warm); text-decoration: none;">${sourceDisplay}</a></span>
+              <span class="skill-meta-value"><a href="${sourceUrl}" target="_blank" onclick="event.stopPropagation()" style="color: var(--accent-warm); text-decoration: none; cursor: pointer;">${sourceDisplay}</a></span>
             </div>
             <div class="skill-meta-item">
               <span class="skill-meta-label">Keywords</span>
@@ -1543,7 +1543,7 @@ function displaySkills(skills) {
           </div>
         </div>
         <div class="skill-action">
-          <button class="skill-use-btn">${t.useSkill}</button>
+          <button class="skill-use-btn" onclick="openSkillModal('${skill.skill_id}', ${JSON.stringify(skill).replace(/"/g, '&quot;')})">${t.useSkill}</button>
         </div>
       </div>
     `;
