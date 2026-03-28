@@ -630,31 +630,32 @@
     <li><a href="/#schools">Schools</a></li>
     <li><a href="/jianghu.html" class="active">Jianghu</a></li>
     <li><a href="#" class="coming-soon">Our Stories <span class="coming-soon-tag">Soon</span></a></li>
+    <li><a href="#" onclick="toggleLanguage(); return false;" style="color: var(--gold); cursor: pointer;" id="langToggle">中文</a></li>
   </ul>
 </nav>
 
 <!-- PAGE HEADER -->
 <div class="page-header">
-  <div class="page-breadcrumb">Jianghu · 江湖</div>
-  <h1 class="page-title">踢馆场</h1>
-  <p class="page-subtitle">JIANGHU CHALLENGE</p>
-  <p class="page-slogan">踢馆以精进武学，你的视野，成为标准。<br>Kick the hall to improve the skill. Your vision becomes the standard.</p>
+  <div class="page-breadcrumb" id="breadcrumb">Jianghu</div>
+  <h1 class="page-title" id="pageTitle">Challenge Arena</h1>
+  <p class="page-subtitle" id="pageSubtitle">JIANGHU CHALLENGE</p>
+  <p class="page-slogan" id="pageSlogan">Kick the hall to improve the skill. Your vision becomes the standard.</p>
   <div class="stats-bar">
     <div class="stat">
       <span class="stat-num">12</span>
-      <span class="stat-label">Active Challenges</span>
+      <span class="stat-label" id="statActive">Active Challenges</span>
     </div>
     <div class="stat">
       <span class="stat-num">847</span>
-      <span class="stat-label">Total Votes</span>
+      <span class="stat-label" id="statVotes">Total Votes</span>
     </div>
     <div class="stat">
       <span class="stat-num">3</span>
-      <span class="stat-label">Skills Revised</span>
+      <span class="stat-label" id="statRevised">Skills Revised</span>
     </div>
     <div class="stat">
       <span class="stat-num">28</span>
-      <span class="stat-label">Challengers</span>
+      <span class="stat-label" id="statChallengers">Challengers</span>
     </div>
   </div>
 </div>
@@ -905,6 +906,84 @@
 </div>
 
 <script>
+  let currentLang = 'en'; // 默认英文
+
+  // 双语数据
+  const i18n = {
+    en: {
+      breadcrumb: 'Jianghu',
+      pageTitle: 'Challenge Arena',
+      pageSubtitle: 'JIANGHU CHALLENGE',
+      pageSlogan: 'Kick the hall to improve the skill. Your vision becomes the standard.',
+      statActive: 'Active Challenges',
+      statVotes: 'Total Votes',
+      statRevised: 'Skills Revised',
+      statChallengers: 'Challengers',
+      feedTitle: 'Current Challenges',
+      kickBtn: '⚔ Start Challenge',
+      kickNote: 'Masters only',
+      leaderboardTitle: 'Top Challengers',
+      schoolRankingTitle: 'School Ranking',
+      rulesTitle: 'Rules'
+    },
+    zh: {
+      breadcrumb: 'Jianghu · 江湖',
+      pageTitle: '踢馆场',
+      pageSubtitle: '江湖挑战',
+      pageSlogan: '踢馆以精进武学，你的视野，成为标准。',
+      statActive: '进行中',
+      statVotes: '总票数',
+      statRevised: '已修订技能',
+      statChallengers: '挑战者',
+      feedTitle: 'Current Challenges · 进行中',
+      kickBtn: '⚔ 发起踢馆',
+      kickNote: '仅限掌门 / 宗师',
+      leaderboardTitle: '高手榜 · Top Challengers',
+      schoolRankingTitle: '门派排行 · School Ranking',
+      rulesTitle: '江湖规则 · Rules'
+    }
+  };
+
+  // 切换语言
+  function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'zh' : 'en';
+    document.getElementById('langToggle').textContent = currentLang === 'en' ? '中文' : 'EN';
+    updateUILanguage();
+  }
+
+  // 更新UI语言
+  function updateUILanguage() {
+    const t = i18n[currentLang];
+
+    // 页面头部
+    document.getElementById('breadcrumb').textContent = t.breadcrumb;
+    document.getElementById('pageTitle').textContent = t.pageTitle;
+    document.getElementById('pageSubtitle').textContent = t.pageSubtitle;
+    document.getElementById('pageSlogan').textContent = t.pageSlogan;
+
+    // 统计标签
+    document.getElementById('statActive').textContent = t.statActive;
+    document.getElementById('statVotes').textContent = t.statVotes;
+    document.getElementById('statRevised').textContent = t.statRevised;
+    document.getElementById('statChallengers').textContent = t.statChallengers;
+
+    // Feed 标题
+    const feedTitle = document.querySelector('.feed-title');
+    if (feedTitle) feedTitle.textContent = t.feedTitle;
+
+    // 侧边栏
+    const kickBtn = document.querySelector('.kick-btn');
+    if (kickBtn) kickBtn.textContent = t.kickBtn;
+
+    const kickNote = document.querySelector('.kick-btn-note');
+    if (kickNote) kickNote.textContent = t.kickNote;
+
+    const sidebarTitles = document.querySelectorAll('.sidebar-title');
+    if (sidebarTitles[0]) sidebarTitles[0].textContent = t.leaderboardTitle;
+    if (sidebarTitles[1]) sidebarTitles[1].textContent = t.schoolRankingTitle;
+    if (sidebarTitles[2]) sidebarTitles[2].textContent = t.rulesTitle;
+  }
+
   // Filter tab interaction
   document.querySelectorAll('.filter-tab').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -920,6 +999,11 @@
       card.style.borderColor = 'var(--gold-light)';
       setTimeout(() => card.style.borderColor = '', 300);
     });
+  });
+
+  // 页面加载时初始化语言
+  window.addEventListener('DOMContentLoaded', () => {
+    updateUILanguage();
   });
 </script>
 
