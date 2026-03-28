@@ -19,7 +19,7 @@
       "source": "pm-skills",
       "source_url": "https://raw.githubusercontent.com/deanpeters/Product-Manager-Skills/main/skills/jobs-to-be-done/SKILL.md",
       "description": "Jobs-to-be-Done framework for understanding customer needs",
-      "keywords": ["jtbd", "jobs", "customer", "need", "analysis", "requirement", "user"],
+      "keywords": ["需求分析", "用户需求", "客户需求", "痛点", "动机", "场景", "为什么买", "need", "requirement", "user", "customer", "pain", "motivation", "why", "scenario"],
       "priority": 10
     },
     {
