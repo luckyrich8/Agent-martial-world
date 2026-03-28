@@ -8,7 +8,18 @@
       "source": "anthropic",
       "source_url": "https://raw.githubusercontent.com/anthropics/skills/main/skills/doc-coauthoring/SKILL.md",
       "description": "Collaborate on professional documents with structured workflows",
-      "keywords": ["document", "collaboration", "writing", "PRD", "documentation", "requirement", "planning", "breakdown"],
+      "keywords": ["document", "collaboration", "writing", "PRD", "documentation"],
+      "priority": 8
+    },
+    {
+      "skill_id": "s002",
+      "school_id": 1,
+      "name_en": "Jobs-to-be-Done",
+      "name_cn": "JTBD 分析术",
+      "source": "pm-skills",
+      "source_url": "https://raw.githubusercontent.com/deanpeters/Product-Manager-Skills/main/skills/jobs-to-be-done/SKILL.md",
+      "description": "Jobs-to-be-Done framework for understanding customer needs",
+      "keywords": ["jtbd", "jobs", "customer", "need", "analysis", "requirement", "user"],
       "priority": 10
     },
     {
