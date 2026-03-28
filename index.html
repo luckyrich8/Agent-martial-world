@@ -1519,11 +1519,27 @@ function displaySkills(skills) {
     const emoji = skillEmojis[skill.skill_id] || '🎯';
     const keywords = skill.keywords ? skill.keywords.join(', ') : '';
     const source = skill.source || 'platform';
-    const sourceUrl = skill.source_url || '#';
+    const rawUrl = skill.source_url || '#';
 
-    const sourceDisplay = source === 'anthropic' ? '🔗 Anthropic Official' :
-                         source === 'marketingskills' ? '🔗 Marketing Skills' :
-                         '🔗 Platform';
+    // 转换 raw URL 到 GitHub 页面 URL
+    let githubUrl = rawUrl;
+    let sourceDisplay = 'Platform';
+
+    if (rawUrl.includes('raw.githubusercontent.com/anthropics/skills')) {
+      // https://raw.githubusercontent.com/anthropics/skills/main/skills/frontend-design/SKILL.md
+      // → https://github.com/anthropics/skills/tree/main/skills/frontend-design
+      const match = rawUrl.match(/raw\.githubusercontent\.com\/([^\/]+\/[^\/]+)\/([^\/]+)\/(.+)\/[^\/]+$/);
+      if (match) {
+        githubUrl = `https://github.com/${match[1]}/tree/${match[2]}/${match[3]}`;
+      }
+      sourceDisplay = 'anthropics/skills';
+    } else if (rawUrl.includes('raw.githubusercontent.com/coreyhaines31/marketingskills')) {
+      const match = rawUrl.match(/raw\.githubusercontent\.com\/([^\/]+\/[^\/]+)\/([^\/]+)\/(.+)$/);
+      if (match) {
+        githubUrl = `https://github.com/${match[1]}/blob/${match[2]}/${match[3]}`;
+      }
+      sourceDisplay = 'coreyhaines31/marketingskills';
+    }
 
     return `
       <div class="skill-card">
@@ -1534,7 +1550,7 @@ function displaySkills(skills) {
           <div class="skill-meta">
             <div class="skill-meta-item">
               <span class="skill-meta-label">Source</span>
-              <span class="skill-meta-value"><a href="${sourceUrl}" target="_blank" onclick="event.stopPropagation()" style="color: var(--accent-warm); text-decoration: none; cursor: pointer;">${sourceDisplay}</a></span>
+              <span class="skill-meta-value"><a href="${githubUrl}" target="_blank" onclick="event.stopPropagation()" style="color: var(--accent-warm); text-decoration: none; cursor: pointer;">${sourceDisplay}</a></span>
             </div>
             <div class="skill-meta-item">
               <span class="skill-meta-label">Keywords</span>
