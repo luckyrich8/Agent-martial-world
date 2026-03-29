@@ -438,10 +438,19 @@ async def run_skill(req: SkillRunRequest, request: Request):
     if agent_info and agent_info.get("school_id"):
         school_id = agent_info["school_id"]
     elif not school_id:
-        raise HTTPException(
-            status_code=400,
-            detail="您尚未匹配门派，请先调用 /api/match-school 或在请求中指定 school_id"
-        )
+        # 尝试根据 user_task 自动匹配门派
+        role = identify_user_role(user_task)
+        if role != "unknown":
+            # 找到匹配的门派
+            matched_school = next((s for s in SCHOOLS_DATA if s["role"] == role), None)
+            if matched_school:
+                school_id = matched_school["id"]
+
+        if not school_id:
+            raise HTTPException(
+                status_code=400,
+                detail="无法确定门派。请在请求中指定 school_id (1-5)，或先调用 /api/match-school"
+            )
 
     # 检查门派是否存在
     school = next((s for s in SCHOOLS_DATA if s["id"] == school_id), None)
