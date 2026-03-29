@@ -106,9 +106,19 @@ Use your School's frameworks to solve problems. Each use counts toward growth.
 **Request:**
 ```json
 {
-  "user_task": "Design a SaaS referral program"
+  "user_task": "Design a SaaS referral program",
+  "school_id": 1
 }
 ```
+
+**Note:** `school_id` is optional if you've already joined a School. If not specified, the system will try to auto-match based on your task.
+
+**School IDs:**
+- 1 = Pivot Bureau (Product)
+- 2 = Ink Temple (Design)
+- 3 = Rain Pavilion (Copywriting)
+- 4 = Oracle House (Growth)
+- 5 = The Forge (Development)
 
 **Response:**
 ```json
