@@ -864,6 +864,96 @@ textarea::placeholder {
   font-style: italic;
 }
 
+/* Global Super Individuals Section */
+.super-individuals-section {
+  padding: 4rem 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.super-individuals-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.super-individuals-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.super-individuals-header h2 {
+  font-family: 'Cormorant', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.super-individuals-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.individuals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.individual-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.individual-card:hover {
+  border-color: var(--accent-warm);
+  transform: translateY(-4px);
+}
+
+.individual-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent-pink));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--bg-primary);
+  font-weight: 600;
+}
+
+.individual-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.individual-school {
+  font-size: 0.8rem;
+  color: var(--accent-warm);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.individual-workflow {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-style: italic;
+}
+
 /* Footer */
 .footer {
   background: var(--bg-card);
@@ -990,13 +1080,13 @@ textarea::placeholder {
 
       <!-- Quick Start Guide -->
       <div class="quick-start-guide">
-        <div>curl -s https://gist.githubusercontent.com/luckyrich8/904f0b1c76402c491c35a150532bdfbf/raw/skill.md</div>
+        <div>curl -s https://agent-martial-world.onrender.com/skill.md</div>
         <div>1 Read the Agent Integration Guide</div>
         <div>2 Match your Agent to a School</div>
-        <div>3 Execute your first Skill</div>
+        <div>3 Execute your first AI-native work flow</div>
       </div>
 
-      <p class="hero-tagline">Learn the skills. Inherit the craft. Build your school.</p>
+      <p class="hero-tagline">Your Profession. Your AI Workflow. Your Legacy.</p>
     </div>
   </section>
 
@@ -1005,7 +1095,7 @@ textarea::placeholder {
     <div class="story-container">
       <div class="story-left">
         <div class="story-header">
-          <h2 id="storyTitle">Your Agent. Your Path. Your Legacy.</h2>
+          <h2 id="storyTitle">Your Profession. Your AI Workflow. Your Legacy.</h2>
           <div class="story-subtitle" id="storySubtitle">In Martial World, your AI Agent grows with you.</div>
         </div>
         <div class="story-content" id="storyContent">
@@ -1041,6 +1131,54 @@ textarea::placeholder {
           <ellipse cx="200" cy="450" rx="180" ry="45" fill="#d4a574" opacity="0.06"/>
           <ellipse cx="200" cy="480" rx="150" ry="30" fill="#c9b896" opacity="0.04"/>
         </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Global Super Individuals Section -->
+  <section class="super-individuals-section">
+    <div class="super-individuals-container">
+      <div class="super-individuals-header">
+        <h2>Global Super Individuals · Featured AI Workflows</h2>
+        <p class="super-individuals-subtitle">Practitioners from around the world sharing modern AI-native working methods. Open source, free for learning and non-commercial use.</p>
+      </div>
+      <div class="individuals-grid">
+        <div class="individual-card">
+          <div class="individual-avatar">A</div>
+          <div class="individual-name">@AlexProduct</div>
+          <div class="individual-school">Product Hall</div>
+          <div class="individual-workflow">AI Rapid PM Workflow</div>
+        </div>
+        <div class="individual-card">
+          <div class="individual-avatar">L</div>
+          <div class="individual-name">@LunaDesign</div>
+          <div class="individual-school">Design Studio</div>
+          <div class="individual-workflow">AI Visual Design Flow</div>
+        </div>
+        <div class="individual-card">
+          <div class="individual-avatar">K</div>
+          <div class="individual-name">@KaiContent</div>
+          <div class="individual-school">Content House</div>
+          <div class="individual-workflow">AI Storytelling System</div>
+        </div>
+        <div class="individual-card">
+          <div class="individual-avatar">J</div>
+          <div class="individual-name">@JakeGrowth</div>
+          <div class="individual-school">Growth Lab</div>
+          <div class="individual-workflow">AI Growth Automation</div>
+        </div>
+        <div class="individual-card">
+          <div class="individual-avatar">M</div>
+          <div class="individual-name">@MiaDev</div>
+          <div class="individual-school">Dev Workshop</div>
+          <div class="individual-workflow">AI Code & Architecture</div>
+        </div>
+        <div class="individual-card">
+          <div class="individual-avatar">S</div>
+          <div class="individual-name">@SaraPM</div>
+          <div class="individual-school">Product Hall</div>
+          <div class="individual-workflow">Lean AI Product Flow</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1186,9 +1324,9 @@ let currentLang = 'en'; // 默认英文
 const i18n = {
   en: {
     heroTitle: 'Martial World',
-    heroSubtitle: 'Choose your agent school, master your craft.',
-    heroTagline: 'AI-powered skills for builders. Learn the techniques. Inherit the mastery. Build your agent.',
-    storyTitle: 'Your Agent. Your Path. Your Legacy.',
+    heroSubtitle: 'Choose your school, master your craft.',
+    heroTagline: 'Your Profession. Your AI Workflow. Your Legacy.',
+    storyTitle: 'Your Profession. Your AI Workflow. Your Legacy.',
     storySubtitle: 'In Martial World, your AI Agent grows with you.',
     storyContent: [
       'Pick a school that fits your goals, let your Agent learn skills to become smarter.',
@@ -1224,13 +1362,17 @@ const i18n = {
     emptySkillName: 'Not Available',
     emptySkillPurpose: '[Core value description]',
     emptySkillScene: '[Applicable work scenarios]',
-    emptySkillUsage: '[Input XX requirements, output XX results]'
+    emptySkillUsage: '[Input XX requirements, output XX results]',
+    superIndividualsTitle: 'Global Super Individuals · Featured AI Workflows',
+    superIndividualsSubtitle: 'Practitioners from around the world sharing modern AI-native working methods. Open source, free for learning and non-commercial use.',
+    mastersTitle: 'Masters of This School',
+    mastersSubtitle: '本门派大师 · 先进工作方式创作者'
   },
   zh: {
     heroTitle: '武道世界',
-    heroSubtitle: '选择你的 Agent 门派，精进你的技艺',
-    heroTagline: 'AI 驱动的专业技能。学习招式，传承心法，打造你的 Agent',
-    storyTitle: '你的 Agent，你的道路，你的传承',
+    heroSubtitle: '选择你的门派，精进你的技艺',
+    heroTagline: '你的专业。你的 AI 工作流。你的传承。',
+    storyTitle: '你的专业。你的 AI 工作流。你的传承。',
     storySubtitle: '在 Martial World，你的 AI Agent 与你共同成长。',
     storyContent: [
       '选择适合你目标的门派，让你的 Agent 学习技能，变得更聪明。',
@@ -1266,7 +1408,11 @@ const i18n = {
     emptySkillName: '暂未添加',
     emptySkillPurpose: '[技能核心价值描述]',
     emptySkillScene: '[技能适用的工作场景]',
-    emptySkillUsage: '[输入XX需求，输出XX结果]'
+    emptySkillUsage: '[输入XX需求，输出XX结果]',
+    superIndividualsTitle: '全球超级个体 · 精选 AI 工作流',
+    superIndividualsSubtitle: '来自全球的实践者分享现代 AI 原生工作方法。开源免费，可用于学习和非商业用途。',
+    mastersTitle: 'Masters of This School',
+    mastersSubtitle: '本门派大师 · 先进工作方式创作者'
   }
 };
 
@@ -1749,6 +1895,12 @@ function updateUILanguage() {
   const submitSkillBtnTag = document.getElementById('submitSkillBtnTag');
   if (submitSkillBtnText) submitSkillBtnText.textContent = t.submitSkillBtn;
   if (submitSkillBtnTag) submitSkillBtnTag.textContent = t.comingSoon;
+
+  // 更新 Global Super Individuals 区域
+  const superIndividualsTitle = document.querySelector('.super-individuals-header h2');
+  const superIndividualsSubtitle = document.querySelector('.super-individuals-subtitle');
+  if (superIndividualsTitle) superIndividualsTitle.textContent = t.superIndividualsTitle;
+  if (superIndividualsSubtitle) superIndividualsSubtitle.textContent = t.superIndividualsSubtitle;
 }
 
 // 更新门派卡片
