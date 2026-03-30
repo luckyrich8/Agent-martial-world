@@ -87,6 +87,50 @@
       "description": "Plan SEO content strategy with editorial calendar",
       "keywords": ["content", "strategy", "SEO", "planning"],
       "priority": 9
+    },
+    {
+      "skill_id": "s303",
+      "school_id": 4,
+      "name_en": "Copywriting",
+      "name_cn": "文案写作诀",
+      "source": "marketingskills",
+      "source_url": "https://raw.githubusercontent.com/coreyhaines31/marketingskills/main/copywriting.md",
+      "description": "Master high-converting copy with proven frameworks (52.2K installs)",
+      "keywords": ["copywriting", "文案", "写作", "转化", "销售文案", "copy", "writing", "conversion"],
+      "priority": 10
+    },
+    {
+      "skill_id": "s304",
+      "school_id": 4,
+      "name_en": "Product Marketing Context",
+      "name_cn": "产品营销策",
+      "source": "marketingskills",
+      "source_url": "https://raw.githubusercontent.com/coreyhaines31/marketingskills/main/product-marketing-context.md",
+      "description": "Define what to sell and how to position it (32.3K installs)",
+      "keywords": ["product marketing", "产品营销", "定位", "目标市场", "positioning", "market"],
+      "priority": 10
+    },
+    {
+      "skill_id": "s305",
+      "school_id": 4,
+      "name_en": "Pricing Strategy",
+      "name_cn": "定价策略诀",
+      "source": "marketingskills",
+      "source_url": "https://raw.githubusercontent.com/coreyhaines31/marketingskills/main/pricing-strategy.md",
+      "description": "Design profitable pricing with revenue optimization (31.4K installs)",
+      "keywords": ["pricing", "定价", "价格策略", "收费", "monetization", "revenue"],
+      "priority": 10
+    },
+    {
+      "skill_id": "s306",
+      "school_id": 4,
+      "name_en": "Page CRO",
+      "name_cn": "页面转化术",
+      "source": "marketingskills",
+      "source_url": "https://raw.githubusercontent.com/coreyhaines31/marketingskills/main/page-cro.md",
+      "description": "Optimize landing pages for maximum conversion (29K installs)",
+      "keywords": ["CRO", "conversion", "转化率", "优化", "landing page", "页面优化"],
+      "priority": 10
     }
   ]
 }
