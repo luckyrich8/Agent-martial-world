@@ -469,6 +469,150 @@ header {
   color: var(--text-primary);
 }
 
+/* Masters Section */
+.masters-section {
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.masters-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.masters-header h3 {
+  font-family: 'Cormorant', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.masters-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.masters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.master-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 2.5rem 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.master-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent-warm), var(--accent-pink));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.master-card:hover {
+  border-color: var(--accent-warm);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(212, 165, 116, 0.1);
+}
+
+.master-card:hover::before {
+  opacity: 1;
+}
+
+.master-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.master-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent-pink));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  color: var(--bg-primary);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.master-info {
+  flex: 1;
+}
+
+.master-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.master-title {
+  font-size: 0.85rem;
+  color: var(--accent-warm);
+  font-style: italic;
+}
+
+.master-workflow-name {
+  font-family: 'Cormorant', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.master-workflow-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.master-source {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05em;
+}
+
+.master-use-btn {
+  background: transparent;
+  border: 1px solid var(--accent-warm);
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.master-use-btn:hover {
+  background: rgba(212, 165, 116, 0.1);
+  border-color: var(--accent-pink);
+  color: var(--accent-warm);
+}
+
 .skills-notice {
   text-align: center;
   font-size: 0.9rem;
@@ -1266,6 +1410,17 @@ textarea::placeholder {
       </button>
     </div>
 
+    <!-- Masters Section -->
+    <div class="masters-section" id="mastersSection">
+      <div class="masters-header">
+        <h3 id="mastersTitle">Masters of This School</h3>
+        <p class="masters-subtitle" id="mastersSubtitle">本门派大师 · 先进工作方式创作者</p>
+      </div>
+      <div class="masters-grid" id="mastersGrid">
+        <!-- Masters will be dynamically loaded -->
+      </div>
+    </div>
+
     <h3 class="disciplines-title" id="disciplinesTitle">Core Disciplines</h3>
 
     <div class="skills-notice" id="skillsNotice" style="display: none;">
@@ -1366,7 +1521,8 @@ const i18n = {
     superIndividualsTitle: 'Global Super Individuals · Featured AI Workflows',
     superIndividualsSubtitle: 'Practitioners from around the world sharing modern AI-native working methods. Open source, free for learning and non-commercial use.',
     mastersTitle: 'Masters of This School',
-    mastersSubtitle: '本门派大师 · 先进工作方式创作者'
+    mastersSubtitle: 'Advanced workflow creators of this school',
+    useWorkflow: 'Use This Workflow'
   },
   zh: {
     heroTitle: '武道世界',
@@ -1411,9 +1567,78 @@ const i18n = {
     emptySkillUsage: '[输入XX需求，输出XX结果]',
     superIndividualsTitle: '全球超级个体 · 精选 AI 工作流',
     superIndividualsSubtitle: '来自全球的实践者分享现代 AI 原生工作方法。开源免费，可用于学习和非商业用途。',
-    mastersTitle: 'Masters of This School',
-    mastersSubtitle: '本门派大师 · 先进工作方式创作者'
+    mastersTitle: '本门派大师',
+    mastersSubtitle: '先进工作方式创作者',
+    useWorkflow: '使用此工作流'
   }
+};
+
+// 门派大师数据
+const schoolMasters = {
+  'pivot-bureau': [
+    {
+      id: 'm001',
+      avatar: 'A',
+      name: '@AlexProduct',
+      title: 'AI Product Expert',
+      workflowName: 'AI Rapid PM Workflow',
+      workflowDesc: 'A new AI-native way to build products without long docs or slow research. Go from idea → insight → prototype in minutes.',
+      source: 'Open Source · Free to use'
+    },
+    {
+      id: 'm002',
+      avatar: 'S',
+      name: '@SaraPM',
+      title: 'Lean Product Strategist',
+      workflowName: 'Lean AI Product Flow',
+      workflowDesc: 'Build products with minimal waste using AI to validate assumptions and iterate faster. From problem to solution in days, not months.',
+      source: 'Open Source · Free to use'
+    }
+  ],
+  'ink-temple': [
+    {
+      id: 'm101',
+      avatar: 'L',
+      name: '@LunaDesign',
+      title: 'AI Visual Designer',
+      workflowName: 'AI Visual Design Flow',
+      workflowDesc: 'Create stunning visual systems with AI assistance. Transform rough concepts into polished designs with intelligent iteration.',
+      source: 'Open Source · Free to use'
+    }
+  ],
+  'rain-pavilion': [
+    {
+      id: 'm201',
+      avatar: 'K',
+      name: '@KaiContent',
+      title: 'AI Storytelling Expert',
+      workflowName: 'AI Storytelling System',
+      workflowDesc: 'Craft compelling narratives with AI-powered research and structure. Turn data into stories that resonate and convert.',
+      source: 'Open Source · Free to use'
+    }
+  ],
+  'oracle-house': [
+    {
+      id: 'm301',
+      avatar: 'J',
+      name: '@JakeGrowth',
+      title: 'AI Growth Hacker',
+      workflowName: 'AI Growth Automation',
+      workflowDesc: 'Scale your growth with AI-driven experiments and automation. Test, learn, and optimize 10x faster than traditional methods.',
+      source: 'Open Source · Free to use'
+    }
+  ],
+  'the-forge': [
+    {
+      id: 'm401',
+      avatar: 'M',
+      name: '@MiaDev',
+      title: 'AI Code Architect',
+      workflowName: 'AI Code & Architecture',
+      workflowDesc: 'Build robust systems with AI-assisted architecture and code review. Ship faster without compromising quality or maintainability.',
+      source: 'Open Source · Free to use'
+    }
+  ]
 };
 
 // 门派数据
@@ -1595,6 +1820,9 @@ async function openSchool(schoolId) {
   homePage.style.display = 'none';
   schoolDetailPage.classList.add('show');
 
+  // 显示大师
+  displayMasters(schoolId);
+
   // 加载技能
   if (school.hasSkills) {
     loadSkills(schoolId);
@@ -1607,6 +1835,41 @@ async function openSchool(schoolId) {
       : `${schoolName}${t.skillsNotice}`;
     displayEmptySkills();
   }
+}
+
+// 显示门派大师
+function displayMasters(schoolId) {
+  const t = i18n[currentLang];
+  const mastersGrid = document.getElementById('mastersGrid');
+  const masters = schoolMasters[schoolId] || [];
+
+  if (masters.length === 0) {
+    document.getElementById('mastersSection').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('mastersSection').style.display = 'block';
+
+  mastersGrid.innerHTML = masters.map(master => `
+    <div class="master-card">
+      <div class="master-header">
+        <div class="master-avatar">${master.avatar}</div>
+        <div class="master-info">
+          <div class="master-name">${master.name}</div>
+          <div class="master-title">${master.title}</div>
+        </div>
+      </div>
+      <div class="master-workflow-name">${master.workflowName}</div>
+      <div class="master-workflow-desc">${master.workflowDesc}</div>
+      <div class="master-source">${master.source}</div>
+      <button class="master-use-btn" onclick="openMasterWorkflow('${master.id}')">Use This Workflow</button>
+    </div>
+  `).join('');
+}
+
+// 打开大师工作流（暂时提示Coming Soon）
+function openMasterWorkflow(masterId) {
+  alert('Coming Soon: Master workflows will be available in the next update!');
 }
 
 // 加载技能（从后端 API）
@@ -1901,6 +2164,18 @@ function updateUILanguage() {
   const superIndividualsSubtitle = document.querySelector('.super-individuals-subtitle');
   if (superIndividualsTitle) superIndividualsTitle.textContent = t.superIndividualsTitle;
   if (superIndividualsSubtitle) superIndividualsSubtitle.textContent = t.superIndividualsSubtitle;
+
+  // 更新 Masters 区域
+  const mastersTitle = document.getElementById('mastersTitle');
+  const mastersSubtitle = document.getElementById('mastersSubtitle');
+  if (mastersTitle) mastersTitle.textContent = t.mastersTitle;
+  if (mastersSubtitle) mastersSubtitle.textContent = t.mastersSubtitle;
+
+  // 更新 Use Workflow 按钮
+  const workflowBtns = document.querySelectorAll('.master-use-btn');
+  workflowBtns.forEach(btn => {
+    btn.textContent = t.useWorkflow;
+  });
 }
 
 // 更新门派卡片
