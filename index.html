@@ -432,8 +432,8 @@ header {
 
 .school-detail-header {
   text-align: center;
-  margin-bottom: 4rem;
-  padding-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
@@ -442,10 +442,10 @@ header {
 
 .school-detail-header .school-name-en {
   font-family: 'Cormorant', serif;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .school-detail-header .school-name-zh {
@@ -453,7 +453,7 @@ header {
   font-weight: 400;
   color: var(--accent-warm);
   letter-spacing: 0.1em;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 .school-detail-desc {
@@ -466,25 +466,46 @@ header {
   order: 3;
 }
 
+.disciplines-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+}
+
 .disciplines-title {
   font-family: 'Cormorant', serif;
   font-size: 2rem;
   font-weight: 400;
-  text-align: center;
-  margin-bottom: 1.5rem;
   color: var(--text-primary);
+  margin: 0;
+}
+
+.submit-skill-top-btn {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: not-allowed;
+  opacity: 0.5;
+  transition: none;
 }
 
 /* Masters Section */
 .masters-section {
-  margin-bottom: 4rem;
-  padding-bottom: 3rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-subtle);
 }
 
 .masters-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
 }
 
 .masters-header h3 {
@@ -504,18 +525,18 @@ header {
 .masters-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
+  gap: 1.25rem;
 }
 
 .master-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  padding: 2.5rem 2rem;
+  padding: 1.5rem 1.25rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 0.85rem;
 }
 
 .master-card::before {
@@ -543,18 +564,18 @@ header {
 .master-header {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 .master-avatar {
-  width: 70px;
-  height: 70px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--accent-warm), var(--accent-pink));
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   color: var(--bg-primary);
   font-weight: 600;
   flex-shrink: 0;
@@ -579,23 +600,23 @@ header {
 
 .master-workflow-name {
   font-family: 'Cormorant', serif;
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .master-workflow-desc {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0.65rem;
 }
 
 .master-source {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.85rem;
   letter-spacing: 0.05em;
 }
 
@@ -1409,9 +1430,6 @@ textarea::placeholder {
       <div class="school-name-en" id="detailSchoolNameEn"></div>
       <div class="school-name-zh" id="detailSchoolNameZh"></div>
       <p class="school-detail-desc" id="detailSchoolDesc"></p>
-      <button class="school-enter-btn" id="submitSkillBtn" style="margin-top: 2rem; cursor: not-allowed; opacity: 0.6;" disabled>
-        <span id="submitSkillBtnText">Submit Your Skill</span> <span style="font-size: 0.75rem; color: var(--accent-warm); margin-left: 0.5rem;" id="submitSkillBtnTag">Coming Soon</span>
-      </button>
     </div>
 
     <!-- Masters Section -->
@@ -1425,7 +1443,12 @@ textarea::placeholder {
       </div>
     </div>
 
-    <h3 class="disciplines-title" id="disciplinesTitle">Core Disciplines</h3>
+    <div class="disciplines-title-wrapper">
+      <h3 class="disciplines-title" id="disciplinesTitle">Core Disciplines</h3>
+      <button class="submit-skill-top-btn" disabled>
+        <span id="submitSkillBtnText">Submit Your Skill</span> · <span style="color: var(--accent-warm);" id="submitSkillBtnTag">Coming Soon</span>
+      </button>
+    </div>
 
     <div class="skills-notice" id="skillsNotice" style="display: none;">
       No skills available yet. More disciplines will be added soon.
