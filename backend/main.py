@@ -595,6 +595,18 @@ async def get_skill_doc():
         raise HTTPException(status_code=404, detail="文档不存在")
 
 
+@app.get("/api/assessment/skill")
+async def get_assessment_skill():
+    """返回 AI 职场生存测评 Skill 文档"""
+    md_path = "static/assessment-skill.md"
+    if os.path.exists(md_path):
+        with open(md_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        return PlainTextResponse(content, media_type="text/markdown; charset=utf-8")
+    else:
+        raise HTTPException(status_code=404, detail="Assessment skill not found")
+
+
 @app.get("/api")
 async def api_info():
     """API 信息接口"""
