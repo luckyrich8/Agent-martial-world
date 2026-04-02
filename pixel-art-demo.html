@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel Art Style - Martial Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  background: #1a1a1a;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* 8-bit NES 配色 */
+:root {
+  --nes-red: #E76E55;
+  --nes-blue: #5B6EE1;
+  --nes-green: #63C74D;
+  --nes-yellow: #F7B731;
+  --nes-purple: #A77BCA;
+  --pixel-black: #0f0f0f;
+  --pixel-white: #fcfcfc;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header - 像素风格 */
+header {
+  background: var(--pixel-black);
+  border: 4px solid var(--nes-yellow);
+  box-shadow:
+    4px 0 0 var(--nes-yellow),
+    0 4px 0 var(--nes-yellow),
+    4px 4px 0 var(--nes-yellow),
+    8px 8px 0 rgba(247, 183, 49, 0.3);
+  padding: 16px;
+  margin-bottom: 32px;
+}
+
+.logo {
+  font-size: 12px;
+  color: var(--nes-yellow);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  letter-spacing: 2px;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 99% { opacity: 0.7; }
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.hero h1 {
+  font-size: 24px;
+  color: var(--nes-green);
+  text-shadow:
+    3px 3px 0 var(--pixel-black),
+    4px 4px 0 rgba(99, 199, 77, 0.5);
+  margin-bottom: 16px;
+  line-height: 1.6;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.hero-subtitle {
+  font-size: 8px;
+  color: var(--nes-blue);
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+/* 像素分割线 */
+.pixel-divider {
+  width: 100%;
+  height: 4px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--nes-yellow) 0px,
+      var(--nes-yellow) 8px,
+      transparent 8px,
+      transparent 16px
+    );
+  margin: 24px 0;
+  animation: scroll 2s linear infinite;
+}
+
+@keyframes scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 16px 0; }
+}
+
+/* Assessment Card - 像素风格 */
+.assessment-card {
+  background: var(--pixel-black);
+  border: 4px solid var(--nes-red);
+  box-shadow:
+    4px 0 0 var(--nes-red),
+    0 4px 0 var(--nes-red),
+    4px 4px 0 var(--nes-red),
+    8px 8px 0 rgba(231, 110, 85, 0.5);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 8-bit 像素装饰 */
+.assessment-card::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  background: var(--nes-yellow);
+  box-shadow:
+    0 16px 0 var(--nes-yellow),
+    0 32px 0 var(--nes-yellow);
+  animation: pixelBlink 1s infinite;
+}
+
+@keyframes pixelBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.assessment-badge {
+  display: inline-block;
+  background: var(--nes-purple);
+  color: var(--pixel-white);
+  font-size: 6px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  border: 2px solid var(--pixel-white);
+  box-shadow:
+    2px 0 0 var(--pixel-white),
+    0 2px 0 var(--pixel-white),
+    2px 2px 0 var(--pixel-white);
+  letter-spacing: 1px;
+}
+
+.assessment-title {
+  font-size: 16px;
+  color: var(--nes-yellow);
+  margin-bottom: 16px;
+  line-height: 1.6;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+}
+
+.assessment-desc {
+  font-size: 8px;
+  color: var(--nes-blue);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+/* 像素按钮 */
+.pixel-button {
+  background: var(--nes-green);
+  color: var(--pixel-black);
+  border: 4px solid var(--pixel-black);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  box-shadow:
+    4px 0 0 var(--pixel-black),
+    0 4px 0 var(--pixel-black),
+    4px 4px 0 var(--pixel-black);
+  transition: none;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.pixel-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow:
+    2px 0 0 var(--pixel-black),
+    0 2px 0 var(--pixel-black),
+    2px 2px 0 var(--pixel-black);
+}
+
+.pixel-button:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+/* 像素等级指示器 */
+.levels {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.level-pixel {
+  width: 24px;
+  height: 24px;
+  background: var(--nes-red);
+  border: 2px solid var(--pixel-white);
+  animation: levelPulse 2s infinite;
+}
+
+.level-pixel:nth-child(2) {
+  background: var(--nes-yellow);
+  animation-delay: 0.5s;
+}
+
+.level-pixel:nth-child(3) {
+  background: var(--nes-blue);
+  animation-delay: 1s;
+}
+
+.level-pixel:nth-child(4) {
+  background: var(--nes-purple);
+  animation-delay: 1.5s;
+}
+
+@keyframes levelPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Story Section */
+.story {
+  background: var(--pixel-black);
+  border: 4px solid var(--nes-blue);
+  box-shadow:
+    4px 0 0 var(--nes-blue),
+    0 4px 0 var(--nes-blue),
+    4px 4px 0 var(--nes-blue);
+  padding: 24px;
+  margin-top: 32px;
+}
+
+.story h2 {
+  font-size: 14px;
+  color: var(--nes-yellow);
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.story p {
+  font-size: 8px;
+  color: var(--pixel-white);
+  line-height: 1.8;
+}
+
+.style-label {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--nes-red);
+  color: var(--pixel-white);
+  padding: 8px 12px;
+  font-size: 8px;
+  border: 2px solid var(--pixel-white);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+}
+</style>
+</head>
+<body>
+
+<div class="style-label">PIXEL ART STYLE</div>
+
+<div class="container">
+  <header>
+    <div class="logo">▲ MARTIAL FLOW ▲</div>
+  </header>
+
+  <section class="hero">
+    <h1>WHERE AGENT<br>CAREERS BECOME<br>MARTIAL ARTS</h1>
+    <p class="hero-subtitle">The First Martial School<br>for AI Professional</p>
+
+    <div class="pixel-divider"></div>
+
+    <div class="assessment-card">
+      <div class="assessment-badge">灵根检定 · SURVIVAL TEST</div>
+      <h2 class="assessment-title">HOW LONG CAN<br>YOUR AGENT<br>SURVIVE AT WORK?</h2>
+      <p class="assessment-desc">CONNECT AGENT · 12 QUESTIONS<br>MORTAL OR ASCENDED</p>
+      <button class="pixel-button">▶ START TEST</button>
+
+      <div class="levels">
+        <div class="level-pixel"></div>
+        <div class="level-pixel"></div>
+        <div class="level-pixel"></div>
+        <div class="level-pixel"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="story">
+    <h2>AGENT WORKFLOW<br>PROFESSION · LEGACY</h2>
+    <p>Pick a school that fits your goals, let your Agent learn skills to become smarter. As it evolves, it amplifies your work and turns you into an expert.</p>
+  </section>
+</div>
+
+</body>
+</html>

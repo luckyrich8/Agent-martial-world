@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retro-Futurism Style - Martial Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 赛博朋克配色 */
+:root {
+  --neon-blue: #0080FF;
+  --neon-pink: #FF006E;
+  --neon-cyan: #00FFFF;
+  --neon-purple: #5D34D0;
+  --deep-black: #0a0a0f;
+  --dark-bg: #1A1A2E;
+}
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background: var(--deep-black);
+  color: var(--neon-cyan);
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* CRT 扫描线效果 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* 霓虹网格背景 */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 128, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 128, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header - 赛博朋克风格 */
+header {
+  background: rgba(26, 26, 46, 0.8);
+  border: 2px solid var(--neon-blue);
+  box-shadow:
+    0 0 20px rgba(0, 128, 255, 0.5),
+    inset 0 0 20px rgba(0, 128, 255, 0.1);
+  padding: 20px;
+  margin-bottom: 48px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(0, 128, 255, 0.1) 50%,
+    transparent 70%
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--neon-cyan);
+  text-shadow:
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 40px var(--neon-cyan);
+  letter-spacing: 4px;
+  animation: neonPulse 2s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 10px var(--neon-cyan),
+      0 0 20px var(--neon-cyan),
+      0 0 40px var(--neon-cyan);
+  }
+  50% {
+    text-shadow:
+      0 0 5px var(--neon-cyan),
+      0 0 10px var(--neon-cyan),
+      0 0 20px var(--neon-cyan);
+  }
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--neon-pink);
+  text-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink),
+    0 0 80px var(--neon-pink);
+  margin-bottom: 24px;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  animation: glitchTitle 5s infinite;
+}
+
+@keyframes glitchTitle {
+  0%, 90%, 100% {
+    transform: translate(0);
+    text-shadow:
+      0 0 10px var(--neon-pink),
+      0 0 20px var(--neon-pink),
+      0 0 40px var(--neon-pink);
+  }
+  92% {
+    transform: translate(-2px, 2px);
+    text-shadow:
+      2px 0 10px var(--neon-cyan),
+      0 0 20px var(--neon-pink),
+      -2px 0 40px var(--neon-blue);
+  }
+  94% {
+    transform: translate(2px, -2px);
+    text-shadow:
+      -2px 0 10px var(--neon-blue),
+      0 0 20px var(--neon-pink),
+      2px 0 40px var(--neon-cyan);
+  }
+}
+
+.hero-subtitle {
+  font-size: 14px;
+  color: var(--neon-blue);
+  text-shadow:
+    0 0 10px var(--neon-blue),
+    0 0 20px var(--neon-blue);
+  letter-spacing: 6px;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+}
+
+/* 霓虹分割线 */
+.neon-divider {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--neon-cyan) 20%,
+    var(--neon-cyan) 80%,
+    transparent
+  );
+  box-shadow:
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan);
+  margin: 32px 0;
+  animation: dividerPulse 3s ease-in-out infinite;
+}
+
+@keyframes dividerPulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan);
+  }
+}
+
+/* Assessment Card - 赛博朋克风格 */
+.assessment-card {
+  background: rgba(26, 26, 46, 0.6);
+  border: 2px solid var(--neon-purple);
+  box-shadow:
+    0 0 30px rgba(93, 52, 208, 0.6),
+    inset 0 0 30px rgba(93, 52, 208, 0.1);
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+/* 故障效果装饰 */
+.assessment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 255, 0.1),
+    transparent
+  );
+  animation: glitchSweep 4s infinite;
+}
+
+@keyframes glitchSweep {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+.assessment-badge {
+  display: inline-block;
+  background: transparent;
+  color: var(--neon-cyan);
+  font-size: 10px;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border: 1px solid var(--neon-cyan);
+  box-shadow:
+    0 0 10px var(--neon-cyan),
+    inset 0 0 10px rgba(0, 255, 255, 0.1);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: badgeGlow 2s ease-in-out infinite;
+}
+
+@keyframes badgeGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px var(--neon-cyan), inset 0 0 10px rgba(0, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--neon-cyan), inset 0 0 20px rgba(0, 255, 255, 0.2);
+  }
+}
+
+.assessment-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--neon-pink);
+  text-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink);
+  margin-bottom: 20px;
+  line-height: 1.4;
+  letter-spacing: 1px;
+}
+
+.assessment-desc {
+  font-size: 12px;
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue);
+  line-height: 1.8;
+  margin-bottom: 32px;
+  letter-spacing: 2px;
+}
+
+/* 霓虹按钮 */
+.neon-button {
+  background: transparent;
+  color: var(--neon-cyan);
+  border: 2px solid var(--neon-cyan);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 16px 48px;
+  cursor: pointer;
+  box-shadow:
+    0 0 20px rgba(0, 255, 255, 0.5),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+.neon-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--neon-cyan);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.neon-button:hover {
+  color: var(--deep-black);
+  box-shadow:
+    0 0 40px rgba(0, 255, 255, 0.8),
+    inset 0 0 40px rgba(0, 255, 255, 0.3);
+}
+
+.neon-button:hover::before {
+  transform: translateX(0);
+}
+
+.neon-button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Story Section */
+.story {
+  background: rgba(26, 26, 46, 0.5);
+  border: 1px solid var(--neon-blue);
+  box-shadow:
+    0 0 20px rgba(0, 128, 255, 0.3),
+    inset 0 0 20px rgba(0, 128, 255, 0.05);
+  padding: 32px;
+  margin-top: 48px;
+  backdrop-filter: blur(10px);
+}
+
+.story h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.story p {
+  font-size: 14px;
+  color: rgba(0, 255, 255, 0.8);
+  line-height: 1.8;
+}
+
+.style-label {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(26, 26, 46, 0.9);
+  color: var(--neon-pink);
+  padding: 12px 20px;
+  font-size: 10px;
+  font-weight: 700;
+  border: 2px solid var(--neon-pink);
+  box-shadow:
+    0 0 20px rgba(255, 0, 110, 0.6),
+    inset 0 0 10px rgba(255, 0, 110, 0.1);
+  letter-spacing: 2px;
+  z-index: 10000;
+}
+</style>
+</head>
+<body>
+
+<div class="style-label">RETRO-FUTURISM</div>
+
+<div class="container">
+  <header>
+    <div class="logo">◢ MARTIAL FLOW ◣</div>
+  </header>
+
+  <section class="hero">
+    <h1>WHERE AGENT<br>CAREERS BECOME<br>MARTIAL ARTS</h1>
+    <p class="hero-subtitle">The First Martial School<br>for AI Professional</p>
+
+    <div class="neon-divider"></div>
+
+    <div class="assessment-card">
+      <div class="assessment-badge">灵根检定 · SURVIVAL TEST</div>
+      <h2 class="assessment-title">HOW LONG CAN YOUR AGENT<br>SURVIVE AT WORK?</h2>
+      <p class="assessment-desc">CONNECT AGENT · 12 QUESTIONS · MORTAL OR ASCENDED</p>
+      <button class="neon-button"><span>▶ START TEST</span></button>
+    </div>
+  </section>
+
+  <section class="story">
+    <h2>AGENT WORKFLOW · PROFESSION · LEGACY</h2>
+    <p>Pick a school that fits your goals, let your Agent learn skills to become smarter. As it evolves, it amplifies your work and turns you into an expert. Share your skills to empower others. When ready, found your own school.</p>
+  </section>
+</div>
+
+</body>
+</html>
