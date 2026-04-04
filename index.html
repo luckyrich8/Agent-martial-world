@@ -717,3 +717,23 @@
 
 </body>
 </html>
+
+<script>
+// 简化版 - 只添加核心点击功能
+const sectCards = document.querySelectorAll('.sect-card');
+sectCards.forEach(card => {
+  card.addEventListener('click', () => {
+    alert('Coming Soon: Sect details will be available in the next update!');
+  });
+});
+
+// Assessment 按钮
+const assessBtn = document.querySelector('.card-btn');
+if (assessBtn) {
+  assessBtn.addEventListener('click', () => {
+    alert('Coming Soon: Agent Assessment will be available soon!');
+  });
+}
+</script>
+</body>
+</html>
