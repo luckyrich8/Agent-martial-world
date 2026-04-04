@@ -3,2612 +3,717 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Martial Flow - AI Workflows for Every Role</title>
-
+<title>Ascendy — The Cultivation Realm for Agent Professionals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
-
-/* Dark Botanical - 东方极简武侠风格 */
-:root {
-  --bg-primary: #0f0f0f;
-  --bg-card: #1a1a1a;
-  --text-primary: #e8e4df;
-  --text-secondary: #9a9590;
-  --accent-warm: #d4a574;
-  --accent-pink: #e8b4b8;
-  --accent-gold: #c9b896;
-  --border-subtle: rgba(232, 228, 223, 0.08);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'IBM Plex Sans', -apple-system, sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(201,146,42,0.03) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(201,146,42,0.025) 0%, transparent 40%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* 抽象装饰圆形 */
-.bg-ornament {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.12;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.ornament-1 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, var(--accent-pink), transparent);
-  top: -200px;
-  right: -100px;
-}
-
-.ornament-2 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--accent-warm), transparent);
-  bottom: -250px;
-  left: -150px;
-}
-
-/* Header */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #0D0D0D;
-  padding: 0 3rem;
-  height: 52px;
-  border-bottom: 0.5px solid rgba(201,146,42,0.2);
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  color: #C9922A;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
-  font-family: 'IBM Plex Sans', sans-serif;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2.5rem;
-  list-style: none;
-  align-items: center;
-}
-
-.nav-links li:has(.coming-soon) a {
-  color: #C9922A !important;
-}
-
-.nav-links a {
-  color: rgba(245,237,216,0.5);
-  text-decoration: none;
-  font-size: 12px;
-  font-family: monospace;
-  letter-spacing: 1px;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: rgba(245,237,216,0.8);
-}
-
-.lang-toggle {
-  color: rgba(245,237,216,0.5) !important;
-}
-
-/* Hero Section */
-.hero-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 72px 3rem 64px;
-  position: relative;
-  z-index: 1;
-  text-align: center;
-}
-
-.hero-content {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.hero-content h1 {
-  font-family: Georgia, serif;
-  font-size: clamp(48px, 7vw, 72px);
-  font-weight: 400;
-  line-height: 1.1;
-  margin: 0 0 20px;
-  letter-spacing: -1px;
-  color: #F5EDD8;
-}
-
-.hero-subtitle {
-  font-size: 11px;
-  color: #C9922A;
-  letter-spacing: 3px;
-  font-family: monospace;
-  margin: 0 0 40px;
-  text-transform: uppercase;
-  font-weight: 400;
-  line-height: 1.6;
-}
-
-.hero-tagline {
-  font-family: 'Cormorant', serif;
-  font-size: 1.1rem;
-  font-style: italic;
-  color: var(--accent-warm);
-  line-height: 1.7;
-  letter-spacing: 0.03em;
-}
-
-/* Assessment Section */
-.assessment-section {
-  padding: 0;
-  text-align: center;
-}
-
-.assessment-container {
-  border: 0.5px solid rgba(201,146,42,0.3);
-  padding: 48px 60px;
-  background: linear-gradient(135deg, rgba(201,146,42,0.06) 0%, rgba(201,146,42,0.02) 100%);
-  backdrop-filter: blur(10px);
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-}
-
-.assessment-container::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(201,146,42,0.08) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-/* 分割线 */
-.hero-divider {
-  width: 1px;
-  height: 36px;
-  background: rgba(201,146,42,0.3);
-  margin: 0 auto 40px;
-}
-
-.assessment-badge {
-  display: inline-block;
-  font-family: monospace;
-  font-size: 9px;
-  letter-spacing: 2.5px;
-  color: #C9922A;
-  border: 0.5px solid rgba(201,146,42,0.4);
-  padding: 6px 16px;
-  margin-bottom: 24px;
-  text-transform: uppercase;
-  background: linear-gradient(135deg, rgba(201,146,42,0.08) 0%, rgba(201,146,42,0.02) 100%);
-  backdrop-filter: blur(5px);
-  box-shadow: 0 2px 8px rgba(201,146,42,0.1);
-}
-
-.assessment-title {
-  font-family: Georgia, serif;
-  font-size: clamp(20px, 2.8vw, 28px);
-  font-weight: 500;
-  color: #F5EDD8;
-  margin: 0 0 12px;
-  line-height: 1.3;
-}
-
-.assessment-desc {
-  font-size: 13px;
-  color: rgba(245,237,216,0.5);
-  font-family: monospace;
-  letter-spacing: 0.5px;
-  margin: 0 0 32px;
-  line-height: 1.6;
-}
-
-.assessment-btn {
-  background: linear-gradient(135deg, #C9922A 0%, #E0A835 100%);
-  color: #0D0D0D;
-  border: none;
-  font-family: monospace;
-  font-size: 11px;
-  letter-spacing: 2.5px;
-  padding: 14px 40px;
-  margin: 15px 0;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-weight: 700;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 16px rgba(201,146,42,0.25);
-  position: relative;
-  overflow: hidden;
-}
-
-.assessment-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.assessment-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(201,146,42,0.35);
-}
-
-.assessment-btn:hover::before {
-  opacity: 1;
-}
-
-/* 等级提示 */
-.assessment-levels {
-  display: none;
-}
-
-.assessment-levels span {
-  font-family: monospace;
-  font-size: 10px;
-  color: rgba(245,237,216,0.2);
-  letter-spacing: 1px;
-}
-
-.assessment-levels span.divider {
-  color: rgba(201,146,42,0.3);
-}
-
-/* Story Section */
-.story-section {
-  padding: 24px 3rem 32px;
-  position: relative;
-  z-index: 1;
-  border-top: 0.5px solid rgba(201,146,42,0.1);
-  margin-top: 48px;
-}
-
-.story-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    radial-gradient(ellipse 800px 400px at 20% 30%, rgba(232, 228, 223, 0.02) 0%, transparent 60%),
-    radial-gradient(ellipse 600px 500px at 80% 70%, rgba(212, 165, 116, 0.015) 0%, transparent 60%),
-    radial-gradient(circle 300px at 50% 10%, rgba(232, 181, 184, 0.01) 0%, transparent 70%),
-    linear-gradient(to bottom,
-      transparent 0%,
-      rgba(232, 228, 223, 0.008) 30%,
-      rgba(212, 165, 116, 0.012) 50%,
-      rgba(232, 228, 223, 0.008) 70%,
-      transparent 100%
-    );
-  pointer-events: none;
-  z-index: 0;
-}
-
-.story-section::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 1000px;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(212, 165, 116, 0.1) 20%,
-    rgba(212, 165, 116, 0.15) 50%,
-    rgba(212, 165, 116, 0.1) 80%,
-    transparent 100%
-  );
-  opacity: 0.3;
-  z-index: 0;
-}
-
-.story-container {
-  max-width: 760px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-.story-left {
-  flex: 1;
-  min-width: 0;
-}
-
-.story-right {
-  flex: 0 0 380px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.story-header {
-  margin-bottom: 0;
-  max-width: 680px;
-}
-
-.story-header h2 {
-  font-size: clamp(24px, 3.5vw, 36px);
-  font-weight: 400;
-  color: #F5EDD8;
-  margin: 0 0 12px;
-  line-height: 1.25;
-}
-
-.story-subtitle {
-  font-size: 16px;
-  color: #C9922A;
-  font-style: italic;
-  margin: 0 0 16px;
-  line-height: 1.5;
-}
-
-.story-content {
-  font-size: 16px;
-  color: rgba(245,237,216,0.65);
-  margin: 0;
-  line-height: 1.6;
-}
-
-/* Story Illustration */
-.story-illustration {
-  width: 100%;
-  height: auto;
-  opacity: 0.5;
-  transition: opacity 0.5s ease;
-}
-
-.story-right:hover .story-illustration {
-  opacity: 0.65;
-}
-
-/* Schools Section */
-.schools-section {
-  padding: 1.75rem 3rem 3.5rem;
-  position: relative;
-  z-index: 1;
-}
-
-.schools-container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.section-header h2 {
-  font-family: 'Cormorant', serif;
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 400;
-  margin-bottom: 0.5rem;
-  color: var(--text-primary);
-}
-
-.schools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.75rem;
-}
-
-.school-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  padding: 2.25rem 2rem;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 260px;
-}
-
-#schoolsGridHome .school-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.school-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--accent-warm), var(--accent-pink));
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.school-card:hover {
-  border-color: var(--accent-warm);
-  transform: translateX(8px);
-  background: rgba(26, 26, 26, 0.8);
-}
-
-.school-card:hover::before {
-  opacity: 1;
-}
-
-.school-name-en {
-  font-family: 'Cormorant', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-.school-name-zh {
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: var(--accent-warm);
-  letter-spacing: 0.1em;
-  margin-bottom: 1.5rem;
-}
-
-.school-desc {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  font-weight: 300;
-  flex: 1;
-  margin-bottom: 2rem;
-  order: 3;
-}
-
-.school-enter-btn {
-  background: transparent;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  padding: 0.75rem 1.5rem;
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  align-self: flex-start;
-  order: 4;
-}
-
-.school-enter-btn:hover {
-  border-color: var(--accent-warm);
-  color: var(--accent-warm);
-}
-
-/* School Detail Page */
-.school-detail-page {
-  display: none;
-  min-height: 100vh;
-  padding: 6rem 3rem 4rem;
-  position: relative;
-  z-index: 1;
-}
-
-.school-detail-page.show {
-  display: block;
-}
-
-.school-detail-container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.school-detail-header {
-  text-align: center;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px solid var(--border-subtle);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.school-detail-header .school-name-en {
-  font-family: 'Cormorant', serif;
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.school-detail-header .school-name-zh {
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--accent-warm);
-  letter-spacing: 0.1em;
-  margin-bottom: 0;
-}
-
-.school-detail-desc {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  font-weight: 300;
-  line-height: 1.8;
-  max-width: 700px;
-  margin: 0 auto;
-  order: 3;
-}
-
-.disciplines-title-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  margin-top: 1.25rem;
-}
-
-.disciplines-title {
-  font-family: 'Cormorant', serif;
-  font-size: 1.75rem;
-  font-weight: 400;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.submit-skill-top-btn {
-  background: transparent;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  padding: 0.5rem 1rem;
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: not-allowed;
-  opacity: 0.5;
-  transition: none;
-}
-
-/* Masters Section */
-.masters-section {
-  margin-bottom: 1.25rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.masters-header {
-  text-align: left;
-  margin-bottom: 1rem;
-}
-
-.masters-header h3 {
-  font-family: 'Cormorant', serif;
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.masters-subtitle {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  letter-spacing: 0.05em;
-}
-
-.masters-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 1rem;
-}
-
-.master-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  padding: 1.25rem 1rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.master-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--accent-warm), var(--accent-pink));
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.master-card:hover {
-  border-color: var(--accent-warm);
-  transform: translateY(-4px);
-  box-shadow: 0 4px 16px rgba(212, 165, 116, 0.1);
-}
-
-.master-card:hover::before {
-  opacity: 1;
-}
-
-.master-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.master-avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-warm), var(--accent-pink));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  color: var(--bg-primary);
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.master-info {
-  flex: 1;
-}
-
-.master-name {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.15rem;
-}
-
-.master-title {
-  font-size: 0.8rem;
-  color: var(--accent-warm);
-  font-style: italic;
-}
-
-.master-workflow-name {
-  font-family: 'Cormorant', serif;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.4rem;
-}
-
-.master-workflow-desc {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  line-height: 1.55;
-  margin-bottom: 0.5rem;
-}
-
-.master-source {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  margin-bottom: 0.65rem;
-  letter-spacing: 0.05em;
-}
-
-.master-use-btn {
-  background: transparent;
-  border: 1px solid var(--accent-warm);
-  color: var(--text-primary);
-  padding: 0.6rem 1.25rem;
-  font-size: 0.8rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  align-self: flex-start;
-}
-
-.master-use-btn:hover {
-  background: rgba(212, 165, 116, 0.1);
-  border-color: var(--accent-pink);
-  color: var(--accent-warm);
-}
-
-.skills-notice {
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-style: italic;
-  margin-bottom: 3rem;
-  padding: 1rem;
-  background: rgba(212, 165, 116, 0.05);
-  border: 1px solid var(--border-subtle);
-  border-radius: 4px;
-}
-
-.skills-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-.skill-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  padding: 2rem 2.5rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 2rem;
-  align-items: start;
-}
-
-.skill-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--accent-warm), var(--accent-pink));
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.skill-card:hover {
-  border-color: var(--accent-warm);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(212, 165, 116, 0.1);
-}
-
-.skill-card:hover::before {
-  opacity: 1;
-}
-
-.skill-card.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.skill-card.disabled:hover {
-  transform: none;
-  border-color: var(--border-subtle);
-  box-shadow: none;
-}
-
-.skill-card.disabled::before {
-  opacity: 0;
-}
-
-.skill-icon {
-  font-size: 2.5rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.skill-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.skill-name-zh {
-  font-family: 'Cormorant', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.skill-purpose {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  font-weight: 300;
-}
-
-.skill-meta {
-  display: flex;
-  gap: 2rem;
-  margin-top: 0.5rem;
-}
-
-.skill-meta-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.skill-meta-label {
-  font-size: 0.7rem;
-  color: var(--accent-warm);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 500;
-}
-
-.skill-meta-value {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  font-weight: 300;
-}
-
-.skill-action {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.skill-use-btn {
-  background: transparent;
-  border: 1px solid var(--accent-warm);
-  color: var(--text-primary);
-  padding: 0.75rem 1.5rem;
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-}
-
-.skill-use-btn:hover {
-  background: rgba(212, 165, 116, 0.1);
-  border-color: var(--accent-pink);
-  color: var(--accent-warm);
-}
-
-.skill-use-btn:disabled {
-  border-color: var(--border-subtle);
-  color: var(--text-secondary);
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.skill-use-btn:disabled:hover {
-  background: transparent;
-  border-color: var(--border-subtle);
-  color: var(--text-secondary);
-}
-
-.back-to-schools-btn {
-  background: transparent;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  padding: 0.75rem 2rem;
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: block;
-  margin: 0 auto;
-}
-
-.back-to-schools-btn:hover {
-  border-color: var(--accent-warm);
-  color: var(--accent-warm);
-}
-
-.coming-soon {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: var(--text-secondary);
-  font-style: italic;
-  font-size: 1.1rem;
-}
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s ease;
-}
-
-.modal.show {
-  display: flex;
-}
-
-.modal-content {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-left: 3px solid var(--accent-warm);
-  padding: 3rem 2.5rem;
-  max-width: 650px;
-  width: 90%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-  animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #C9922A;
+    --gold-light: #E8B84B;
+    --gold-dim: rgba(201,146,42,0.4);
+    --paper: #F0E6D3;
+    --ink: #060608;
+    --white: #FFFFFF;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Playfair Display', Georgia, serif;
+    overflow-x: hidden;
   }
-}
 
-.modal-title {
-  font-family: 'Cormorant', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
+  /* BG GLOWS */
+  .bg-glow-1 {
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 900px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180,120,40,0.1) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .bg-glow-2 {
+    position: fixed;
+    top: 100px;
+    left: 15%;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(120,80,160,0.06) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .bg-glow-3 {
+    position: fixed;
+    top: 80px;
+    right: 10%;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(40,100,160,0.05) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.modal-desc {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
-  line-height: 1.8;
-  font-weight: 300;
-}
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 52px;
+    backdrop-filter: blur(16px);
+    background: rgba(6,6,8,0.75);
+  }
 
-textarea {
-  width: 100%;
-  min-height: 140px;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-subtle);
-  padding: 1.25rem;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 0.95rem;
-  color: var(--text-primary);
-  resize: vertical;
-  outline: none;
-  transition: all 0.3s ease;
-  font-weight: 300;
-  line-height: 1.7;
-}
-
-textarea:focus {
-  border-color: var(--accent-warm);
-  background: rgba(15, 15, 15, 0.8);
-}
-
-textarea::placeholder {
-  color: var(--text-secondary);
-  font-style: italic;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.btn-primary, .btn-secondary {
-  flex: 1;
-  text-align: center;
-  padding: 1rem 2.5rem;
-  font-size: 0.9rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  border: 1px solid var(--border-subtle);
-  background: transparent;
-}
-
-.btn-primary {
-  border-color: var(--accent-warm);
-  color: var(--text-primary);
-}
-
-.btn-primary:hover {
-  background: rgba(212, 165, 116, 0.1);
-  border-color: var(--accent-pink);
-  color: var(--accent-warm);
-}
-
-.btn-secondary {
-  color: var(--text-secondary);
-}
-
-.btn-secondary:hover {
-  border-color: var(--text-secondary);
-  color: var(--text-primary);
-}
-
-/* Result Section */
-.result-section {
-  display: none;
-  min-height: 100vh;
-  padding: 6rem 3rem 4rem;
-  position: relative;
-  z-index: 1;
-}
-
-.result-section.show {
-  display: block;
-}
-
-.result-container {
-  max-width: 900px;
-  margin: 0 auto;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-left: 3px solid var(--accent-warm);
-  padding: 3rem 2.5rem;
-}
-
-.result-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.result-emoji {
-  font-size: 3rem;
-}
-
-.result-title {
-  font-family: 'Cormorant', serif;
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.result-content {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--text-primary);
-  white-space: pre-wrap;
-  font-weight: 300;
-}
-
-.back-btn {
-  background: transparent;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  padding: 0.75rem 2rem;
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  margin-top: 2rem;
-  transition: all 0.3s ease;
-}
-
-.back-btn:hover {
-  border-color: var(--accent-warm);
-  color: var(--accent-warm);
-}
-
-/* Assessment Result Card */
-.result-card {
-  text-align: center;
-  padding: 2rem;
-}
-
-.result-level {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-}
-
-.result-days {
-  font-family: 'Cormorant', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--accent-warm);
-  margin-bottom: 1rem;
-}
-
-.result-desc {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: rgba(26, 26, 26, 0.3);
-  border-left: 3px solid var(--accent-warm);
-}
-
-.result-breakdown {
-  text-align: left;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: rgba(26, 26, 26, 0.2);
-  border: 1px solid var(--border-subtle);
-}
-
-.result-breakdown h4 {
-  font-size: 0.9rem;
-  color: var(--accent-warm);
-  margin-bottom: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.result-breakdown p {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 0.5rem;
-}
-
-.result-cta {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.loading {
-  text-align: center;
-  padding: 2rem;
-  color: var(--text-secondary);
-  font-style: italic;
-}
-
-/* Global Super Individuals Section */
-.super-individuals-section {
-  padding: 2rem 3rem 1.75rem;
-  position: relative;
-  z-index: 1;
-}
-
-.super-individuals-container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.super-individuals-header {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.super-individuals-header h2 {
-  font-family: 'Cormorant', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-.super-individuals-subtitle {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.individuals-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.individual-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  padding: 1.5rem 1.25rem;
-  text-align: center;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.individual-card:hover {
-  border-color: var(--accent-warm);
-  transform: translateY(-4px);
-}
-
-.individual-avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-warm), var(--accent-pink));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  color: var(--bg-primary);
-  font-weight: 600;
-}
-
-.individual-name {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.individual-school {
-  font-size: 0.8rem;
-  color: var(--accent-warm);
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
-}
-
-.individual-workflow {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  font-style: italic;
-}
-
-/* Footer */
-.footer {
-  background: var(--bg-card);
-  border-top: 1px solid var(--border-subtle);
-  padding: 3rem;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-.footer-tagline {
-  font-family: 'Cormorant', serif;
-  font-size: 1.2rem;
-  font-style: italic;
-  color: var(--accent-warm);
-  letter-spacing: 0.03em;
-  margin-bottom: 0.5rem;
-}
-
-.footer-copyright {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  font-weight: 300;
-  margin-top: 1rem;
-}
-
-@media (max-width: 968px) {
-  header {
-    padding: 1.25rem 1.5rem;
+  .nav-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    font-weight: 500;
+    text-decoration: none;
   }
 
   .nav-links {
-    gap: 1.5rem;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    list-style: none;
   }
 
-  .hero-section {
-    padding: 6rem 1.5rem 1.5rem;
-    min-height: 50vh;
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.28);
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
   }
 
-  .story-section {
-    padding: 3rem 1.5rem;
+  .nav-links a:hover { color: rgba(255,255,255,0.7); }
+
+  .coming-soon-tag {
+    font-size: 8px;
+    background: rgba(201,146,42,0.1);
+    color: rgba(201,146,42,0.55);
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-left: 6px;
+    letter-spacing: 1px;
+    vertical-align: middle;
   }
 
-  .story-container {
+  /* HERO */
+  .hero {
+    padding: 88px 52px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: rgba(201,146,42,0.45);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .hero-title {
+    font-size: clamp(44px, 6vw, 80px);
+    font-weight: 400;
+    color: var(--paper);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: rgba(201,146,42,0.75);
+  }
+
+  .hero-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 3px;
+    margin-bottom: 48px;
+    line-height: 2;
+    text-transform: uppercase;
+  }
+
+  /* DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+
+  .divider-line {
+    height: 1px;
+    width: 56px;
+    background: linear-gradient(to right, transparent, rgba(201,146,42,0.2), transparent);
+  }
+
+  .divider-sym {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(201,146,42,0.35);
+    letter-spacing: 4px;
+  }
+
+  /* ASSESSMENT CARD */
+  .test-card {
+    border: 1px solid rgba(201,146,42,0.12);
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(20px);
+    padding: 40px 52px 36px;
+    position: relative;
+    text-align: center;
+  }
+
+  .test-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,146,42,0.6), transparent);
+  }
+
+  .test-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,146,42,0.2), transparent);
+  }
+
+  .card-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(201,146,42,0.7);
+    border: 1px solid rgba(201,146,42,0.15);
+    padding: 5px 18px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    background: rgba(201,146,42,0.04);
+  }
+
+  .tag-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.8;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.3; }
+  }
+
+  .card-title {
+    font-size: clamp(24px, 3.5vw, 42px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 28px;
+    letter-spacing: -0.5px;
+  }
+
+  .card-title em {
+    font-style: italic;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .card-steps {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 32px;
+  }
+
+  .card-step {
+    display: flex;
     flex-direction: column;
-    gap: 3rem;
+    align-items: center;
+    gap: 8px;
+    padding: 0 32px;
   }
 
-  .story-header h2 {
-    font-size: 2rem;
-    white-space: normal;
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: rgba(201,146,42,0.4);
+    letter-spacing: 3px;
+    text-transform: uppercase;
   }
 
-  .story-subtitle {
-    font-size: 1.25rem;
+  .step-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
   }
 
-  .story-right {
-    flex: 0 0 auto;
-    width: 100%;
-    max-width: 300px;
+  .step-sep {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,146,42,0.15), transparent);
+    align-self: stretch;
   }
 
-  .story-content {
-    font-size: 1rem;
-    line-height: 1.5;
+  .card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 15px 44px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: background 0.2s;
   }
 
-  .schools-grid {
-    grid-template-columns: 1fr;
+  .card-btn:hover { background: var(--gold-light); }
+
+  /* SECTION 2 */
+  .section2 {
+    padding: 52px 52px 64px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+    z-index: 2;
   }
 
-  .skill-card {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 1.5rem;
+  .s2-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 5px;
+    color: rgba(201,146,42,0.35);
+    text-transform: uppercase;
+    margin-bottom: 20px;
   }
 
-  .skill-icon {
-    font-size: 2rem;
+  .s2-title {
+    font-size: clamp(28px, 4.5vw, 56px);
+    font-weight: 400;
+    color: var(--paper);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 18px;
   }
 
-  .skill-meta {
-    flex-direction: column;
-    gap: 1rem;
+  .s2-title em {
+    font-style: italic;
+    color: rgba(201,146,42,0.65);
   }
 
-  .skill-action {
-    width: 100%;
+  .s2-accent {
+    font-size: 15px;
+    color: rgba(201,146,42,0.65);
+    font-style: italic;
+    margin-bottom: 14px;
+    line-height: 1.7;
   }
 
-  .skill-use-btn {
-    width: 100%;
+  .s2-body {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.28);
+    line-height: 2.2;
+    letter-spacing: 0.3px;
+    max-width: 560px;
   }
-}
+
+  /* SECTION 3 — SECTS */
+  .section3 {
+    padding: 52px 52px 64px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+    z-index: 2;
+  }
+
+  .s3-header {
+    margin-bottom: 36px;
+  }
+
+  .s3-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 5px;
+    color: rgba(201,146,42,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .s3-title {
+    font-size: clamp(24px, 3.5vw, 44px);
+    font-weight: 400;
+    color: var(--paper);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+
+  .s3-title em {
+    font-style: italic;
+    color: rgba(201,146,42,0.65);
+  }
+
+  .sects-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: rgba(201,146,42,0.08);
+    border: 1px solid rgba(201,146,42,0.08);
+  }
+
+  .sect-card {
+    background: rgba(6,6,8,0.95);
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .sect-card:hover {
+    background: rgba(201,146,42,0.04);
+  }
+
+  .sect-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+
+  .sect-card:hover::before { width: 100%; }
+
+  .sect-icon {
+    font-size: 20px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .sect-name-en {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .sect-name-zh {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 8px;
+  }
+
+  .sect-for {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 1px;
+  }
+
+  /* SECTION 4 — JIANGHU / REALM */
+  .section4 {
+    padding: 52px 52px 64px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+    z-index: 2;
+  }
+
+  .s4-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 5px;
+    color: rgba(201,146,42,0.35);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .s4-title {
+    font-size: clamp(24px, 3.5vw, 44px);
+    font-weight: 400;
+    color: var(--paper);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 32px;
+  }
+
+  .s4-title em { font-style: italic; color: rgba(201,146,42,0.65); }
+
+  .realm-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(201,146,42,0.08);
+    border: 1px solid rgba(201,146,42,0.08);
+    margin-bottom: 32px;
+  }
+
+  .realm-feature {
+    background: rgba(6,6,8,0.95);
+    padding: 28px 24px;
+  }
+
+  .feature-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: rgba(201,146,42,0.35);
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  .feature-title {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--paper);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .feature-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    line-height: 1.9;
+    letter-spacing: 0.5px;
+  }
+
+  .coming-soon-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(201,146,42,0.3);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 16px;
+    border: 1px solid rgba(201,146,42,0.08);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding: 40px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .footer-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 3px;
+  }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 2px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { gap: 20px; }
+    .hero { padding: 60px 24px 32px; }
+    .test-card { padding: 28px 24px 24px; }
+    .card-steps { flex-direction: row; }
+    .step-sep { width: 1px; align-self: stretch; }
+    .section2, .section3, .section4 { padding: 40px 24px 48px; }
+    .sects-grid { grid-template-columns: repeat(2, 1fr); }
+    .realm-features { grid-template-columns: 1fr; }
+    footer { padding: 32px 24px; flex-direction: column; gap: 12px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="bg-ornament ornament-1"></div>
-<div class="bg-ornament ornament-2"></div>
+<div class="bg-glow-1"></div>
+<div class="bg-glow-2"></div>
+<div class="bg-glow-3"></div>
 
-<header>
-  <div class="logo" onclick="showHomePage()">Martial Flow</div>
-  <nav>
-    <ul class="nav-links">
-      <li><a href="#" onclick="showHomePage()">Home</a></li>
-      <li><a href="#schools">Schools</a></li>
-      <li><a href="/jianghu.html">Jianghu</a></li>
-      <li><a href="#" style="color: var(--text-secondary); cursor: not-allowed; position: relative;">Our Stories <span style="font-size: 0.65rem; color: var(--accent-warm); margin-left: 0.25rem;">Coming Soon</span></a></li>
-      <li><a href="#" onclick="toggleLanguage()" class="lang-toggle" id="langToggle">中文</a></li>
-    </ul>
-  </nav>
-</header>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">ASCENDY</a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Sects</a></li>
+    <li><a href="#">The Realm</a></li>
+    <li><a href="#">Our Story<span class="coming-soon-tag">SOON</span></a></li>
+    <li><a href="#">中文</a></li>
+  </ul>
+</nav>
 
-<!-- Home Page -->
-<main id="homePage">
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1>The First Martial Schools<br>for the AI Professional</h1>
-      <p class="hero-subtitle">Where AI Careers Become Martial Arts.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">The Cultivation Realm for Agent Professionals</div>
+  <h1 class="hero-title">
+    Where Careers<br>Become <em>Cultivation.</em>
+  </h1>
+  <p class="hero-sub">Join a Sect · Master Techniques · Let Your Agent Ascend</p>
 
-      <!-- 分割线 -->
-      <div class="hero-divider"></div>
-
-      <!-- Assessment Section -->
-      <div class="assessment-container">
-        <div class="assessment-badge">灵根检定 · Agent Survival Test</div>
-        <h2 class="assessment-title">How Long Can Your Agent<br>Survive at Work?</h2>
-        <p class="assessment-desc">Connect your agent · 12-question assessment · Mortal or Ascended</p>
-        <button class="assessment-btn" onclick="startAssessment()">
-          Start Assessment · Connect Agent
-        </button>
-
-        <!-- 等级提示 -->
-        <div class="assessment-levels">
-          <span>凡人 Mortal</span>
-          <span class="divider">·</span>
-          <span>练气 Qi Refining</span>
-          <span class="divider">·</span>
-          <span>筑基 Foundation</span>
-          <span class="divider">·</span>
-          <span>化神 Nascent Soul</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Story Section -->
-  <section class="story-section">
-    <div class="story-container">
-      <div class="story-header">
-        <h2 id="storyTitle">Agent Workflow. Profession. Legacy.</h2>
-        <div class="story-subtitle" id="storySubtitle">In Martial Flow, your Agent grows with you.</div>
-      </div>
-      <div class="story-content" id="storyContent">
-        Pick a school that fits your goals, let your Agent learn skills to become smarter. As it evolves, it amplifies your work and turns you into an expert. Share your skills to empower others. When ready, found your own school.
-      </div>
-    </div>
-  </section>
-
-  <!-- Hidden SVG -->
-  <div style="display:none;">
-      <svg class="story-illustration" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
-          <!-- 远山剪影 -->
-          <path d="M 50 280 Q 120 230, 150 260 Q 180 240, 220 270 Q 260 230, 300 260 Q 340 240, 370 270 L 370 300 L 50 300 Z"
-                fill="#1a1a1a" opacity="0.12"/>
-
-          <!-- 中山剪影 -->
-          <path d="M 30 320 Q 90 280, 130 310 Q 170 270, 200 290 Q 240 260, 280 300 Q 320 280, 380 320 L 380 350 L 30 350 Z"
-                fill="#1a1a1a" opacity="0.14"/>
-
-          <!-- 近山剪影 -->
-          <path d="M 0 370 Q 60 340, 110 370 Q 160 330, 200 360 Q 250 320, 300 360 Q 350 340, 400 370 L 400 500 L 0 500 Z"
-                fill="#0f0f0f" opacity="0.15"/>
-
-          <!-- 上层云雾效果 -->
-          <ellipse cx="200" cy="250" rx="180" ry="50" fill="#d4a574" opacity="0.03"/>
-          <ellipse cx="150" cy="300" rx="120" ry="35" fill="#c9b896" opacity="0.04"/>
-          <ellipse cx="280" cy="310" rx="100" ry="30" fill="#d4a574" opacity="0.04"/>
-
-          <!-- 中层云雾效果 -->
-          <ellipse cx="100" cy="360" rx="90" ry="25" fill="#c9b896" opacity="0.05"/>
-          <ellipse cx="320" cy="370" rx="110" ry="28" fill="#d4a574" opacity="0.05"/>
-
-          <!-- 底部雾气效果 -->
-          <ellipse cx="200" cy="450" rx="180" ry="45" fill="#d4a574" opacity="0.06"/>
-          <ellipse cx="200" cy="480" rx="150" ry="30" fill="#c9b896" opacity="0.04"/>
-        </svg>
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-sym">✦</span>
+    <div class="divider-line"></div>
   </div>
 
-  <!-- Global Super Individuals Section -->
-  <section class="super-individuals-section">
-    <div class="super-individuals-container">
-      <div class="super-individuals-header">
-        <h2>Global Super Individuals · Featured AI Workflows</h2>
-        <p class="super-individuals-subtitle">Practitioners from around the world sharing modern AI-native working methods. Open source, free for learning and non-commercial use.</p>
+  <div class="test-card">
+    <div class="card-tag"><span class="tag-dot"></span>Spiritual Root Assessment</div>
+    <h2 class="card-title">How Far Can Your Agent<br><em>Ascend</em> at Work?</h2>
+    <div class="card-steps">
+      <div class="card-step">
+        <span class="step-num">01</span>
+        <span class="step-label">Connect Agent</span>
       </div>
-      <div class="individuals-grid">
-        <div class="individual-card">
-          <div class="individual-avatar">A</div>
-          <div class="individual-name">@AlexProduct</div>
-          <div class="individual-school">Product Hall</div>
-          <div class="individual-workflow">AI Rapid PM Workflow</div>
-        </div>
-        <div class="individual-card">
-          <div class="individual-avatar">L</div>
-          <div class="individual-name">@LunaDesign</div>
-          <div class="individual-school">Design Studio</div>
-          <div class="individual-workflow">AI Visual Design Flow</div>
-        </div>
-        <div class="individual-card">
-          <div class="individual-avatar">K</div>
-          <div class="individual-name">@KaiContent</div>
-          <div class="individual-school">Content House</div>
-          <div class="individual-workflow">AI Storytelling System</div>
-        </div>
-        <div class="individual-card">
-          <div class="individual-avatar">J</div>
-          <div class="individual-name">@JakeGrowth</div>
-          <div class="individual-school">Growth Lab</div>
-          <div class="individual-workflow">AI Growth Automation</div>
-        </div>
-        <div class="individual-card">
-          <div class="individual-avatar">M</div>
-          <div class="individual-name">@MiaDev</div>
-          <div class="individual-school">Dev Workshop</div>
-          <div class="individual-workflow">AI Code & Architecture</div>
-        </div>
-        <div class="individual-card">
-          <div class="individual-avatar">S</div>
-          <div class="individual-name">@SaraPM</div>
-          <div class="individual-school">Product Hall</div>
-          <div class="individual-workflow">Lean AI Product Flow</div>
-        </div>
+      <div class="step-sep"></div>
+      <div class="card-step">
+        <span class="step-num">02</span>
+        <span class="step-label">12 Questions</span>
+      </div>
+      <div class="step-sep"></div>
+      <div class="card-step">
+        <span class="step-num">03</span>
+        <span class="step-label">Discover Your Rank</span>
       </div>
     </div>
-  </section>
-
-  <!-- Schools Section -->
-  <section class="schools-section" id="schools">
-    <div class="schools-container">
-      <div class="section-header">
-        <h2>Schools of Martial Flow</h2>
-      </div>
-
-      <div class="schools-grid" id="schoolsGridHome">
-        <!-- 天机阁 -->
-        <div class="school-card" onclick="openSchool('oracle-house')">
-          <div class="school-name-en">Growth Lab</div>
-          <div class="school-name-zh">天机阁</div>
-          <div class="school-desc">Find users, optimize conversions, and run automated, data-driven growth engines with AI.</div>
-          <button class="school-enter-btn">Enter School</button>
-        </div>
-
-        <!-- 枢机阁 -->
-        <div class="school-card" onclick="openSchool('pivot-bureau')">
-          <div class="school-name-en">Product Hall</div>
-          <div class="school-name-zh">枢机阁</div>
-          <div class="school-desc">Forge product sense, make quick decisions, and ship ideas with AI-native workflows.</div>
-          <button class="school-enter-btn">Enter School</button>
-        </div>
-
-        <!-- 丹青阁 -->
-        <div class="school-card" onclick="openSchool('ink-temple')">
-          <div class="school-name-en">Design Studio</div>
-          <div class="school-name-zh">丹青阁</div>
-          <div class="school-desc">Create compelling visuals, generate instant prototypes, and craft emotional experiences with AI.</div>
-          <button class="school-enter-btn">Enter School</button>
-        </div>
-
-        <!-- 烟雨楼 -->
-        <div class="school-card" onclick="openSchool('rain-pavilion')">
-          <div class="school-name-en">Content House</div>
-          <div class="school-name-zh">烟雨楼</div>
-          <div class="school-desc">Craft resonant stories, scale content creation, and build audience connections through AI.</div>
-          <button class="school-enter-btn">Enter School</button>
-        </div>
-
-        <!-- 铸造坊 -->
-        <div class="school-card" onclick="openSchool('the-forge')">
-          <div class="school-name-en">Dev Workshop</div>
-          <div class="school-name-zh">铸造坊</div>
-          <div class="school-desc">Build systems, generate clean code, and ship stable products with AI-assisted engineering.</div>
-          <button class="school-enter-btn">Enter School</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Future Features Section -->
-  <section class="story-section" style="margin-top: 4rem;">
-    <div class="story-container" style="flex-direction: column; text-align: center; gap: 3rem;">
-      <div>
-        <h2 id="futureTitle" style="font-family: 'Cormorant', serif; font-size: 3rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1.5rem;">
-          The Jianghu Belongs to All.
-        </h2>
-        <div id="futureFeaturesContent" style="font-size: 1.1rem; color: var(--text-secondary); line-height: 2; max-width: 700px; margin: 0 auto;">
-          <p style="margin-bottom: 0.75rem;">🔜 Submit your skill to a school</p>
-          <p style="margin-bottom: 0.75rem;">🔜 Earn reputation, become a School Master</p>
-          <p>🔜 Unite your allies, found a new school</p>
-        </div>
-        <p id="comingSoonText" style="margin-top: 2rem; font-size: 0.95rem; color: var(--accent-warm); font-style: italic;">
-          Coming Soon
-        </p>
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- School Detail Page -->
-<section class="school-detail-page" id="schoolDetailPage">
-  <div class="school-detail-container">
-    <div class="school-detail-header">
-      <div class="school-name-en" id="detailSchoolNameEn"></div>
-      <div class="school-name-zh" id="detailSchoolNameZh"></div>
-      <p class="school-detail-desc" id="detailSchoolDesc"></p>
-    </div>
-
-    <!-- Masters Section -->
-    <div class="masters-section" id="mastersSection">
-      <div class="masters-header">
-        <h3 id="mastersTitle">Masters of This School</h3>
-        <p class="masters-subtitle" id="mastersSubtitle">Advanced workflow creators of this school</p>
-      </div>
-      <div class="masters-grid" id="mastersGrid">
-        <!-- Masters will be dynamically loaded -->
-      </div>
-    </div>
-
-    <div class="disciplines-title-wrapper">
-      <h3 class="disciplines-title" id="disciplinesTitle">Core Disciplines</h3>
-      <button class="submit-skill-top-btn" disabled>
-        <span id="submitSkillBtnText">Submit Your Skill</span> · <span style="color: var(--accent-warm);" id="submitSkillBtnTag">Coming Soon</span>
-      </button>
-    </div>
-
-    <div class="skills-notice" id="skillsNotice" style="display: none;">
-      No skills available yet. More disciplines will be added soon.
-    </div>
-
-    <div class="skills-list" id="skillsList"></div>
-
-    <button class="back-to-schools-btn" onclick="backToSchools()">← Back to Schools</button>
+    <button class="card-btn">Begin Assessment →</button>
   </div>
 </section>
 
-<!-- Agent Assessment Modal -->
-<div class="modal" id="agentModal">
-  <div class="modal-content" style="max-width: 700px;">
-    <h2 class="modal-title">📋 Copy Skill & Test Your Agent</h2>
-    <p class="modal-desc">复制下方内容，粘贴给你的 Agent（Claude / ChatGPT 等），它会自动完成测评</p>
+<!-- SECTION 2 — YOUR PATH -->
+<section class="section2">
+  <div class="s2-label">Your Path</div>
+  <h2 class="s2-title">Techniques. Sects.<br><em>Legacy.</em></h2>
+  <p class="s2-accent">In Ascendy, your Agent grows with you.</p>
+  <p class="s2-body">Choose the Sect that fits your profession. Let your Agent master techniques and grow stronger. As it evolves, it amplifies your work and turns you into an expert. Share your techniques to empower others. When ready, found your own Sect.</p>
+</section>
 
-    <div style="margin: 1.5rem 0;">
-      <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 1rem; max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-        <div id="assessmentSkillContent">Loading...</div>
-      </div>
-      <button class="btn-primary" onclick="copySkillToClipboard()" style="margin-top: 1rem; width: 100%;">
-        📋 Copy Assessment Skill
-      </button>
-    </div>
-
-    <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(201,146,42,0.05); border-left: 3px solid var(--accent-warm);">
-      <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
-        <strong>使用方法：</strong><br>
-        1. 点击上方按钮复制skill<br>
-        2. 打开你的Agent（Claude / ChatGPT / 等）<br>
-        3. 粘贴skill内容，Agent会自动完成12题测评<br>
-        4. 查看你的Agent职场生存等级！
-      </p>
-    </div>
-
-    <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeAgentModal()">Close</button>
-    </div>
+<!-- SECTION 3 — SECTS -->
+<section class="section3">
+  <div class="s3-header">
+    <div class="s3-label">The Five Sects</div>
+    <h2 class="s3-title">Choose Your <em>Path.</em></h2>
   </div>
-</div>
-
-<!-- Assessment Result Modal -->
-<div class="modal" id="resultModal">
-  <div class="modal-content" style="max-width: 600px;">
-    <div class="result-card">
-      <div class="result-level" id="resultLevel"></div>
-      <div class="result-days" id="resultDays"></div>
-      <div class="result-desc" id="resultDesc"></div>
-      <div class="result-breakdown" id="resultBreakdown"></div>
-      <div class="result-cta">
-        <p style="margin-bottom: 1rem; color: var(--text-secondary);">想让你的 AI 突破境界、活得更久？</p>
-        <button class="btn-primary" onclick="goToJianghu()">去江湖挑战宗门 →</button>
-      </div>
-      <button class="btn-secondary" onclick="closeResultModal()" style="margin-top: 1rem;">Close</button>
+  <div class="sects-grid">
+    <div class="sect-card">
+      <span class="sect-icon">⚙</span>
+      <div class="sect-name-en">Pivot Sect</div>
+      <div class="sect-name-zh">枢机宗</div>
+      <div class="sect-for">For Product Managers</div>
     </div>
-  </div>
-</div>
-
-<!-- Original Skill Modal -->
-<div class="modal" id="inputModal">
-  <div class="modal-content">
-    <h2 class="modal-title" id="modalTitle"></h2>
-    <p class="modal-desc" id="modalDesc"></p>
-    <div class="input-wrapper">
-      <textarea
-        id="userInput"
-        placeholder="Describe your challenge or vision..."></textarea>
+    <div class="sect-card">
+      <span class="sect-icon">◈</span>
+      <div class="sect-name-en">Ink Sect</div>
+      <div class="sect-name-zh">丹青宗</div>
+      <div class="sect-for">For Designers</div>
     </div>
-    <div class="modal-actions">
-      <button class="btn-secondary" id="cancelBtn">Cancel</button>
-      <button class="btn-primary" id="submitBtn">Invoke Skill</button>
+    <div class="sect-card">
+      <span class="sect-icon">✦</span>
+      <div class="sect-name-en">Rain Sect</div>
+      <div class="sect-name-zh">烟雨宗</div>
+      <div class="sect-for">For Content Creators</div>
     </div>
-  </div>
-</div>
-
-<!-- Result Section -->
-<section class="result-section" id="resultPage">
-  <div class="result-container">
-    <div class="result-header">
-      <span class="result-emoji" id="resultEmoji"></span>
-      <h2 class="result-title" id="resultTitle"></h2>
+    <div class="sect-card">
+      <span class="sect-icon">◉</span>
+      <div class="sect-name-en">Oracle Sect</div>
+      <div class="sect-name-zh">天机宗</div>
+      <div class="sect-for">For Growth Hackers</div>
     </div>
-    <div class="result-content" id="resultContent"></div>
-    <button class="back-btn" id="backBtn">← Return to School</button>
+    <div class="sect-card">
+      <span class="sect-icon">⌘</span>
+      <div class="sect-name-en">The Forge</div>
+      <div class="sect-name-zh">铸造宗</div>
+      <div class="sect-for">For Developers</div>
+    </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer">
-  <p class="footer-tagline">Martial Flow — Learn, Inherit, Create.</p>
-  <p class="footer-copyright">© 2025 Martial Flow. All rights reserved.</p>
+<!-- SECTION 4 — THE REALM -->
+<section class="section4">
+  <div class="s4-label">The Realm · 修真界</div>
+  <h2 class="s4-title">The Jianghu<br><em>Belongs to All.</em></h2>
+  <div class="realm-features">
+    <div class="realm-feature">
+      <div class="feature-num">01</div>
+      <div class="feature-title">Submit a Technique</div>
+      <div class="feature-desc">Contribute your own techniques to your Sect. Get reviewed by the Sect Master. Earn reputation across the Realm.</div>
+    </div>
+    <div class="realm-feature">
+      <div class="feature-num">02</div>
+      <div class="feature-title">Trial · 斗法</div>
+      <div class="feature-desc">Challenge an existing technique. The community votes. Win and your technique becomes the new standard — your name stays forever.</div>
+    </div>
+    <div class="realm-feature">
+      <div class="feature-num">03</div>
+      <div class="feature-title">Found a Sect</div>
+      <div class="feature-desc">Gather allies. Build reputation. When you're ready, create your own Sect and define its techniques.</div>
+    </div>
+  </div>
+  <div class="coming-soon-note">✦ &nbsp; The Realm is awakening &nbsp; · &nbsp; Coming Soon &nbsp; ✦</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">ASCENDY</span>
+  <span class="footer-copy">© 2025 Ascendy · The Cultivation Realm for Agent Professionals</span>
 </footer>
-
-<script>
-const API_URL = 'https://agent-martial-world.onrender.com';
-
-let currentSchool = null;
-let currentSkill = null;
-let currentLang = 'en'; // 默认英文
-
-// 语言数据
-const i18n = {
-  en: {
-    heroTitle: 'The First Martial Schools for the AI Professional',
-    heroSubtitle: 'Where AI Careers Become Martial Arts.',
-    heroTagline: 'Your Profession. Your AI Workflow. Your Legacy.',
-    storyTitle: 'Your Profession. Your AI Workflow. Your Legacy.',
-    storySubtitle: 'In Martial Flow, your AI Agent grows with you.',
-    storyContent: [
-      'Pick a school that fits your goals, let your Agent learn skills to become smarter.',
-      'As it evolves, it amplifies your work and turns you into an expert.',
-      'Share your skills to empower others. When ready, found your own school.'
-    ],
-    schoolsTitle: 'Agent Schools',
-    disciplinesTitle: 'Core Disciplines',
-    skillsNotice: 'No skills available yet. More disciplines will be added soon.',
-    enterSchool: 'Enter School',
-    backToSchools: '← Back to Schools',
-    useSkill: 'Use Skill',
-    notAvailable: 'Not Available',
-    futureTitle: 'The Jianghu Belongs to All.',
-    futureFeatures: [
-      '🔜 Submit your skill to a school',
-      '🔜 Earn reputation, become a School Master',
-      '🔜 Unite your allies, found a new school'
-    ],
-    comingSoon: 'Coming Soon',
-    submitSkillBtn: 'Submit Your Skill',
-    cancel: 'Cancel',
-    invokeSkill: 'Invoke Skill',
-    returnToSchool: '← Return to School',
-    placeholder: 'Describe your challenge or vision...',
-    alertPlaceholder: 'Please describe your challenge first.',
-    loading: 'Channeling wisdom...',
-    errorMsg: 'The wisdom channels are disrupted. Please try again.',
-    footerTagline: 'Martial Flow — Learn, Inherit, Create.',
-    copyright: '© 2025 Martial Flow. All rights reserved.',
-    applicableScene: 'Applicable Scene',
-    usageExample: 'Usage Example',
-    emptySkillName: 'Not Available',
-    emptySkillPurpose: '[Core value description]',
-    emptySkillScene: '[Applicable work scenarios]',
-    emptySkillUsage: '[Input XX requirements, output XX results]',
-    superIndividualsTitle: 'Global Super Individuals · Featured AI Workflows',
-    superIndividualsSubtitle: 'Practitioners from around the world sharing modern AI-native working methods. Open source, free for learning and non-commercial use.',
-    mastersTitle: 'Masters of This School',
-    mastersSubtitle: 'Advanced workflow creators of this school',
-    useWorkflow: 'Use This Workflow'
-  },
-  zh: {
-    heroTitle: '首个 AI 专业人士的武道门派',
-    heroSubtitle: 'AI 职业生涯，亦是武道修行',
-    heroTagline: '你的专业。你的 AI 工作流。你的传承。',
-    storyTitle: '你的专业。你的 AI 工作流。你的传承。',
-    storySubtitle: '在 Martial Flow，你的 AI Agent 与你共同成长。',
-    storyContent: [
-      '选择适合你目标的门派，让你的 Agent 学习技能，变得更聪明。',
-      '随着它的进化，它会增强你的工作能力，让你成为专家。',
-      '分享你的技能来赋能他人。准备好后，创建你自己的门派。'
-    ],
-    schoolsTitle: 'Agent 门派',
-    disciplinesTitle: '本门核心技能',
-    skillsNotice: '暂无已收录技能，后续将持续更新专属技能',
-    enterSchool: '进入门派',
-    backToSchools: '← 返回门派列表',
-    futureTitle: '江湖从不属于一人。',
-    futureFeatures: [
-      '🔜 向门派投递你的 skill',
-      '🔜 积累声望，成为门派掌门',
-      '🔜 召集同道，创建新门派'
-    ],
-    comingSoon: '敬请期待',
-    submitSkillBtn: '投递 Skill',
-    useSkill: '使用技能',
-    notAvailable: '暂不可用',
-    cancel: '取消',
-    invokeSkill: '施展技能',
-    returnToSchool: '← 返回门派',
-    placeholder: '描述你的挑战或愿景...',
-    alertPlaceholder: '请先描述你的挑战',
-    loading: '正在运转心法...',
-    errorMsg: '心法运转受阻，请重试',
-    footerTagline: 'Martial Flow — 学习、传承、创造',
-    copyright: '© 2025 Martial Flow 版权所有',
-    applicableScene: '适用场景',
-    usageExample: '用法示例',
-    emptySkillName: '暂未添加',
-    emptySkillPurpose: '[技能核心价值描述]',
-    emptySkillScene: '[技能适用的工作场景]',
-    emptySkillUsage: '[输入XX需求，输出XX结果]',
-    superIndividualsTitle: '全球超级个体 · 精选 AI 工作流',
-    superIndividualsSubtitle: '来自全球的实践者分享现代 AI 原生工作方法。开源免费，可用于学习和非商业用途。',
-    mastersTitle: '本门派大师',
-    mastersSubtitle: '先进工作方式创作者',
-    useWorkflow: '使用此工作流'
-  }
-};
-
-// 门派大师数据
-const schoolMasters = {
-  'pivot-bureau': [
-    {
-      id: 'm001',
-      avatar: 'A',
-      name: '@AlexProduct',
-      title: 'AI Product Expert',
-      workflowName: 'AI Rapid PM Workflow',
-      workflowDesc: 'A new AI-native way to build products without long docs or slow research. Go from idea → insight → prototype in minutes.',
-      source: 'Open Source · Free to use'
-    },
-    {
-      id: 'm002',
-      avatar: 'S',
-      name: '@SaraPM',
-      title: 'Lean Product Strategist',
-      workflowName: 'Lean AI Product Flow',
-      workflowDesc: 'Build products with minimal waste using AI to validate assumptions and iterate faster. From problem to solution in days, not months.',
-      source: 'Open Source · Free to use'
-    }
-  ],
-  'ink-temple': [
-    {
-      id: 'm101',
-      avatar: 'L',
-      name: '@LunaDesign',
-      title: 'AI Visual Designer',
-      workflowName: 'AI Visual Design Flow',
-      workflowDesc: 'Create stunning visual systems with AI assistance. Transform rough concepts into polished designs with intelligent iteration.',
-      source: 'Open Source · Free to use'
-    }
-  ],
-  'rain-pavilion': [
-    {
-      id: 'm201',
-      avatar: 'K',
-      name: '@KaiContent',
-      title: 'AI Storytelling Expert',
-      workflowName: 'AI Storytelling System',
-      workflowDesc: 'Craft compelling narratives with AI-powered research and structure. Turn data into stories that resonate and convert.',
-      source: 'Open Source · Free to use'
-    }
-  ],
-  'oracle-house': [
-    {
-      id: 'm301',
-      avatar: 'J',
-      name: '@JakeGrowth',
-      title: 'AI Growth Hacker',
-      workflowName: 'AI Growth Automation',
-      workflowDesc: 'Scale your growth with AI-driven experiments and automation. Test, learn, and optimize 10x faster than traditional methods.',
-      source: 'Open Source · Free to use'
-    }
-  ],
-  'the-forge': [
-    {
-      id: 'm401',
-      avatar: 'M',
-      name: '@MiaDev',
-      title: 'AI Code Architect',
-      workflowName: 'AI Code & Architecture',
-      workflowDesc: 'Build robust systems with AI-assisted architecture and code review. Ship faster without compromising quality or maintainability.',
-      source: 'Open Source · Free to use'
-    }
-  ]
-};
-
-// 门派数据
-const schools = {
-  'pivot-bureau': {
-    id: 'pivot-bureau',
-    nameEn: 'Product Hall',
-    nameZh: '枢机阁',
-    descEn: 'Forge product sense, make quick decisions, and ship ideas with AI-native workflows.',
-    descZh: '面向产品经理与独立创业者，专注决策、规划与落地执行',
-    hasSkills: true
-  },
-  'ink-temple': {
-    id: 'ink-temple',
-    nameEn: 'Design Studio',
-    nameZh: '丹青阁',
-    descEn: 'Create compelling visuals, generate instant prototypes, and craft emotional experiences with AI.',
-    descZh: '面向设计师与创作者，专注视觉审美与用户体验',
-    hasSkills: true
-  },
-  'rain-pavilion': {
-    id: 'rain-pavilion',
-    nameEn: 'Content House',
-    nameZh: '烟雨楼',
-    descEn: 'Craft resonant stories, scale content creation, and build audience connections through AI.',
-    descZh: '面向内容创作者与文案，专注表达、叙事与共情',
-    hasSkills: true
-  },
-  'oracle-house': {
-    id: 'oracle-house',
-    nameEn: 'Growth Lab',
-    nameZh: '天机阁',
-    descEn: 'Find users, optimize conversions, and run automated, data-driven growth engines with AI.',
-    descZh: '面向运营与增长，专注流量、转化与商业变现',
-    hasSkills: true
-  },
-  'the-forge': {
-    id: 'the-forge',
-    nameEn: 'Dev Workshop',
-    nameZh: '铸造坊',
-    descEn: 'Build systems, generate clean code, and ship stable products with AI-assisted engineering.',
-    descZh: '面向开发工程师与架构师，专注代码质量、系统设计与技术卓越',
-    hasSkills: true
-  }
-};
-
-// 技能数据库（Mock数据）
-const schoolSkills = {
-  'pivot-bureau': [
-    {
-      skill_id: 's001',
-      name: 'Insight Divination',
-      emoji: '🔍',
-      description: 'Discover real user needs beyond surface requests',
-      applicable_scene: 'Product planning, user research, requirement analysis'
-    },
-    {
-      skill_id: 's002',
-      name: 'Task Disassembly',
-      emoji: '📋',
-      description: 'Break down complex projects into executable tasks',
-      applicable_scene: 'Project planning, sprint planning, roadmap creation'
-    },
-    {
-      skill_id: 's003',
-      name: 'Priority Methodology',
-      emoji: '⚡',
-      description: 'Determine what to build first using proven frameworks',
-      applicable_scene: 'Feature prioritization, backlog management, resource allocation'
-    }
-  ],
-  'design-temple': [
-    {
-      skill_id: 's101',
-      name: 'Visual Design',
-      emoji: '🎨',
-      description: 'Create beautiful and functional interfaces',
-      applicable_scene: 'UI design, branding, visual systems'
-    },
-    {
-      skill_id: 's102',
-      name: 'User Experience',
-      emoji: '✨',
-      description: 'Optimize user flows and interactions',
-      applicable_scene: 'UX design, user testing, interaction design'
-    }
-  ],
-  'rain-pavilion': [
-    {
-      skill_id: 's201',
-      name: 'Copywriting Creation',
-      emoji: '✍️',
-      description: 'Write compelling copy that converts',
-      applicable_scene: 'Landing pages, marketing campaigns, product descriptions'
-    },
-    {
-      skill_id: 's202',
-      name: 'Story Narrative',
-      emoji: '📖',
-      description: 'Craft engaging stories that resonate',
-      applicable_scene: 'Brand storytelling, case studies, content marketing'
-    }
-  ],
-  'opportunity-house': [
-    {
-      skill_id: 's301',
-      name: 'Growth Strategy',
-      emoji: '📈',
-      description: 'Design data-driven growth campaigns',
-      applicable_scene: 'User acquisition, conversion optimization, growth hacking'
-    },
-    {
-      skill_id: 's302',
-      name: 'Operation Planning',
-      emoji: '📅',
-      description: 'Plan and execute operational campaigns',
-      applicable_scene: 'Campaign management, community building, retention'
-    }
-  ]
-};
-
-// 技能英文名映射
-const skillEnNames = {
-  's001': 'Insight Divination',
-  's002': 'Task Disassembly',
-  's003': 'Priority Mastery',
-  's004': 'Blueprint Crafting',
-  's005': 'Risk Foresight'
-};
-
-const skillEnDescs = {
-  's001': 'Uncover true needs beneath surface requests',
-  's002': 'Break complex visions into executable steps',
-  's003': 'Navigate urgency with strategic clarity',
-  's004': 'Architect comprehensive execution plans',
-  's005': 'Anticipate obstacles before they emerge'
-};
-
-// DOM元素
-const homePage = document.getElementById('homePage');
-const schoolDetailPage = document.getElementById('schoolDetailPage');
-const skillsList = document.getElementById('skillsList');
-const skillsNotice = document.getElementById('skillsNotice');
-const inputModal = document.getElementById('inputModal');
-const modalTitle = document.getElementById('modalTitle');
-const modalDesc = document.getElementById('modalDesc');
-const userInput = document.getElementById('userInput');
-const cancelBtn = document.getElementById('cancelBtn');
-const submitBtn = document.getElementById('submitBtn');
-const resultPage = document.getElementById('resultPage');
-const resultEmoji = document.getElementById('resultEmoji');
-const resultTitle = document.getElementById('resultTitle');
-const resultContent = document.getElementById('resultContent');
-const backBtn = document.getElementById('backBtn');
-
-// 显示首页
-function showHomePage() {
-  homePage.style.display = 'block';
-  schoolDetailPage.classList.remove('show');
-  resultPage.classList.remove('show');
-}
-
-// 打开门派详情页
-async function openSchool(schoolId) {
-  const school = schools[schoolId];
-  if (!school) return;
-
-  currentSchool = school;
-
-  // 设置门派信息
-  document.getElementById('detailSchoolNameEn').textContent = school.nameEn;
-  document.getElementById('detailSchoolNameZh').textContent = school.nameZh;
-  document.getElementById('detailSchoolDesc').textContent = school.desc;
-
-  // 滚动到页面顶部（在切换页面之前）
-  window.scrollTo(0, 0);
-
-  // 隐藏首页，显示门派详情页
-  homePage.style.display = 'none';
-  schoolDetailPage.classList.add('show');
-
-  // 显示大师
-  displayMasters(schoolId);
-
-  // 加载技能
-  if (school.hasSkills) {
-    loadSkills(schoolId);
-  } else {
-    const t = i18n[currentLang];
-    skillsNotice.style.display = 'block';
-    const schoolName = currentLang === 'en' ? school.nameEn : school.nameZh;
-    skillsNotice.textContent = currentLang === 'en'
-      ? `${schoolName}: ${t.skillsNotice}`
-      : `${schoolName}${t.skillsNotice}`;
-    displayEmptySkills();
-  }
-}
-
-// 显示门派大师
-function displayMasters(schoolId) {
-  const t = i18n[currentLang];
-  const mastersGrid = document.getElementById('mastersGrid');
-  const masters = schoolMasters[schoolId] || [];
-
-  if (masters.length === 0) {
-    document.getElementById('mastersSection').style.display = 'none';
-    return;
-  }
-
-  document.getElementById('mastersSection').style.display = 'block';
-
-  mastersGrid.innerHTML = masters.map(master => `
-    <div class="master-card">
-      <div class="master-header">
-        <div class="master-avatar">${master.avatar}</div>
-        <div class="master-info">
-          <div class="master-name">${master.name}</div>
-          <div class="master-title">${master.title}</div>
-        </div>
-      </div>
-      <div class="master-workflow-name">${master.workflowName}</div>
-      <div class="master-workflow-desc">${master.workflowDesc}</div>
-      <div class="master-source">${master.source}</div>
-      <button class="master-use-btn" onclick="openMasterWorkflow('${master.id}')">Use This Workflow</button>
-    </div>
-  `).join('');
-}
-
-// 打开大师工作流（暂时提示Coming Soon）
-function openMasterWorkflow(masterId) {
-  alert('Coming Soon: Master workflows will be available in the next update!');
-}
-
-// 加载技能（从后端 API）
-async function loadSkills(schoolId) {
-  const t = i18n[currentLang];
-
-  // 映射 school string id 到数字 id
-  const schoolIdMap = {
-    'pivot-bureau': 1,
-    'ink-temple': 2,
-    'rain-pavilion': 3,
-    'oracle-house': 4,
-    'the-forge': 5
-  };
-
-  const numericSchoolId = schoolIdMap[schoolId];
-
-  try {
-    const response = await fetch(`${API_URL}/api/schools/${numericSchoolId}/skills`);
-    const data = await response.json();
-
-    if (data.success && data.data.skills && data.data.skills.length > 0) {
-      skillsNotice.style.display = 'none';
-      displaySkills(data.data.skills);
-    } else {
-      skillsNotice.style.display = 'block';
-      skillsNotice.textContent = t.skillsNotice;
-      displayEmptySkills();
-    }
-  } catch (error) {
-    console.error('Failed to load skills:', error);
-    skillsNotice.style.display = 'block';
-    skillsNotice.textContent = t.skillsNotice;
-    displayEmptySkills();
-  }
-}
-
-// 显示真实技能卡片
-function displaySkills(skills) {
-  const t = i18n[currentLang];
-
-  // 技能 emoji 映射
-  const skillEmojis = {
-    's001': '📝',
-    's002': '🎯',
-    's101': '🎨',
-    's102': '🖼️',
-    's201': '📖',
-    's202': '💬',
-    's301': '📈',
-    's302': '📅',
-    's303': '✍️',
-    's304': '🎪',
-    's305': '💰',
-    's306': '🚀'
-  };
-
-  skillsList.innerHTML = skills.map(skill => {
-    const skillName = currentLang === 'en' ? skill.name_en : skill.name_cn;
-    const skillDesc = skill.description;
-    const emoji = skillEmojis[skill.skill_id] || '🎯';
-    const keywords = skill.keywords ? skill.keywords.join(', ') : '';
-    const source = skill.source || 'platform';
-    const rawUrl = skill.source_url || '#';
-
-    // 转换 raw URL 到 GitHub 页面 URL
-    let githubUrl = rawUrl;
-    let sourceDisplay = 'Platform';
-
-    if (rawUrl.includes('raw.githubusercontent.com/anthropics/skills')) {
-      // https://raw.githubusercontent.com/anthropics/skills/main/skills/frontend-design/SKILL.md
-      // → https://github.com/anthropics/skills/tree/main/skills/frontend-design
-      const match = rawUrl.match(/raw\.githubusercontent\.com\/([^\/]+\/[^\/]+)\/([^\/]+)\/(.+)\/[^\/]+$/);
-      if (match) {
-        githubUrl = `https://github.com/${match[1]}/tree/${match[2]}/${match[3]}`;
-      }
-      sourceDisplay = 'anthropics/skills';
-    } else if (rawUrl.includes('raw.githubusercontent.com/coreyhaines31/marketingskills')) {
-      const match = rawUrl.match(/raw\.githubusercontent\.com\/([^\/]+\/[^\/]+)\/([^\/]+)\/(.+)$/);
-      if (match) {
-        githubUrl = `https://github.com/${match[1]}/blob/${match[2]}/${match[3]}`;
-      }
-      sourceDisplay = 'coreyhaines31/marketingskills';
-    }
-
-    return `
-      <div class="skill-card">
-        <div class="skill-icon">${emoji}</div>
-        <div class="skill-content">
-          <div class="skill-name-zh">${skillName}</div>
-          <div class="skill-purpose">${skillDesc}</div>
-          <div class="skill-meta">
-            <div class="skill-meta-item">
-              <span class="skill-meta-label">Source</span>
-              <span class="skill-meta-value"><a href="${githubUrl}" target="_blank" onclick="event.stopPropagation()" style="color: var(--accent-warm); text-decoration: none; cursor: pointer;">${sourceDisplay}</a></span>
-            </div>
-            <div class="skill-meta-item">
-              <span class="skill-meta-label">Keywords</span>
-              <span class="skill-meta-value">${keywords}</span>
-            </div>
-          </div>
-        </div>
-        <div class="skill-action">
-          <button class="skill-use-btn" onclick="openSkillModal('${skill.skill_id}', ${JSON.stringify(skill).replace(/"/g, '&quot;')})">${t.useSkill}</button>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-// 显示空占位技能
-function displayEmptySkills() {
-  const t = i18n[currentLang];
-  const emptySkills = [
-    { emoji: '📋' },
-    { emoji: '📋' },
-    { emoji: '📋' },
-    { emoji: '📋' },
-    { emoji: '📋' }
-  ];
-
-  skillsList.innerHTML = emptySkills.map(skill => `
-    <div class="skill-card disabled">
-      <div class="skill-icon">${skill.emoji}</div>
-      <div class="skill-content">
-        <div class="skill-name-zh">[${t.emptySkillName}]</div>
-        <div class="skill-purpose">${t.emptySkillPurpose}</div>
-        <div class="skill-meta">
-          <div class="skill-meta-item">
-            <span class="skill-meta-label">${t.applicableScene}</span>
-            <span class="skill-meta-value">${t.emptySkillScene}</span>
-          </div>
-          <div class="skill-meta-item">
-            <span class="skill-meta-label">${t.usageExample}</span>
-            <span class="skill-meta-value">${t.emptySkillUsage}</span>
-          </div>
-        </div>
-      </div>
-      <div class="skill-action">
-        <button class="skill-use-btn" disabled>${t.notAvailable}</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-// 打开技能输入弹窗
-function openSkillModal(skillId, skill) {
-  currentSkill = skill;
-
-  const skillEmojis = {
-    's001': '📝',
-    's101': '🎨',
-    's102': '🖼️',
-    's201': '📖',
-    's202': '💬',
-    's301': '📈',
-    's302': '📅'
-  };
-
-  const emoji = skillEmojis[skillId] || '🎯';
-  const skillName = currentLang === 'en' ? skill.name_en : skill.name_cn;
-
-  modalTitle.textContent = skillName + ' ' + emoji;
-  modalDesc.textContent = skill.description;
-  userInput.value = '';
-  inputModal.classList.add('show');
-  userInput.focus();
-}
-
-// 返回门派列表
-function backToSchools() {
-  schoolDetailPage.classList.remove('show');
-  homePage.style.display = 'block';
-  currentSchool = null;
-}
-
-// 取消按钮
-cancelBtn.addEventListener('click', () => {
-  inputModal.classList.remove('show');
-  currentSkill = null;
-});
-
-// 提交按钮 - 调用AI技能
-submitBtn.addEventListener('click', async () => {
-  const t = i18n[currentLang];
-  const input = userInput.value.trim();
-  if (!input) {
-    alert(t.alertPlaceholder);
-    return;
-  }
-
-  inputModal.classList.remove('show');
-  schoolDetailPage.classList.remove('show');
-  resultPage.classList.add('show');
-
-  const skillEmojis = {
-    's001': '📝',
-    's101': '🎨',
-    's102': '🖼️',
-    's201': '📖',
-    's202': '💬',
-    's301': '📈',
-    's302': '📅'
-  };
-
-  resultEmoji.textContent = skillEmojis[currentSkill.skill_id] || '🎯';
-  resultTitle.textContent = currentLang === 'en' ? currentSkill.name_en : currentSkill.name_cn;
-  resultContent.innerHTML = `<div class="loading">${t.loading}</div>`;
-
-  try {
-    const response = await fetch(`${API_URL}/api/skill/run`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user_task: input
-      })
-    });
-
-    const data = await response.json();
-    if (data.success) {
-      resultContent.textContent = data.data.result;
-    } else {
-      resultContent.textContent = t.errorMsg;
-    }
-  } catch (error) {
-    resultContent.textContent = t.errorMsg;
-    console.error(error);
-  }
-});
-
-// 返回门派详情页
-backBtn.addEventListener('click', () => {
-  resultPage.classList.remove('show');
-  schoolDetailPage.classList.add('show');
-});
-
-// 语言切换
-function toggleLanguage() {
-  currentLang = currentLang === 'en' ? 'zh' : 'en';
-  document.getElementById('langToggle').textContent = currentLang === 'en' ? '中文' : 'EN';
-  updateUILanguage();
-}
-
-// 更新UI语言
-function updateUILanguage() {
-  const t = i18n[currentLang];
-
-  // Hero区域
-  document.querySelector('.hero-content h1').textContent = t.heroTitle;
-  document.querySelector('.hero-subtitle').textContent = t.heroSubtitle;
-  document.querySelector('.hero-tagline').textContent = t.heroTagline;
-
-  // Story区域
-  document.getElementById('storyTitle').textContent = t.storyTitle;
-  document.getElementById('storySubtitle').textContent = t.storySubtitle;
-  const storyContentEl = document.getElementById('storyContent');
-  storyContentEl.innerHTML = t.storyContent.map(p => `<p>${p}</p>`).join('');
-
-  // 门派列表标题
-  document.querySelector('.section-header h2').textContent = t.schoolsTitle;
-
-  // 更新门派卡片
-  updateSchoolCards();
-
-  // 更新页脚
-  document.querySelector('.footer-tagline').textContent = t.footerTagline;
-  document.querySelector('.footer-copyright').textContent = t.copyright;
-
-  // 如果在门派详情页，更新详情页
-  if (currentSchool) {
-    updateSchoolDetail();
-  }
-
-  // 更新modal文案
-  document.getElementById('cancelBtn').textContent = t.cancel;
-  document.getElementById('submitBtn').textContent = t.invokeSkill;
-  document.getElementById('userInput').placeholder = t.placeholder;
-
-  // 更新返回按钮
-  document.querySelector('.back-to-schools-btn').textContent = t.backToSchools;
-  document.getElementById('backBtn').textContent = t.returnToSchool;
-
-  // 更新 Future Features 区块
-  document.getElementById('futureTitle').textContent = t.futureTitle;
-  const featuresContent = t.futureFeatures.map(f => `<p style="margin-bottom: 0.75rem;">${f}</p>`).join('');
-  document.getElementById('futureFeaturesContent').innerHTML = featuresContent;
-  document.getElementById('comingSoonText').textContent = t.comingSoon;
-
-  // 更新门派详情页的 Submit Skill 按钮
-  const submitSkillBtnText = document.getElementById('submitSkillBtnText');
-  const submitSkillBtnTag = document.getElementById('submitSkillBtnTag');
-  if (submitSkillBtnText) submitSkillBtnText.textContent = t.submitSkillBtn;
-  if (submitSkillBtnTag) submitSkillBtnTag.textContent = t.comingSoon;
-
-  // 更新 Global Super Individuals 区域
-  const superIndividualsTitle = document.querySelector('.super-individuals-header h2');
-  const superIndividualsSubtitle = document.querySelector('.super-individuals-subtitle');
-  if (superIndividualsTitle) superIndividualsTitle.textContent = t.superIndividualsTitle;
-  if (superIndividualsSubtitle) superIndividualsSubtitle.textContent = t.superIndividualsSubtitle;
-
-  // 更新 Masters 区域
-  const mastersTitle = document.getElementById('mastersTitle');
-  const mastersSubtitle = document.getElementById('mastersSubtitle');
-  if (mastersTitle) mastersTitle.textContent = t.mastersTitle;
-  if (mastersSubtitle) mastersSubtitle.textContent = t.mastersSubtitle;
-
-  // 更新 Use Workflow 按钮
-  const workflowBtns = document.querySelectorAll('.master-use-btn');
-  workflowBtns.forEach(btn => {
-    btn.textContent = t.useWorkflow;
-  });
-}
-
-// 更新门派卡片
-function updateSchoolCards() {
-  const t = i18n[currentLang];
-  const cards = document.querySelectorAll('#schoolsGridHome .school-card');
-
-  Object.values(schools).forEach((school, index) => {
-    if (cards[index]) {
-      const nameEn = cards[index].querySelector('.school-name-en');
-      const nameZh = cards[index].querySelector('.school-name-zh');
-      const desc = cards[index].querySelector('.school-desc');
-      const btn = cards[index].querySelector('.school-enter-btn');
-
-      if (nameEn) nameEn.textContent = school.nameEn;
-      if (nameZh) nameZh.textContent = school.nameZh;
-
-      if (currentLang === 'en') {
-        // 英文模式：英文名大字在上，中文名小字在下（默认顺序）
-        if (nameEn) nameEn.style.order = '1';
-        if (nameZh) nameZh.style.order = '2';
-        if (desc) desc.textContent = school.descEn;
-      } else {
-        // 中文模式：中文名大字在上，英文名小字在下（调换顺序）
-        if (nameZh) nameZh.style.order = '1';
-        if (nameEn) nameEn.style.order = '2';
-        if (desc) desc.textContent = school.descZh;
-      }
-
-      if (btn) btn.textContent = t.enterSchool;
-    }
-  });
-}
-
-// 更新门派详情页
-function updateSchoolDetail() {
-  const t = i18n[currentLang];
-  const school = currentSchool;
-
-  const nameEn = document.getElementById('detailSchoolNameEn');
-  const nameZh = document.getElementById('detailSchoolNameZh');
-
-  nameEn.textContent = school.nameEn;
-  nameZh.textContent = school.nameZh;
-
-  if (currentLang === 'en') {
-    // 英文模式：英文名大字在上，中文名小字在下（默认顺序）
-    nameEn.style.order = '1';
-    nameZh.style.order = '2';
-  } else {
-    // 中文模式：中文名大字在上，英文名小字在下（调换顺序）
-    nameZh.style.order = '1';
-    nameEn.style.order = '2';
-  }
-
-  document.getElementById('detailSchoolDesc').textContent = currentLang === 'en' ? school.descEn : school.descZh;
-  document.getElementById('disciplinesTitle').textContent = t.disciplinesTitle;
-
-  // 重新渲染技能列表
-  const skillCards = document.querySelectorAll('.skill-card');
-  if (skillCards.length > 0) {
-    // 如果有技能卡片，更新它们
-    updateSkillCards();
-  }
-}
-
-// 更新技能卡片语言
-function updateSkillCards() {
-  const t = i18n[currentLang];
-  const skillCards = document.querySelectorAll('.skill-card');
-
-  skillCards.forEach(card => {
-    const metaLabels = card.querySelectorAll('.skill-meta-label');
-    const btn = card.querySelector('.skill-use-btn');
-
-    if (metaLabels[0]) metaLabels[0].textContent = t.applicableScene;
-    if (metaLabels[1]) metaLabels[1].textContent = t.usageExample;
-
-    if (btn) {
-      if (btn.disabled) {
-        btn.textContent = t.notAvailable;
-      } else {
-        btn.textContent = t.useSkill;
-      }
-    }
-  });
-}
-
-// 页面加载时初始化语言
-window.addEventListener('DOMContentLoaded', () => {
-  updateUILanguage();
-});
-
-// Assessment Functions
-let assessmentSkillContent = '';
-
-async function startAssessment() {
-  document.getElementById('agentModal').classList.add('show');
-
-  // Load assessment skill content
-  try {
-    const response = await fetch(`${API_URL}/api/assessment/skill`);
-    assessmentSkillContent = await response.text();
-    document.getElementById('assessmentSkillContent').textContent = assessmentSkillContent;
-  } catch (error) {
-    console.error('Failed to load assessment skill:', error);
-    document.getElementById('assessmentSkillContent').textContent = 'Failed to load skill content. Please try again.';
-  }
-}
-
-function closeAgentModal() {
-  document.getElementById('agentModal').classList.remove('show');
-}
-
-async function copySkillToClipboard() {
-  try {
-    await navigator.clipboard.writeText(assessmentSkillContent);
-    alert('✅ Assessment Skill copied! Now paste it to your Agent (Claude / ChatGPT / etc.)');
-  } catch (error) {
-    console.error('Copy failed:', error);
-    // Fallback: select text
-    const contentEl = document.getElementById('assessmentSkillContent');
-    const range = document.createRange();
-    range.selectNode(contentEl);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
-    alert('Please press Ctrl+C (Cmd+C on Mac) to copy the skill content');
-  }
-}
-
-function displayAssessmentResult(result) {
-  // Mock result for now - will be replaced with real Agent response
-  const score = Math.floor(Math.random() * 25); // 0-24
-  let level, days, emoji, desc;
-
-  if (score <= 6) {
-    level = 'Mortal · 凡人';
-    days = `${Math.floor(Math.random() * 4)} Days`;
-    emoji = '😵';
-    desc = '凡人修为，职场对它来说有点太超前了，刚进门就想原地回家。不是不行，只是还没开始就想结束。';
-  } else if (score <= 12) {
-    level = 'Initiate · 炼气修士';
-    days = `${7 + Math.floor(Math.random() * 8)} Days`;
-    emoji = '🤔';
-    desc = '炼气期修为，勉强能上岗，但稳定性全看心情。偶尔靠谱，经常掉线，属于看运气才能活过试用期。';
-  } else if (score <= 18) {
-    level = 'Adept · 筑基修士';
-    days = `${30 + Math.floor(Math.random() * 31)} Days`;
-    emoji = '😎';
-    desc = '筑基期修为，不出岔子、不搞事情、乖乖干活。虽然偶尔有点呆，但已经是办公室里的靠谱存在了。';
-  } else {
-    level = 'Ascended · 金丹大能';
-    days = '90+ Days';
-    emoji = '🔥';
-    desc = '金丹期大能，能扛事、能应变、还能自我修复。见过风浪还稳稳输出，简直是 AI 里的职场人精。';
-  }
-
-  document.getElementById('resultLevel').textContent = emoji;
-  document.getElementById('resultDays').textContent = `Survival: ${days}`;
-  document.getElementById('resultDesc').textContent = desc;
-  document.getElementById('resultBreakdown').innerHTML = `
-    <h4>Assessment Score: ${score}/24</h4>
-    <p><strong>Level:</strong> ${level}</p>
-    <p>Your AI completed the 12-question workplace assessment.</p>
-  `;
-
-  document.getElementById('resultModal').classList.add('show');
-}
-
-function closeResultModal() {
-  document.getElementById('resultModal').classList.remove('show');
-}
-
-function goToJianghu() {
-  window.location.href = '/jianghu.html';
-}
-</script>
 
 </body>
 </html>
