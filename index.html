@@ -602,8 +602,8 @@
   <a href="#" class="nav-brand">ASCENDY</a>
   <ul class="nav-links">
     <li><a href="#">Home</a></li>
-    <li><a href="#">Sects</a></li>
-    <li><a href="#">The Realm</a></li>
+    <li><a href="#sects">Sects</a></li>
+    <li><a href="#realm">The Realm</a></li>
     <li><a href="#">Our Story<span class="coming-soon-tag">SOON</span></a></li>
     <li><a href="#">中文</a></li>
   </ul>
@@ -640,7 +640,7 @@
 </section>
 
 <!-- SECTION 3 — SECTS -->
-<section class="section3">
+<section class="section3" id="sects">
   <div class="s3-header">
     <div class="s3-label">The Five Sects</div>
     <h2 class="s3-title">Choose Your <em>Path.</em></h2>
@@ -680,7 +680,7 @@
 </section>
 
 <!-- SECTION 4 — THE REALM -->
-<section class="section4">
+<section class="section4" id="realm">
   <div class="s4-label">The Realm · 修真界</div>
   <h2 class="s4-title">The Jianghu<br><em>Belongs to All.</em></h2>
   <div class="realm-features">
@@ -715,11 +715,17 @@
 <script>
 // 等待 DOM 加载完成
 document.addEventListener('DOMContentLoaded', () => {
-  // Sects 卡片点击
-  const sectCards = document.querySelectorAll('.sect-card');
-  sectCards.forEach(card => {
-    card.addEventListener('click', () => {
-      alert('Coming Soon: Sect details will be available in the next update!');
+  // 平滑滚动
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href !== '#' && href !== '') {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
     });
   });
 
